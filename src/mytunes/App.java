@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author random asasas Sammy Guergachi <sguergachi at gmail.com>
+ * @author random THING asasas Sammy Guergachi <sguergachi at gmail.com>
  * @author Tst. Sammy Guergachi <sguergachi at gmail.com>
  */
 public class App extends Application {
