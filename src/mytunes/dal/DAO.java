@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytunes;
+package mytunes.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -17,13 +17,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
-import static javax.swing.text.html.HTML.Tag.SELECT;
 
 /**
  *
  * @author Bruger
  */
-public class DBClasse {
+public class DAO {
 
     public void connectDB(){
         SQLServerDataSource ds = new SQLServerDataSource();
@@ -54,9 +53,9 @@ public class DBClasse {
             }
         }    
          catch (SQLServerException ex) {    
-            Logger.getLogger(DBClasse.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DBClasse.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }    
     }
 }
