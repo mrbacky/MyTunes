@@ -48,6 +48,7 @@ public class Controller implements Initializable {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
         
+        
     }
     
     @Override
