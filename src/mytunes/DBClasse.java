@@ -34,7 +34,7 @@ public class DBClasse {
         ds.setServerName("10.176.111.31");
         
     }
-    private void readDB() throws SQLException
+    private void readSong() throws SQLException
     {
         connectDB();
         SQLServerDataSource ds = new SQLServerDataSource();
