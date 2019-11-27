@@ -84,9 +84,9 @@ public class DAO {
             pstmt.execute();
         }    
         catch (SQLServerException ex) {    
-            Logger.getLogger(DBClasse.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DBClasse.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
