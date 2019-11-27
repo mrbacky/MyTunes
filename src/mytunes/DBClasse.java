@@ -7,6 +7,7 @@ package mytunes;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import static java.awt.PageAttributes.MediaType.C;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +25,10 @@ import static javax.swing.text.html.HTML.Tag.SELECT;
  * @author Bruger
  */
 public class DBClasse {
-
+/**
+ *
+ * this connect to the database
+ */
     public void connectDB(){
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setDatabaseName("MyTunesPJDB");
@@ -34,11 +38,16 @@ public class DBClasse {
         ds.setServerName("10.176.111.31");
         
     }
+    
+    /**
+    *
+    * this methet read the table of the song list
+    */
     private void readSong() throws SQLException
     {
         connectDB();
         SQLServerDataSource ds = new SQLServerDataSource();
-       try(Connection con = ds.getConnection()){
+        try(Connection con = ds.getConnection()){
         String sql = "select * from Song";
         Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -59,4 +68,30 @@ public class DBClasse {
             Logger.getLogger(DBClasse.class.getName()).log(Level.SEVERE, null, ex);
         }    
     }
+    /**
+    *
+    * this add a song to the song table (where the time is an int!!)
+    */
+    private void songAdd() throws SQLException
+    {
+        connectDB();
+        SQLServerDataSource ds = new SQLServerDataSource();
+        try(Connection con = ds.getConnection())
+        {
+            String sql = "insert into song(title, artist, time, genre, songpath) values (?,?,?,?,?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, "hello");
+            pstmt.setString(2, "djhello");
+            pstmt.setInt(3, 4);
+            pstmt.setString(4, "pop");
+            pstmt.setString(5, "C:\\mydownload\\mysongs\\newsongs");
+            pstmt.execute();
+        }    
+        catch (SQLServerException ex) {    
+            Logger.getLogger(DBClasse.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBClasse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
