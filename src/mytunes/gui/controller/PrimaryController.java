@@ -121,7 +121,7 @@ public class PrimaryController implements Initializable {
     }
 
   
-
+    @FXML
     private void handle_AddSong(ActionEvent event) throws IOException {
         Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
         
