@@ -11,7 +11,7 @@ public class SongModel {
     ArrayList<Song> songList = new ArrayList<>();
     private ObservableList<Song> allSongs = FXCollections.observableArrayList();
     
-
+ 
     public SongModel() {
         songList.add(new Song("Stayin Out All Night", "Wiz Khalifa", 29, "C:\\Users\\rados\\Disk Google\\songs\\Stayin Out All Night.mp3", "Hip-Hop"));
         songList.add(new Song("So High", "Wiz Khalifa", 83, "C:\\Users\\rados\\Disk Google\\songs\\So High.mp3", "Hip-Hop"));
