@@ -1,4 +1,3 @@
-
 package mytunes.gui.controller;
 
 import java.io.File;
@@ -27,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import mytunes.be.Song;
 import mytunes.gui.model.SongModel;
-
 
 public class PrimaryController implements Initializable {
 
@@ -63,7 +61,7 @@ public class PrimaryController implements Initializable {
     private ProgressBar progressBar;
 
     private ObservableList<Song> observableListSong;
-    
+
     private SongModel songModel;
     @FXML
     private TableColumn<Song, ?> col_Pname;
@@ -81,17 +79,15 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, Integer> col_songTime;
     @FXML
     private TableView<Song> tbv_Songs;
-    //@FXML
-    //private Button btn_addSong;
+
     @FXML
     private Button btn_addSong;
-    
+
     public PrimaryController() {
         songModel = new SongModel();
     }
     private MediaPlayer mediaPlayer;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         observableListSong = songModel.getAllSongs();
@@ -101,46 +97,57 @@ public class PrimaryController implements Initializable {
         col_songTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         tbv_Songs.setItems(observableListSong);
     }
-    
-    public void play(){
+
+    public void play() {
         mediaPlayer = new MediaPlayer(new Media(new File(tbv_Songs.getItems().get(0).getPath()).toURI().toString()));
         mediaPlayer.play();
-        
-    }
-    
-    
-    
-    
-       
 
+    }
 
     @FXML
     private void handle_play(ActionEvent event) {
         play();
-    
+
     }
 
-  
     @FXML
     private void handle_AddSong(ActionEvent event) throws IOException {
         Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
-        
         Stage songStage = new Stage();
         Scene songScene = new Scene(rootSong);
         //songStage.initStyle(StageStyle.UNDECORATED);
-        
-        
         songStage.setScene(songScene);
         songStage.show();
-        
-        
-
-    
     }
 
-    
-    
-    
-    
-    
+    @FXML
+    private void handle_EditSong(ActionEvent event) throws IOException {
+        Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
+        Stage songStage = new Stage();
+        Scene songScene = new Scene(rootSong);
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        songStage.setScene(songScene);
+        songStage.show();
+    }
+
+    @FXML
+    private void handle_addPlaylist(ActionEvent event) throws IOException {
+        Parent rootPlaylist = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/PlaylistScene.fxml"));
+        Stage playlistStage = new Stage();
+        Scene playlistScene = new Scene(rootPlaylist);
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        playlistStage.setScene(playlistScene);
+        playlistStage.show();
+    }
+
+    @FXML
+    private void handle_editPlaylist(ActionEvent event) throws IOException {
+        Parent rootPlaylist = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/PlaylistScene.fxml"));
+        Stage playlistStage = new Stage();
+        Scene playlistScene = new Scene(rootPlaylist);
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        playlistStage.setScene(playlistScene);
+        playlistStage.show();
+    }
+
 }

@@ -3,8 +3,22 @@
     -fx-background-color: transparent;
     
     -fx-opacity: 0.7;
+    
+    /*
     transition: 1s all;
+*/
+    
+    
+}
 
+
+.lblFlow{
+    -fx-background-color: linear-gradient( #1ED760,#00AD3C);
+    -fx-background-radius: 10px;
+    
+    /*
+    #00AD3C
+    */
     
     
 }
