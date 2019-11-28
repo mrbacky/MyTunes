@@ -49,11 +49,11 @@ public class DAO {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next())
             {
-                int id =        rs.getInt("id");
-                String title =   rs.getString("title");
-                String artist =  rs.getString("artist");
-                int time =       rs.getInt("time");
-                String genre =  rs.getString("genre");
+                int id =          rs.getInt("id");
+                String title =    rs.getString("title");
+                String artist =   rs.getString("artist");
+                int time =        rs.getInt("time");
+                String genre =    rs.getString("genre");
                 String songpath = rs.getString("songpath");
                 System.out.println(id + ", "+ title + ", " + artist + ", " + time + ", " + genre + ", " + songpath);
             }
