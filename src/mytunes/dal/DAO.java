@@ -55,6 +55,7 @@ public class DAO {
                 int time =        rs.getInt("time");
                 String genre =    rs.getString("genre");
                 String songpath = rs.getString("songpath");
+                /** below is to show us what is on the table*/
                 System.out.println(id + ", "+ title + ", " + artist + ", " + time + ", " + genre + ", " + songpath);
             }
         }    
@@ -76,6 +77,7 @@ public class DAO {
         {
             String sql = "insert into song(title, artist, time, genre, songpath) values (?,?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
+            /**we need to make the filds done by the gui*/
             pstmt.setString(1, "hello");
             pstmt.setString(2, "djhello");
             pstmt.setInt(3, 4);
@@ -88,6 +90,14 @@ public class DAO {
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
+    }/*
+    private void removeSong()
+    {
+        connectDB();
+        SQLServerDataSource ds = new SQLServerDataSource();
+        try(Connection con = ds.getConnection())
+        {
+            
+        }
+    }*/
 }
