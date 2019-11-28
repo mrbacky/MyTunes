@@ -18,7 +18,7 @@ public class SongModel {
         songList.add(new Song("True Colors", "Wiz Khalifa", 73, "C:\\Users\\rados\\Disk Google\\songs\\True Colors.mp3", "Hip-Hop"));
     }
     
-    
+    //Jeppe is khul
    
     public ObservableList<Song> getAllSongs(){
         allSongs.addAll(songList);
