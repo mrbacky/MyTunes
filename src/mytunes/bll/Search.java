@@ -10,6 +10,6 @@ package mytunes.bll;
  * 
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-public class SongHandler {
+public class Search {
 
 }
