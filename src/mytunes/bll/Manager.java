@@ -1,6 +1,9 @@
 package mytunes.bll;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mytunes.be.Song;
 import mytunes.dal.SongDAO;
 
@@ -58,7 +61,12 @@ public class Manager implements IManager {
 
     @Override
     public List<Song> getAllSongs() {
-       return songDAO.fetchSong();
+        try {
+            return songDAO.fetchSongsDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

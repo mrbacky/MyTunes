@@ -28,34 +28,27 @@ import mytunes.be.Song;
  */
 public class SongDAO {
 
-    public void connectDB() {
+    public Connection connectDB() throws SQLServerException {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setDatabaseName("MyTunesPJDB");
         ds.setUser("CSe19B_12");
         ds.setPassword("CSe19B_12");
         ds.setPortNumber(1433);
         ds.setServerName("10.176.111.31");
+        return ds.getConnection();
 
     }
 
     
-    public List<Song> fetchSong() {
-        List<Song> songs = new ArrayList<>();
-        songs.add(new Song("Stayin Out All Night", "Wiz Khalifa", 29, "C:\\Users\\rados\\Disk Google\\songs\\Stayin Out All Night.mp3", "Hip-Hop"));
-        songs.add(new Song("So High", "Wiz Khalifa", 83, "C:\\Users\\rados\\Disk Google\\songs\\So High.mp3", "Hip-Hop"));
-        songs.add(new Song("True Colors", "Wiz Khalifa", 73, "C:\\Users\\rados\\Disk Google\\songs\\True Colors.mp3", "Hip-Hop"));
-        return songs;
-    }
-    
+   
     
     /**
      *
      * this method read the table of the song list
      */
-    private void fetchSongsDB() throws SQLException {
-        connectDB();
-        SQLServerDataSource ds = new SQLServerDataSource();
-        try (Connection con = ds.getConnection()) {
+    public List<Song> fetchSongsDB() throws SQLException {
+        List<Song> songs = new ArrayList<>();
+        try (Connection con = connectDB()) {
             String sql = "select * from Song";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -63,13 +56,11 @@ public class SongDAO {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String artist = rs.getString("artist");
-                int time = rs.getInt("time");
-                String genre = rs.getString("genre");
+                int time = rs.getInt("lengthInMS");
                 String songpath = rs.getString("songpath");
-                /**
-                 * below is to show us what is on the table
-                 */
-                System.out.println(id + ", " + title + ", " + artist + ", " + time + ", " + genre + ", " + songpath);
+                String genre = rs.getString("genre");           
+                songs.add(new Song(id, title, artist, time, songpath, genre));
+               
 
             }
         } catch (SQLServerException ex) {
@@ -77,6 +68,7 @@ public class SongDAO {
         } catch (SQLException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return songs;
     }
 
     /**
