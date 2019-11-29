@@ -11,7 +11,7 @@ import mytunes.be.Song;
 public class SongModel {
     private final ObservableList<Song> allSongs = FXCollections.observableArrayList();
     
-
+ 
     public SongModel() {
         allSongs.add(new Song("Stayin Out All Night", "Wiz Khalifa", 29, "C:\\Users\\rados\\Disk Google\\songs\\Stayin Out All Night.mp3", "Hip-Hop"));
         allSongs.add(new Song("So High", "Wiz Khalifa", 83, "C:\\Users\\rados\\Disk Google\\songs\\So High.mp3", "Hip-Hop"));
