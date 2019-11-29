@@ -90,7 +90,7 @@ public class PrimaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        observableListSong = songModel.getAllSongs();
+       // observableListSong = songModel.getAllSongs();
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
