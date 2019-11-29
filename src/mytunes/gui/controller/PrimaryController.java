@@ -62,7 +62,6 @@ public class PrimaryController implements Initializable {
 
     private ObservableList<Song> observableListSong;
 
-    private SongModel songModel;
     @FXML
     private TableColumn<Song, ?> col_Pname;
     @FXML
@@ -83,19 +82,18 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_addSong;
 
-    public PrimaryController() {
-        songModel = new SongModel();
-    }
+    
     private MediaPlayer mediaPlayer;
-
+    private SongModel songModel;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // observableListSong = songModel.getAllSongs();
+        songModel = new SongModel();
+        
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         col_songTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-        tbv_Songs.setItems(observableListSong);
+        tbv_Songs.setItems(songModel.getSongList());
     }
 
     public void play() {

@@ -6,10 +6,29 @@
 
 package mytunes.bll;
 
+import java.util.List;
+import mytunes.be.Song;
+
 
 public interface IManager {
     
-    public void Search();
+    //  Songs on Playlist methods
+    public void addSongToPlaylist();
+    public void removeSongFromPlaylist();
+    
+    
+    //  Library
+    public void newSong();
+    public void editSong();
+    public void removeSongFromLib();
+    
+    //
+    public void newPlaylist();
+    public void editPlaylist();
+    public void removePlaylist();
+    
+    public List<Song> getAllSongs();
+    
     
     
     
