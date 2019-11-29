@@ -57,6 +57,7 @@ public class DAO {
                 String songpath = rs.getString("songpath");
                 /** below is to show us what is on the table*/
                 System.out.println(id + ", "+ title + ", " + artist + ", " + time + ", " + genre + ", " + songpath);
+                
             }
         }    
          catch (SQLServerException ex) {    
