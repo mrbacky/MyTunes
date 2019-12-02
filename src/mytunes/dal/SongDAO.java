@@ -45,6 +45,7 @@ public class SongDAO {
     /**
      *
      * this method read the table of the song list
+     * @throws java.sql.SQLException
      */
     public List<Song> fetchSongsDB() throws SQLException {
         List<Song> songs = new ArrayList<>();

@@ -94,12 +94,13 @@ public class PrimaryController implements Initializable {
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         col_songTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         tbv_Songs.setItems(songModel.getSongList());
+        
     }
 
     public void play() {
         mediaPlayer = new MediaPlayer(new Media(new File(tbv_Songs.getItems().get(0).getPath()).toURI().toString()));
         mediaPlayer.play();
-
+        
     }
 
     @FXML

@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 /**
@@ -18,24 +17,14 @@ import javafx.scene.control.TextField;
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-public class SongSceneController implements Initializable {
+public class CreatePlaylistSceneController implements Initializable {
 
     @FXML
-    private Button btn_chooseFile;
+    private TextField txtField_namePlaylist;
     @FXML
-    private TextField txtField_title;
+    private Button btn_cancelPlaylist;
     @FXML
-    private ChoiceBox<?> choiseBox_genre;
-    @FXML
-    private TextField txtField_time;
-    @FXML
-    private TextField txtField_filePath;
-    @FXML
-    private TextField txtField_artist;
-    @FXML
-    private Button btn_cancelSong;
-    @FXML
-    private Button btn_saveSong;
+    private Button btn_savePlaylist;
 
     /**
      * Initializes the controller class.
