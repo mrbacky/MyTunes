@@ -4,13 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.dal.SongDAO;
+import mytunes.dal.playlistDAO;
 
 public class Manager implements IManager {
     SongDAO songDAO;
+    playlistDAO playDAO;
     public Manager() {
     songDAO = new SongDAO();
+    playDAO = new playlistDAO();
     }
 
     
@@ -68,5 +72,15 @@ public class Manager implements IManager {
         }
         return null;
     }
-
+    
+    public List<Playlist> getAllPlaylist(){
+        try{
+            return playDAO.fetchPlaylistDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
 }
