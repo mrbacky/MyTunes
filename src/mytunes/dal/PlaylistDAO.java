@@ -26,7 +26,7 @@ import mytunes.be.Song;
  *
  * @author Bruger
  */
-public class playlistDAO {
+public class PlaylistDAO {
     
     public Connection connectDB() throws SQLServerException {
         SQLServerDataSource ds = new SQLServerDataSource();
@@ -54,9 +54,9 @@ public class playlistDAO {
                 playlist.add(new Playlist(id, name, time, songs));
             }
             } catch (SQLServerException ex) {
-            Logger.getLogger(playlistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(playlistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
             return playlist;
         }

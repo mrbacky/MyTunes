@@ -39,6 +39,10 @@ public class AddSongSceneController implements Initializable {
 
     @FXML
     private void handle_AddSong(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.showOpenDialog(null);
+        
+        
     }
     
 }

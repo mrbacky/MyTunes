@@ -11,8 +11,8 @@ import mytunes.bll.Manager;
 
 
 public class SongModel {
-    private ObservableList<Song> allSongs = FXCollections.observableArrayList();
-    Manager manager;
+    private ObservableList<Song> allSongs;
+    private Manager manager;
 
     public SongModel() {
         manager = new Manager();
@@ -20,7 +20,7 @@ public class SongModel {
     }
 
     public void fetchAllSongs(){
-        //manager.getAllSongs();
+        manager.getAllSongs();
         allSongs = FXCollections.observableArrayList(manager.getAllSongs());
     }
    

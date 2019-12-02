@@ -7,14 +7,15 @@ import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.dal.SongDAO;
-import mytunes.dal.playlistDAO;
+import mytunes.dal.PlaylistDAO;
 
 public class Manager implements IManager {
     SongDAO songDAO;
-    playlistDAO playDAO;
+    PlaylistDAO playlistDAO;
+    
     public Manager() {
     songDAO = new SongDAO();
-    playDAO = new playlistDAO();
+    playlistDAO = new PlaylistDAO();
     }
 
     
@@ -75,7 +76,7 @@ public class Manager implements IManager {
     
     public List<Playlist> getAllPlaylist(){
         try{
-            return playDAO.fetchPlaylistDB();
+            return playlistDAO.fetchPlaylistDB();
         } catch (SQLException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }

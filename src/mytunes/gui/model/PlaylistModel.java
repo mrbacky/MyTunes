@@ -14,12 +14,12 @@ import mytunes.bll.Manager;
  *
  * @author Bruger
  */
-public class PlaylistModle {
+public class PlaylistModel {
     
     private ObservableList<Playlist> allPlaylist = FXCollections.observableArrayList();
     Manager manager;
     
-    public PlaylistModle(){
+    public PlaylistModel(){
         manager = new Manager();
         fetchAllPlaylist();
     }

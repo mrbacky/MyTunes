@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mytunes.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
@@ -22,10 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import mytunes.be.Song;
 
-/**
- *
- * @author Bruger
- */
 public class SongDAO {
 
     public Connection connectDB() throws SQLServerException {
@@ -45,7 +37,6 @@ public class SongDAO {
     /**
      *
      * this method read the table of the song list
-     * @throws java.sql.SQLException
      */
     public List<Song> fetchSongsDB() throws SQLException {
         List<Song> songs = new ArrayList<>();
