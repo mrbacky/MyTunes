@@ -35,7 +35,11 @@ public class Song {
     public void setArtist(String artist) {
         this.artist = artist;
     }
-
+    
+    public void setTime(int time){
+        this.time = time;
+    }
+    
     public int getTime() {
         return time;
     }
