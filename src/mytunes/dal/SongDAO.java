@@ -20,9 +20,8 @@ import mytunes.be.Song;
 
 public class SongDAO {
 
-    ConnectDAO connectDAO;
-    
-    public SongDAO(){
+        ConnectDAO connectDAO ;
+    public SongDAO( ){
         connectDAO = new ConnectDAO();
     }
     
@@ -32,7 +31,7 @@ public class SongDAO {
      */
     public List<Song> fetchSongsDB() throws SQLException {
         List<Song> songs = new ArrayList<>();
-        try (Connection con = connectDAO.connectDB()) {
+        try (Connection con = connectDAO.getConnection()) {
             String sql = "select * from Song";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -61,17 +60,17 @@ public class SongDAO {
      */
     private void songAdd() throws SQLException {
         
-        try (Connection con = connectDAO.connectDB()) {
+        try (Connection con = connectDAO.getConnection()) {
             String sql = "insert into song(title, artist, time, genre, songpath) values (?,?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             /**
              * we need to make the filds done by the gui
              */
-            pstmt.setString(1, "hello");
-            pstmt.setString(2, "djhello");
-            pstmt.setInt(3, 4);
-            pstmt.setString(4, "pop");
-            pstmt.setString(5, "C:\\mydownload\\mysongs\\newsongs");
+            pstmt.setString(1, "");
+            pstmt.setString(2, "");
+            pstmt.setInt(3, 5);
+            pstmt.setString(4, "");
+            pstmt.setString(5, "");
             pstmt.execute();
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);

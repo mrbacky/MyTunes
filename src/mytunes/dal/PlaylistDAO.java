@@ -22,16 +22,14 @@ import mytunes.be.Playlist;
  */
 public class PlaylistDAO {
     
-    ConnectDAO connectDAO;
-    
-    public PlaylistDAO(){
+    ConnectDAO connectDAO ;
+    public PlaylistDAO( ){
         connectDAO = new ConnectDAO();
-
     }
     
     public List<Playlist> fetchPlaylistDB() throws SQLException {
         List<Playlist> playlist = new ArrayList<>();
-        try (Connection con = connectDAO.connectDB()) {
+        try (Connection con = connectDAO.getConnection()) {
             String sql = "select * from playlist";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

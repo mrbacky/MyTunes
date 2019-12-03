@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 
-public class DBManager {
+public class DBManager implements IDBManager{
     
     SongDAO songDAO;
     PlaylistDAO playlistDAO;
@@ -16,6 +16,7 @@ public class DBManager {
     public DBManager() {
     songDAO = new SongDAO();
     playlistDAO = new PlaylistDAO();
+    
     }
     public List<Song> getAllSongs() {
         try {

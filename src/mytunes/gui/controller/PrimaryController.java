@@ -108,7 +108,7 @@ public class PrimaryController implements Initializable {
         col_PName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_PSongs.setCellValueFactory(new PropertyValueFactory<>("songs"));
         col_PTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-
+        
         tbv_Library.setItems(songModel.getSongList());
         tbv_Playlists.setItems(playlistModel.getPlaylist());
 
