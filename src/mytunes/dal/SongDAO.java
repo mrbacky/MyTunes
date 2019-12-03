@@ -20,19 +20,11 @@ import mytunes.be.Song;
 
 public class SongDAO {
 
-    public Connection connectDB() throws SQLServerException {
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setDatabaseName("MyTunesPJDB");
-        ds.setUser("CSe19B_12");
-        ds.setPassword("CSe19B_12");
-        ds.setPortNumber(1433);
-        ds.setServerName("10.176.111.31");
-        return ds.getConnection();
-
-    }
-
+    ConnectDAO connectDAO;
     
-   
+    public SongDAO(){
+        connectDAO = new ConnectDAO();
+    }
     
     /**
      *
@@ -40,7 +32,7 @@ public class SongDAO {
      */
     public List<Song> fetchSongsDB() throws SQLException {
         List<Song> songs = new ArrayList<>();
-        try (Connection con = connectDB()) {
+        try (Connection con = connectDAO.connectDB()) {
             String sql = "select * from Song";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -68,9 +60,8 @@ public class SongDAO {
      * this add a song to the song table (where the time is an int!!)
      */
     private void songAdd() throws SQLException {
-        connectDB();
-        SQLServerDataSource ds = new SQLServerDataSource();
-        try (Connection con = ds.getConnection()) {
+        
+        try (Connection con = connectDAO.connectDB()) {
             String sql = "insert into song(title, artist, time, genre, songpath) values (?,?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             /**

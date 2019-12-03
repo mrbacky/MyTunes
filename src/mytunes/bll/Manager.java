@@ -1,21 +1,18 @@
 package mytunes.bll;
 
-import java.sql.SQLException;
+
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
-import mytunes.dal.SongDAO;
-import mytunes.dal.PlaylistDAO;
+import mytunes.dal.DBManager;
+import mytunes.dal.IDBManager;
 
 public class Manager implements IManager {
-    SongDAO songDAO;
-    PlaylistDAO playlistDAO;
+    
+    IDBManager DBM;
     
     public Manager() {
-    songDAO = new SongDAO();
-    playlistDAO = new PlaylistDAO();
+    DBM = new DBManager();
     }
 
     
@@ -66,21 +63,13 @@ public class Manager implements IManager {
 
     @Override
     public List<Song> getAllSongs() {
-        try {
-            return songDAO.fetchSongsDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        
+       return DBM.getAllSongs();
     }
     
     public List<Playlist> getAllPlaylist(){
-        try{
-            return playlistDAO.fetchPlaylistDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        
+      return DBM.getAllPlaylist();   
     }
     
     
