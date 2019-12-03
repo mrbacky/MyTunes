@@ -7,41 +7,29 @@ package mytunes.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import static java.awt.PageAttributes.MediaType.C;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import mytunes.be.Playlist;
-import mytunes.be.Song;
 /**
  *
  * @author Bruger
  */
 public class PlaylistDAO {
     
-    public Connection connectDB() throws SQLServerException {
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setDatabaseName("MyTunesPJDB");
-        ds.setUser("CSe19B_12");
-        ds.setPassword("CSe19B_12");
-        ds.setPortNumber(1433);
-        ds.setServerName("10.176.111.31");
-        return ds.getConnection();
-
+    ConnectDAO connectDAO ;
+    public PlaylistDAO( ){
+        connectDAO = new ConnectDAO();
     }
     
     public List<Playlist> fetchPlaylistsDB() throws SQLException {
-        ArrayList<Playlist> playlists = new ArrayList<>();
-        try (Connection con = connectDB()) {
+        List<Playlist> playlists = new ArrayList<>();
+        try (Connection con = connectDAO.getConnection()) {
             String sql = "select * from playlist";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

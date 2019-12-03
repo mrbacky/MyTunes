@@ -20,21 +20,10 @@ import mytunes.be.Song;
 
 public class SongDAO {
 
-    public Connection connectDB() throws SQLServerException {
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setDatabaseName("MyTunesPJDB");
-        ds.setUser("CSe19B_12");
-        ds.setPassword("CSe19B_12");
-        ds.setPortNumber(1433);
-        ds.setServerName("10.176.111.31");
-        return ds.getConnection();
-
-    }/*
-PreparedStatement stmt = PrepareStatement("SELECT * FROM Nig Values ( ?, ? , ?");
-stmt.setString(1,Value1);
-*/
-    
-   
+        ConnectDAO connectDAO ;
+    public SongDAO( ){
+        connectDAO = new ConnectDAO();
+    }
     
     /**
      *
@@ -42,7 +31,7 @@ stmt.setString(1,Value1);
      */
     public List<Song> fetchSongsDB() throws SQLException {
         List<Song> songs = new ArrayList<>();
-        try (Connection con = connectDB()) {
+        try (Connection con = connectDAO.getConnection()) {
             String sql = "select * from Song";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -72,7 +61,7 @@ stmt.setString(1,Value1);
     private void songAdd(Song songToAdd) throws SQLException {
        
         
-        try (Connection con = connectDB()) {
+        try (Connection con = connectDAO.getConnection()) {
             String sql = "insert into song(title, artist, time, genre, songpath) values ("
                     + ",?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
