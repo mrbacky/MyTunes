@@ -11,16 +11,16 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import static javax.management.Query.value;
+import mytunes.gui.model.SongModel;
 
 public class AddSongSceneController implements Initializable {
 
     @FXML
     private Button btn_chooseFile;
-    
-    
+
     @FXML
     private TextField txtField_AddSong_filePath;
-    
+
     @FXML
     private Button btn_AddSong_cancelSong;
     @FXML
@@ -33,11 +33,13 @@ public class AddSongSceneController implements Initializable {
     private ChoiceBox<?> choiseBox_AddSong_genre;
     @FXML
     private TextField txtField_AddSong_time;
-    
-    
+
+    private SongModel songModel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        songModel = new SongModel();
+        //choiseBox_AddSong_genre.setItems(value);
     }
 
     @FXML
@@ -47,22 +49,27 @@ public class AddSongSceneController implements Initializable {
                 new FileChooser.ExtensionFilter("mp3 Files", "*.mp3"),
                 new FileChooser.ExtensionFilter("wav Files", "*.wav")
         );
-        
+
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             txtField_AddSong_filePath.setText(selectedFile.getAbsolutePath());
         }
     }
 
-    
     @FXML
     private void handle_AddSongToDB(ActionEvent event) {
-        
+
+        txtField_AddSong_title.getText();
         txtField_AddSong_artist.getText();
         txtField_AddSong_time.getText();
-        
-    
+        choiseBox_AddSong_genre.getSelectionModel().getSelectedItem();
+        txtField_AddSong_filePath.getText();
+        songModel.addSong(txtField_AddSong_title.getText(),
+                txtField_AddSong_artist.getText(),
+                txtField_AddSong_time.getText(),
+                choiseBox_AddSong_genre.getSelectionModel().getSelectedItem(),
+                txtField_AddSong_filePath.getText()
+                );
+
     }
 }
-
-
