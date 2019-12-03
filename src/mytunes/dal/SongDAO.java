@@ -29,8 +29,10 @@ public class SongDAO {
         ds.setServerName("10.176.111.31");
         return ds.getConnection();
 
-    }
-
+    }/*
+PreparedStatement stmt = PrepareStatement("SELECT * FROM Nig Values ( ?, ? , ?");
+stmt.setString(1,Value1);
+*/
     
    
     
@@ -67,20 +69,22 @@ public class SongDAO {
      *
      * this add a song to the song table (where the time is an int!!)
      */
-    private void songAdd() throws SQLException {
-        connectDB();
-        SQLServerDataSource ds = new SQLServerDataSource();
-        try (Connection con = ds.getConnection()) {
-            String sql = "insert into song(title, artist, time, genre, songpath) values (?,?,?,?,?)";
+    private void songAdd(Song songToAdd) throws SQLException {
+       
+        
+        try (Connection con = connectDB()) {
+            String sql = "insert into song(title, artist, time, genre, songpath) values ("
+                    + ",?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             /**
              * we need to make the filds done by the gui
              */
-            pstmt.setString(1, "hello");
-            pstmt.setString(2, "djhello");
-            pstmt.setInt(3, 4);
-            pstmt.setString(4, "pop");
-            pstmt.setString(5, "C:\\mydownload\\mysongs\\newsongs");
+            //Song songToAdd = new Song(0, sql, sql, 0, sql, sql)
+            pstmt.setString(1, songToAdd.getTitle());
+            pstmt.setString(2, songToAdd.getArtist());
+            pstmt.setInt(3, songToAdd.getTime());
+            pstmt.setString(4, songToAdd.getGenre());
+            pstmt.setString(5, songToAdd.getPath());
             pstmt.execute();
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);

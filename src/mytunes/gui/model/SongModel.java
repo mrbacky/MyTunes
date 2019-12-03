@@ -6,22 +6,23 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mytunes.be.Song;
-import mytunes.bll.Manager;
+import mytunes.bll.LogicManager;
+import mytunes.bll.LogicFacade;
 
 
 
-public class SongModel {
+public final class SongModel {
     private ObservableList<Song> allSongs;
-    private Manager manager;
+    private LogicFacade logicManager;
 
     public SongModel() {
-        manager = new Manager();
+        logicManager = new LogicManager();
         fetchAllSongs();
     }
 
     public void fetchAllSongs(){
-        manager.getAllSongs();
-        allSongs = FXCollections.observableArrayList(manager.getAllSongs());
+        logicManager.getAllSongs();
+        allSongs = FXCollections.observableArrayList(logicManager.getAllSongs());
     }
    
     

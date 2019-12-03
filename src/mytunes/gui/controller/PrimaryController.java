@@ -19,6 +19,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -90,6 +91,7 @@ public class PrimaryController implements Initializable {
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
+    private Song song;
     @FXML
     private TableView<Song> tbv_Library;
     @FXML
@@ -110,12 +112,17 @@ public class PrimaryController implements Initializable {
         col_PTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         tbv_Library.setItems(songModel.getSongList());
-        tbv_Playlists.setItems(playlistModel.getPlaylist());
+        tbv_Playlists.setItems(playlistModel.getPlaylists());
 
     }
+    
+    
+    
     public void play() {
-        mediaPlayer = new MediaPlayer(new Media(new File(tbv_Library.getItems().get(0).getPath()).toURI().toString()));
+        mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
+        
         mediaPlayer.play();
+        
 
     }
     @FXML
@@ -159,6 +166,11 @@ public class PrimaryController implements Initializable {
         songStage.setScene(songScene);
         songStage.show();
 
+    }
+
+    @FXML
+    private void handle_getSong(MouseEvent event) {
+        song = tbv_Library.getSelectionModel().getSelectedItem();
     }
 
 }

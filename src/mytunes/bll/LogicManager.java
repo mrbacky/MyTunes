@@ -6,27 +6,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.dal.DBManager;
 import mytunes.dal.SongDAO;
 import mytunes.dal.PlaylistDAO;
+import mytunes.dal.DBFacade;
 
-public class Manager implements IManager {
-    SongDAO songDAO;
-    PlaylistDAO playlistDAO;
-    
-    public Manager() {
-    songDAO = new SongDAO();
-    playlistDAO = new PlaylistDAO();
+public class LogicManager implements LogicFacade {
+    private final DBFacade dbManager;
+
+    public LogicManager() {
+        dbManager = new DBManager();
+
+        
     }
 
-    
-    
     public void Search() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void addSongToPlaylist() {
-        
+
     }
 
     @Override
@@ -66,22 +66,13 @@ public class Manager implements IManager {
 
     @Override
     public List<Song> getAllSongs() {
-        try {
-            return songDAO.fetchSongsDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        return dbManager.getAllSongs();
     }
-    
-    public List<Playlist> getAllPlaylist(){
-        try{
-            return playlistDAO.fetchPlaylistDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+
+    @Override
+    public List<Playlist> getAllPlaylists() {
+        return dbManager.getAllPlaylists();
+        
     }
-    
-    
+
 }

@@ -39,8 +39,8 @@ public class PlaylistDAO {
 
     }
     
-    public List<Playlist> fetchPlaylistDB() throws SQLException {
-        List<Playlist> playlist = new ArrayList<>();
+    public List<Playlist> fetchPlaylistsDB() throws SQLException {
+        ArrayList<Playlist> playlists = new ArrayList<>();
         try (Connection con = connectDB()) {
             String sql = "select * from playlist";
             Statement stmt = con.createStatement();
@@ -51,14 +51,14 @@ public class PlaylistDAO {
                 String name = rs.getString("name");
                 int time    = rs.getInt("lengthInMs");
                 int songs   = rs.getInt("nrOfSongs");
-                playlist.add(new Playlist(id, name, time, songs));
+                playlists.add(new Playlist(id, name, time, songs));
             }
             } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-            return playlist;
+            return playlists;
         }
     
 }

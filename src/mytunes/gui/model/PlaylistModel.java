@@ -8,27 +8,28 @@ package mytunes.gui.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mytunes.be.Playlist;
-import mytunes.bll.Manager;
+import mytunes.bll.LogicManager;
+import mytunes.bll.LogicFacade;
 
 /**
  *
  * @author Bruger
  */
-public class PlaylistModel {
+public final class PlaylistModel {
     
     private ObservableList<Playlist> allPlaylist = FXCollections.observableArrayList();
-    Manager manager;
+    LogicFacade logicManager;
     
     public PlaylistModel(){
-        manager = new Manager();
-        fetchAllPlaylist();
+        logicManager = new LogicManager();
+        fetchAllPlaylists();
     }
 
-    public void fetchAllPlaylist() {
-        allPlaylist = FXCollections.observableArrayList(manager.getAllPlaylist());
+    public void fetchAllPlaylists() {
+        allPlaylist = FXCollections.observableArrayList(logicManager.getAllPlaylists());
     }
     
-    public ObservableList<Playlist>getPlaylist(){
+    public ObservableList<Playlist>getPlaylists(){
         return allPlaylist;
     }
 }
