@@ -22,16 +22,17 @@ import mytunes.be.SongOnPlaylist;
  */
 public class SongOnPlaylistDAO {
    
-    private Connection con;
-    
-    public SongOnPlaylistDAO(Connection con){
-        this.con=con;
+    /*ConnectDAO connectDAO ;
+    public SongOnPlaylistDAO( ){
+        connectDAO = new ConnectDAO();
     }
     
-       /* public list<SongOPlaylist> songOnPlaylist(){
+       public List<SongOnPlaylist> songOnPlaylist(){
         List<SongOnPlaylist> SongsOnPlaylists = new ArrayList<>();
-        try (Connection xd = con) {
-            String sql = "select * from Song";
+        try (Connection con = connectDAO.getConnection()) {
+            String sql = "select songonplaylist.songid, song.id, song.title, song.artist, song.genre, song.lengthInMS, song.songpath\n" +
+            "from songonplaylist left join song on songonplaylist.songid = song.id\n" +
+            "where songonplaylist.playlistid = 1";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -49,6 +50,6 @@ public class SongOnPlaylistDAO {
         } catch (SQLException ex) {
             Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return null;
+    return SongsOnPlaylists;
     }*/
 }
