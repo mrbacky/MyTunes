@@ -37,7 +37,7 @@ public class PlaylistDAO {
             {
                 int id      = rs.getInt("id");
                 String name = rs.getString("name");
-                int time    = rs.getInt("lengthInMs");
+                int time    = rs.getInt("time");
                 int songs   = rs.getInt("nrOfSongs");
                 playlists.add(new Playlist(id, name, time, songs));
             }

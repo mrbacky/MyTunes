@@ -39,6 +39,15 @@ public class DBManager implements DBFacade{
         return null;
     }
 
+    @Override
+    public void addSong(Song song) {
+        try {
+            songDAO.addSong(song);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
 
    

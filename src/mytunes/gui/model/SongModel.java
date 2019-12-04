@@ -30,7 +30,11 @@ public final class SongModel {
         return allSongs;
     }
     
-    
+
+    public void addSong(String title, String artist, String time, Object genre, String path) {
+        Song song = new Song(0, title, artist, 0,path, "genre"  );
+        logicManager.addSong(song);
+    }
     
     
 }

@@ -39,7 +39,7 @@ public class SongDAO {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String artist = rs.getString("artist");
-                int time = rs.getInt("lengthInMS");
+                int time = rs.getInt("time");
                 String songpath = rs.getString("songpath");
                 String genre = rs.getString("genre");           
                 songs.add(new Song(id, title, artist, time, songpath, genre));
@@ -58,12 +58,12 @@ public class SongDAO {
      *
      * this add a song to the song table (where the time is an int!!)
      */
-    private void songAdd(Song songToAdd) throws SQLException {
+    public void addSong(Song songToAdd) throws SQLException {
        
         
         try (Connection con = connectDAO.getConnection()) {
             String sql = "insert into song(title, artist, time, genre, songpath) values ("
-                    + ",?,?,?,?)";
+                    + "?,?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             /**
              * we need to make the filds done by the gui
@@ -90,6 +90,7 @@ public class SongDAO {
             
         }
     }*/
+
     
     
 }

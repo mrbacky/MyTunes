@@ -10,4 +10,6 @@ public interface DBFacade {
     public List<Playlist> getAllPlaylists();
     public List<Song> getAllSongs();
 
+    public void addSong(Song song);
+
 }
