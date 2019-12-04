@@ -70,7 +70,6 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_genre;
     @FXML
     private TableColumn<Song, Integer> col_songTime;
-    private TableView<Song> tbv_Songs;
     @FXML
     private Button btn_addSong;
     @FXML
@@ -96,9 +95,16 @@ public class PrimaryController implements Initializable {
     private TableView<Song> tbv_Library;
     @FXML
     private Label lbl_Library;
-    
+    private AddSongSceneController addSongSceneController;
+
     @Override
+
     public void initialize(URL url, ResourceBundle rb) {
+        addSongSceneController = new AddSongSceneController();
+        settingTableViews();
+    }
+
+    private void settingTableViews() {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
 
@@ -110,26 +116,25 @@ public class PrimaryController implements Initializable {
         col_PName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_PSongs.setCellValueFactory(new PropertyValueFactory<>("songs"));
         col_PTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-        
-        tbv_Library.setItems(songModel.getSongList());
+
+        tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
 
     }
-    
-    
-    
+
     public void play() {
         mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
-        
+
         mediaPlayer.play();
-        
 
     }
+
     @FXML
     private void handle_play(ActionEvent event) {
         play();
 
     }
+
     @FXML
     private void handle_addPlaylist(ActionEvent event) throws IOException {
         Parent rootPlaylist = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
@@ -139,6 +144,7 @@ public class PrimaryController implements Initializable {
         playlistStage.setScene(playlistScene);
         playlistStage.show();
     }
+
     @FXML
     private void handle_editPlaylist(ActionEvent event) throws IOException {
         Parent rootPlaylist = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/EditPlaylistScene.fxml"));
@@ -148,15 +154,30 @@ public class PrimaryController implements Initializable {
         playlistStage.setScene(playlistScene);
         playlistStage.show();
     }
+
     @FXML
     private void handle_AddSong(ActionEvent event) throws IOException {
-        Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        fxmlLoader.<AddSongSceneController>getController().setContr(this);
+        
         Stage songStage = new Stage();
-        Scene songScene = new Scene(rootSong);
+        Scene songScene = new Scene(root1);
+
         //songStage.initStyle(StageStyle.UNDECORATED);
         songStage.setScene(songScene);
         songStage.show();
+
     }
+
+    public void updateLibrary() {
+
+        tbv_Library.getItems().clear();
+        tbv_Library.setItems(songModel.getLibraryList());
+    }
+
     @FXML
     private void handle_EditSong(ActionEvent event) throws IOException {
         Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/EditSongScene.fxml"));

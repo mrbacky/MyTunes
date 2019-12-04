@@ -76,6 +76,7 @@ public class LogicManager implements LogicFacade {
     @Override
     public void addSong(Song song) {
         dbManager.addSong(song);
+        
     }
 
 }
