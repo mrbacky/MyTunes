@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import mytunes.be.Song;
 import mytunes.bll.LogicManager;
 import mytunes.bll.LogicFacade;
+import mytunes.gui.controller.AddSongSceneController;
 
 
 
@@ -32,6 +33,7 @@ public final class SongModel {
         Song song = new Song(0, title, artist, 0,path, "genre"  );
         logicManager.addSong(song);
     }
+    
     
     
 }

@@ -32,10 +32,7 @@ public class LogicManager implements LogicFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void newSong() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public void editSong() {
@@ -78,5 +75,19 @@ public class LogicManager implements LogicFacade {
         dbManager.addSong(song);
         
     }
+
+    @Override
+    public String sec_To_Format(int sec) {
+        
+        
+        return "str";
+    }
+
+    @Override
+    public int format_To_Sec(String formatString) {
+        return 1;
+    }
+
+    
 
 }

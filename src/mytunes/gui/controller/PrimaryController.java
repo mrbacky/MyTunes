@@ -122,10 +122,13 @@ public class PrimaryController implements Initializable {
 
     }
 
+    
+    
     public void play() {
         mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
-
         mediaPlayer.play();
+        
+        
 
     }
 
