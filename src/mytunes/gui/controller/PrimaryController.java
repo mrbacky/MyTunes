@@ -69,7 +69,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private TableColumn<Song, String> col_genre;
     @FXML
-    private TableColumn<Song, Integer> col_songTime;
+    private TableColumn<Song, String> col_songTime;
     @FXML
     private Button btn_addSong;
     @FXML
@@ -112,6 +112,10 @@ public class PrimaryController implements Initializable {
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         col_songTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+//        col_songTime.setComparator((timeAsString1, timeAsString2) =>
+//        {
+//            
+//        });
 
         col_PName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_PSongs.setCellValueFactory(new PropertyValueFactory<>("songs"));

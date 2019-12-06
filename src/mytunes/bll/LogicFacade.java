@@ -10,7 +10,7 @@ public interface LogicFacade {
     
     //  time converter methods
     public String sec_To_Format(int sec);    // format:   hh:mm:ss
-    public int format_To_Sec(String formatString);
+    //public int format_To_Sec(String formatString);
     
     //  Songs on Playlist methods
     public void addSongToPlaylist();

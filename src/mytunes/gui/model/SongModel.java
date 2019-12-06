@@ -30,10 +30,17 @@ public final class SongModel {
     }
     
     public void addSong(String title, String artist, String time, Object genre, String path) {
-        Song song = new Song(0, title, artist, 0,path, "genre"  );
+        Song song = new Song(0, title, artist, 0 ,path, "genre"  );
         logicManager.addSong(song);
     }
     
+    public void format_To_Sec(String timeString){
+        //finish it
+        //need to work on geting string Format to DB as a INT
+    }
     
+    public String sec_To_Format(int sec){
+        return logicManager.sec_To_Format(sec);
+    }
     
 }

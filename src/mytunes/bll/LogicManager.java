@@ -8,13 +8,14 @@ import mytunes.dal.DBManager;
 import mytunes.dal.SongDAO;
 import mytunes.dal.PlaylistDAO;
 import mytunes.dal.DBFacade;
+import mytunes.bll.util.TimeConverter;
 
 public class LogicManager implements LogicFacade {
     private final DBFacade dbManager;
-
+    private final TimeConverter timeConverter;
     public LogicManager() {
         dbManager = new DBManager();
-
+        timeConverter = new TimeConverter();
         
     }
 
@@ -78,16 +79,10 @@ public class LogicManager implements LogicFacade {
 
     @Override
     public String sec_To_Format(int sec) {
-        
-        
-        return "str";
+        return timeConverter.sec_To_Format(sec);
     }
 
-    @Override
-    public int format_To_Sec(String formatString) {
-        return 1;
-    }
-
+   
     
 
 }

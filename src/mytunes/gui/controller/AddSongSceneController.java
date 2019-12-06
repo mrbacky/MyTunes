@@ -74,33 +74,44 @@ public class AddSongSceneController implements Initializable {
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setOnReady(new Runnable() {
 
-                int time;
 
                 @Override
                 public void run() {
+                    int time;
+
                     int hours;
                     int mins;
                     int secs;
                     Duration timeDuration = media.getDuration();
-                    
-                    time = (int) timeDuration.toSeconds();
-                    
-                    mins = (int)(time/60);
-                    while (mins>60) {
-                        mins=mins%60;
-                    }
-                    hours = (int)((time/60)/60);
-                    secs = time%60;
-                    System.out.println("sec not rounded   "+media.getDuration().toSeconds());
-                    System.out.println("time in sec     "+time);
-                    System.out.println("HH   "+hours);
-                    System.out.println("MM   "+mins);
-                    System.out.println("SS   "+secs);                    
-                    
-                    String novyCas = String.format("%02d:%02d:%02d",hours,mins,secs);
-                    txtField_AddSong_time.setText(novyCas);
-                    System.out.println(novyCas);
-                    System.out.println();
+
+                    time = (int) (timeDuration.toSeconds());// it will cut .898956
+                    //String stringTime = String.format("%02d:%02d:%02d", hours, mins, secs);
+                    txtField_AddSong_time.setText(songModel.sec_To_Format(time));
+//
+//                    mins = (int) (time / 60);
+//                    while (mins > 60) {
+//                        mins = mins % 60;
+//                    }
+//                    hours = (int) ((time / 60) / 60);
+//                    secs = time % 60;
+
+//                    System.out.println("sec not rounded   " + media.getDuration().toSeconds());
+//                    System.out.println("time in sec     " + time);
+//                    System.out.println("HH   " + hours);
+//                    System.out.println("MM   " + mins);
+//                    System.out.println("SS   " + secs);
+                    /*
+                    mediaPlayer.setOnReady(new Runnable()
+            {
+                    @Override
+                    public void run()
+                        {
+                    int timeOfSong = (int) mediaFile.getDuration().toSeconds();
+                    txtTime.setText(model.getTimeInString(timeOfSong));
+                        }
+                }      
+        );
+                     */
                 }
 
             });
