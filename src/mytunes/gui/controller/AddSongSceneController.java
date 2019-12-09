@@ -74,8 +74,8 @@ public class AddSongSceneController implements Initializable {
 
     @FXML
     private void handle_OpenFileChooser(ActionEvent event) throws MalformedURLException {
-        txtField_AddSong_filePath.setText("");
-        txtField_AddSong_time.setText("");
+        //txtField_AddSong_filePath.setText("");
+        //txtField_AddSong_time.setText("");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("mp3 Files", "*.mp3"),
@@ -98,7 +98,6 @@ public class AddSongSceneController implements Initializable {
                     //String stringTime = String.format("%02d:%02d:%02d", hours, mins, secs);
 
                     txtField_AddSong_time.setText(songModel.sec_To_Format(time));
-                    System.out.println(timeDuration.toSeconds());
                 }
 
             });
