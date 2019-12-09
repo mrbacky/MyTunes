@@ -25,6 +25,7 @@ public final class SongModel {
     }
     
     public ObservableList<Song> updateLibraryList(){
+        System.out.println("test");
         return getLibraryList();
     }
     
