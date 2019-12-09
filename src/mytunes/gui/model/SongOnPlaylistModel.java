@@ -15,12 +15,12 @@ import mytunes.bll.LogicFacade;
  *
  * @author Bruger
  */
-public final class SongOnPlaylistModle {
+public final class SongOnPlaylistModel {
     
     private ObservableList<SongOnPlaylist> allSongOnPlaylist = FXCollections.observableArrayList();
     LogicFacade logicManager;
     
-    public SongOnPlaylistModle(){
+    public SongOnPlaylistModel(){
         logicManager = new LogicManager();
         fetchAllSongOnPlaylist();
     }

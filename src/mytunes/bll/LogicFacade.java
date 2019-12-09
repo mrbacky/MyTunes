@@ -31,7 +31,7 @@ public interface LogicFacade {
     public List<Playlist> getAllPlaylists();//done
     
     
-    public List<Song> getAllSongs();
+    
     public List<SongOnPlaylist> getSongOnPlaylist();
 
     
