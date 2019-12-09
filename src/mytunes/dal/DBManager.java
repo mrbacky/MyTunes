@@ -1,4 +1,3 @@
-
 package mytunes.dal;
 
 import java.sql.SQLException;
@@ -9,43 +8,81 @@ import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.bll.LogicManager;
 
+/**
+ * This class manages all operations for the database.
+ * @author annem
+ */
 public class DBManager implements DBFacade{
 
-    private PlaylistDAO playlistDAO;
     private SongDAO songDAO;
+    private PlaylistDAO playlistDAO;
+    //private SongOnPlaylistDAO songonplaylistDAO;
+
+    /**
+     * Creates the data access objects.
+     */
     public DBManager() {
-        playlistDAO = new PlaylistDAO();
         songDAO = new SongDAO();
-        
-        }
-    
+        playlistDAO = new PlaylistDAO();
+        //songonplaylistDAO = new SongOnPlaylistDAO();
+    }
+
     @Override
-    public List<Playlist> getAllPlaylists() {
+    public Song createSong(String title, String artist, String time, String path, String genre) {
+        return songDAO.createSong(title, artist, time, path, genre);
+    }
+
+    @Override
+    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
+        return songDAO.updateSong(song, editedTitle, editedArtist, editedGenre);
+    }
+
+    @Override
+    public void deleteSong(Song song) {
         try {
-            return playlistDAO.fetchPlaylistsDB();
+            songDAO.deleteSong(song);
         } catch (SQLException ex) {
-            Logger.getLogger(LogicManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
 
     @Override
     public List<Song> getAllSongs() {
-    try {
-            return songDAO.fetchAllSongs();
-        } catch (SQLException ex) {
-            Logger.getLogger(LogicManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        return songDAO.getAllSongs();
+    }
+    
+    @Override
+    public Playlist createPlaylist(String name) {
+        return playlistDAO.createPlaylist(name);
     }
 
     @Override
-    public void addSong(Song song) {
+    public Playlist updatePlaylist(Playlist playlist, String editedName) {
+        return playlistDAO.updatePlaylist(playlist, editedName);
+    }
+
+    @Override
+    public void deletePlaylist(Playlist playlist) {
         try {
-            songDAO.addSong(song);
+            playlistDAO.deletePlaylist(playlist);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public List<Playlist> getAllPlaylists() {
+        return playlistDAO.getAllPlaylists();
+    }
+
+    @Override
+    public Playlist addSongToPlaylist(Playlist playlist, Song song) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

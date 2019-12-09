@@ -72,7 +72,7 @@ public class AddSongSceneController implements Initializable {
         choiseBox_AddSong_genre.getSelectionModel().getSelectedItem();
         txtField_AddSong_filePath.getText();
 
-        songModel.addSong(txtField_AddSong_title.getText(),
+        songModel.createSong(txtField_AddSong_title.getText(),
                 txtField_AddSong_artist.getText(),
                 txtField_AddSong_time.getText(),
                 choiseBox_AddSong_genre.getSelectionModel().getSelectedItem(),

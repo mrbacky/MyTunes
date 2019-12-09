@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #040404;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.PrimaryController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #040404;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.PrimaryController">
    <children>
       <VBox prefHeight="604.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -183,7 +183,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_deleteSong" alignment="CENTER" contentDisplay="CENTER" layoutX="664.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="650.0">
+                  <Button fx:id="btn_deleteSong" alignment="CENTER" contentDisplay="CENTER" layoutX="664.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deleteSong" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="650.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -201,7 +201,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField layoutX="805.0" layoutY="19.0" prefHeight="25.0" prefWidth="219.0" AnchorPane.topAnchor="40.0" />
+                  <TextField fx:id="txtSongSearch" layoutX="805.0" layoutY="19.0" prefHeight="25.0" prefWidth="219.0" AnchorPane.topAnchor="40.0" />
                   <Button fx:id="btn_editPlaylist11" alignment="CENTER" contentDisplay="CENTER" layoutX="1033.0" layoutY="17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/style.css" AnchorPane.topAnchor="40.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -211,7 +211,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_deleteSong1" alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="500.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="90.0">
+                  <Button fx:id="btn_deletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="500.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deletePlaylist" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="90.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

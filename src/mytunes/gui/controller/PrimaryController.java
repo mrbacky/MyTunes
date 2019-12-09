@@ -18,15 +18,16 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.bll.LogicFacade;
+import mytunes.bll.LogicManager;
 import mytunes.gui.model.PlaylistModel;
 import mytunes.gui.model.SongModel;
 
@@ -79,8 +80,6 @@ public class PrimaryController implements Initializable {
     @FXML
     private TableView<Playlist> tbv_Playlists;
     @FXML
-    private Button btn_deleteSong1;
-    @FXML
     private TableColumn<Playlist, Integer> col_PSongs;
     @FXML
     private TableColumn<Playlist, String> col_PName;
@@ -96,14 +95,27 @@ public class PrimaryController implements Initializable {
     @FXML
     private Label lbl_Library;
     private AddSongSceneController addSongSceneController;
+    @FXML
+    private TextField txtSongSearch;
 
+    private LogicFacade logicfacade = new LogicManager();     
+    @FXML
+    private Button btn_deletePlaylist;
+    private Playlist playlist;
+    
     @Override
-
+    
     public void initialize(URL url, ResourceBundle rb) {
         addSongSceneController = new AddSongSceneController();
         settingTableViews();
+       
+        //Set the filter Predicate when the filter changes. Any changes to the
+        //search textfield activates the filter.
+        txtSongSearch.textProperty().addListener((obs, oldVal, newVal) -> {
+            songModel.filteredSongs(newVal);
+        });       
     }
-
+    
     private void settingTableViews() {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
@@ -192,6 +204,22 @@ public class PrimaryController implements Initializable {
     @FXML
     private void handle_getSong(MouseEvent event) {
         song = tbv_Library.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    private void handle_deleteSong(ActionEvent event) throws IOException {
+        //songModel.deleteSong(song);
+        Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
+        Stage songStage = new Stage();
+        Scene songScene = new Scene(rootSong);
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        songStage.setScene(songScene);
+        songStage.show();
+    }
+
+    @FXML
+    private void handle_deletePlaylist(ActionEvent event) {
+        playlistModel.deletePlaylist(playlist);
     }
 
 }

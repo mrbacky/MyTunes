@@ -24,8 +24,8 @@ public class ConnectDAO {
         ds.setDatabaseName("MyTunesPJDB");
         ds.setUser("CSe19B_12");
         ds.setPassword("CSe19B_12");
-        ds.setPortNumber(1433);
         ds.setServerName("10.176.111.31");
+        ds.setPortNumber(1433);
     }
     
     
