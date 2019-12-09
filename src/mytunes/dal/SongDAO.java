@@ -43,7 +43,7 @@ public class SongDAO {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String artist = rs.getString("artist");
-                int time = rs.getInt("time");
+                String time = rs.getString("time");
                 String songpath = rs.getString("songpath");
                 String genre = rs.getString("genre");
                 songs.add(new Song(id, title, artist, time, songpath, genre));
@@ -74,7 +74,7 @@ public class SongDAO {
             //Song songToAdd = new Song(0, sql, sql, 0, sql, sql)
             pstmt.setString(1, songToAdd.getTitle());
             pstmt.setString(2, songToAdd.getArtist());
-            pstmt.setInt(3, songToAdd.getTime());
+            pstmt.setString(3,    songToAdd.getTime());
             pstmt.setString(4, songToAdd.getGenre());
             pstmt.setString(5, songToAdd.getPath());
             pstmt.execute();

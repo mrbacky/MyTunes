@@ -4,14 +4,14 @@ public class Song {
 
     private String title;
     private String artist;
-    private int time;
+    private String time;
     private String path;
     private String genre;
     private int id;
     
 
     
-    public Song(int id, String title, String artist, int time, String path, String genre) {
+    public Song(int id, String title, String artist, String time, String path, String genre) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -37,11 +37,9 @@ public class Song {
         this.artist = artist;
     }
     
-    public void setTime(int time){
-        this.time = time;
-    }
     
-    public int getTime() {
+    
+    public String getTime() {
         return time;
     }
 

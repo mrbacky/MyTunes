@@ -82,6 +82,11 @@ public class LogicManager implements LogicFacade {
         return timeConverter.sec_To_Format(sec);
     }
 
+    @Override
+    public int format_To_Sec(String formatString) {
+        return timeConverter.format_To_Sec(formatString);
+    }
+
    
     
 

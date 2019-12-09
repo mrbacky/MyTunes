@@ -84,63 +84,50 @@ public class PrimaryController implements Initializable {
     private TableColumn<Playlist, Integer> col_PSongs;
     @FXML
     private TableColumn<Playlist, String> col_PName;
-
+    @FXML
+    private TableView<Song> tbv_Library;
+    @FXML
+    
+    private Label lbl_Library;
     private ObservableList<Song> observableListSong;
     private ObservableList<Playlist> observableListPlaylist;
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private Song song;
-    @FXML
-    private TableView<Song> tbv_Library;
-    @FXML
-    private Label lbl_Library;
-    private AddSongSceneController addSongSceneController;
-
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
-        addSongSceneController = new AddSongSceneController();
         settingTableViews();
     }
 
     private void settingTableViews() {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
-
+        //  Library table view
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         col_songTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-//        col_songTime.setComparator((timeAsString1, timeAsString2) =>
-//        {
-//            
-//        });
-
+        //  Playlist table view
         col_PName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_PSongs.setCellValueFactory(new PropertyValueFactory<>("songs"));
         col_PTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-
+        //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
-
+        
     }
-
-    
     
     public void play() {
         mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
         mediaPlayer.play();
-        
-        
-
     }
 
     @FXML
     private void handle_play(ActionEvent event) {
         play();
-
-    }
+}
 
     @FXML
     private void handle_addPlaylist(ActionEvent event) throws IOException {
@@ -180,7 +167,6 @@ public class PrimaryController implements Initializable {
     }
 
     public void updateLibrary() {
-
         tbv_Library.getItems().clear();
         tbv_Library.setItems(songModel.getLibraryList());
     }
@@ -193,7 +179,6 @@ public class PrimaryController implements Initializable {
         //songStage.initStyle(StageStyle.UNDECORATED);
         songStage.setScene(songScene);
         songStage.show();
-
     }
 
     @FXML
