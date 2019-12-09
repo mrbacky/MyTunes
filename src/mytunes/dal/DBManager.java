@@ -34,7 +34,7 @@ public class DBManager implements DBFacade{
     @Override
     public List<Song> getAllSongs() {
     try {
-            return songDAO.fetchSongsDB();
+            return songDAO.fetchAllSongs();
         } catch (SQLException ex) {
             Logger.getLogger(LogicManager.class.getName()).log(Level.SEVERE, null, ex);
         }

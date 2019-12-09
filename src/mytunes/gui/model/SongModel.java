@@ -12,25 +12,22 @@ import mytunes.bll.LogicFacade;
 
 
 public final class SongModel {
-    private ObservableList<Song> allSongs;
+    private ObservableList<Song> libraryList;
     private LogicFacade logicManager;
 
     public SongModel() {
         logicManager = new LogicManager();
-        fetchAllSongs();
+        getLibraryList();
     }
 
-    public void fetchAllSongs(){
-        logicManager.getAllSongs();
-        allSongs = FXCollections.observableArrayList(logicManager.getAllSongs());
-    }
-   
-    
-    public ObservableList<Song> getSongList(){
-        return allSongs;
+    public ObservableList<Song> getLibraryList(){
+        return libraryList = FXCollections.observableArrayList(logicManager.getAllSongs());
     }
     
-
+    public ObservableList<Song> updateLibraryList(){
+        return getLibraryList();
+    }
+    
     public void addSong(String title, String artist, String time, Object genre, String path) {
         Song song = new Song(0, title, artist, 0,path, "genre"  );
         logicManager.addSong(song);
