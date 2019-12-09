@@ -9,13 +9,14 @@ import mytunes.dal.DBManager;
 import mytunes.dal.SongDAO;
 import mytunes.dal.PlaylistDAO;
 import mytunes.dal.DBFacade;
+import mytunes.bll.util.TimeConverter;
 
 public class LogicManager implements LogicFacade {
     private final DBFacade dbManager;
-
+    private final TimeConverter timeConverter;
     public LogicManager() {
         dbManager = new DBManager();
-
+        timeConverter = new TimeConverter();
         
     }
 
@@ -33,10 +34,7 @@ public class LogicManager implements LogicFacade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void newSong() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public void editSong() {
@@ -84,5 +82,17 @@ public class LogicManager implements LogicFacade {
     public List<SongOnPlaylist> getSongOnPlaylist() {
         return dbManager.getAllSongsOnPlaylist();
     }
+
+    public String sec_To_Format(int sec) {
+        return timeConverter.sec_To_Format(sec);
+    }
+
+    @Override
+    public int format_To_Sec(String formatString) {
+        return timeConverter.format_To_Sec(formatString);
+    }
+
+   
+    
 
 }

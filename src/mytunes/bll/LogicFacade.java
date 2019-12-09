@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package mytunes.bll;
 
@@ -14,13 +9,18 @@ import mytunes.be.SongOnPlaylist;
 
 public interface LogicFacade {
     
+    //  time converter methods
+    public String sec_To_Format(int sec);    // format:   hh:mm:ss
+    public int format_To_Sec(String formatString);
+    
     //  Songs on Playlist methods
     public void addSongToPlaylist();
     public void removeSongFromPlaylist();
     
     
     //  Library
-    public void newSong();
+    public void addSong(Song song);//done
+    public List<Song> getAllSongs();//done
     public void editSong();
     public void removeSongFromLib();
     
@@ -28,12 +28,13 @@ public interface LogicFacade {
     public void newPlaylist();
     public void editPlaylist();
     public void removePlaylist();
-    public List<Playlist> getAllPlaylists();
+    public List<Playlist> getAllPlaylists();//done
+    
     
     public List<Song> getAllSongs();
     public List<SongOnPlaylist> getSongOnPlaylist();
 
-    public void addSong(Song song);
+    
     
     
     

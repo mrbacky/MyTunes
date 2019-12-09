@@ -2,7 +2,10 @@ package mytunes.gui.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,17 +21,20 @@ import java.util.concurrent.TimeUnit;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import mytunes.be.Genre;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import mytunes.gui.controller.PrimaryController;
+import java.util.concurrent.TimeUnit;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class AddSongSceneController implements Initializable {
 
     @FXML
     private Button btn_chooseFile;
-
     @FXML
     private TextField txtField_AddSong_filePath;
-
     @FXML
     private Button btn_AddSong_cancelSong;
     @FXML
@@ -38,28 +44,64 @@ public class AddSongSceneController implements Initializable {
     @FXML
     private TextField txtField_AddSong_artist;
     @FXML
-    private ChoiceBox<Genre> choiseBox_AddSong_genre;
+    private ChoiceBox<String> choiseBox_AddSong_genre;
     @FXML
     private TextField txtField_AddSong_time;
-    private SongModel songModel;
 
+    
+    private SongModel songModel;
+    private PrimaryController pCon;
+    private ObservableList<String> observableListGenre = FXCollections.observableArrayList("Rock","Pop");
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         songModel = new SongModel();
-        //choiseBox_AddSong_genre.getItems().add("Rock");
+        loadGenres();
+    }
+
+    private void loadGenres() {
+        //observableListGenre.removeAll(observableListGenre);
+        
+        String a = "Rock";
+        String b = "Pop";
+        String c = "Hip-Hop";
+        String d = "Metal";
+        String e = "Dance";
+        //observableListGenre.addAll(a, b, c, d, e);
+        //choiseBox_AddSong_genre.getItems().addAll(observableListGenre);
+        choiseBox_AddSong_genre.setItems(observableListGenre);
+
     }
 
     @FXML
-    private void handle_OpenFileChooser(ActionEvent event) {
+    private void handle_OpenFileChooser(ActionEvent event) throws MalformedURLException {
+        //txtField_AddSong_filePath.setText("");
+        //txtField_AddSong_time.setText("");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("mp3 Files", "*.mp3"),
                 new FileChooser.ExtensionFilter("wav Files", "*.wav")
         );
 
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            txtField_AddSong_filePath.setText(selectedFile.getAbsolutePath());
+        File songFile = fileChooser.showOpenDialog(null);
+        if (songFile != null) {
+            String songPATH = songFile.getAbsolutePath();
+            txtField_AddSong_filePath.setText(songPATH);
+            Media media = new Media(songFile.toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setOnReady(new Runnable() {
+
+                @Override
+                public void run() {
+                    int time, hours, mins, secs;
+                    Duration timeDuration = media.getDuration();
+                    time = (int) (timeDuration.toSeconds());// it will cut .898956
+                    //String stringTime = String.format("%02d:%02d:%02d", hours, mins, secs);
+
+                    txtField_AddSong_time.setText(songModel.sec_To_Format(time));
+                }
+
+            });
+
         }
     }
 
@@ -72,7 +114,8 @@ public class AddSongSceneController implements Initializable {
         choiseBox_AddSong_genre.getSelectionModel().getSelectedItem();
         txtField_AddSong_filePath.getText();
 
-        songModel.addSong(txtField_AddSong_title.getText(),
+        songModel.addSong(
+                txtField_AddSong_title.getText(),
                 txtField_AddSong_artist.getText(),
                 txtField_AddSong_time.getText(),
                 choiseBox_AddSong_genre.getSelectionModel().getSelectedItem(),
@@ -95,10 +138,8 @@ public class AddSongSceneController implements Initializable {
         stage.close();
 
     }
-    
-    private PrimaryController pCon;
 
-    void setContr(PrimaryController pCon) {
+    public void setContr(PrimaryController pCon) {
         this.pCon = pCon;
     }
 }
