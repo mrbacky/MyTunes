@@ -13,11 +13,11 @@ package mytunes.be;
 public class Playlist {
     private int id;
     private String name;
-    private int time;
+    private String time;
     private int songs;
     
     
-    public Playlist(int id, String name, int time, int songs) {
+    public Playlist(int id, String name, String time, int songs) {
         this.id = id;
         this.name = name;
         this.time = time;
@@ -34,12 +34,12 @@ public class Playlist {
         return name;
     }
     
-    public void setTime(int time)
+    public void setTime(String time)
     {
         this.time = time;
     }
     
-    public int getTime() 
+    public String getTime() 
     {
         return time;
     }
