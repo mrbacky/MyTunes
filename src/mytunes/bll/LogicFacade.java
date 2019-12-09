@@ -9,6 +9,7 @@ package mytunes.bll;
 import java.util.List;
 import mytunes.be.Song;
 import mytunes.be.Playlist;
+import mytunes.be.SongOnPlaylist;
 
 
 public interface LogicFacade {
@@ -30,6 +31,7 @@ public interface LogicFacade {
     public List<Playlist> getAllPlaylists();
     
     public List<Song> getAllSongs();
+    public List<SongOnPlaylist> getSongOnPlaylist();
 
     public void addSong(Song song);
     

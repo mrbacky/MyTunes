@@ -20,10 +20,10 @@ import mytunes.be.SongOnPlaylist;
  *
  * @author Bruger
  */
-public class SongOnPlaylistDAO {
+public class SongsOnPlaylistDAO {
    
-    /*ConnectDAO connectDAO ;
-    public SongOnPlaylistDAO( ){
+    ConnectDAO connectDAO ;
+    public SongsOnPlaylistDAO( ){
         connectDAO = new ConnectDAO();
     }
     
@@ -46,10 +46,10 @@ public class SongOnPlaylistDAO {
             }
             
         } catch (SQLServerException ex) {
-            Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongsOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongsOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     return SongsOnPlaylists;
-    }*/
+    }
 }

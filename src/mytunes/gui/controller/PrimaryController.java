@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
@@ -27,8 +28,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.be.SongOnPlaylist;
 import mytunes.gui.model.PlaylistModel;
 import mytunes.gui.model.SongModel;
+import mytunes.gui.model.SongOnPlaylistModle;
 
 public class PrimaryController implements Initializable {
 
@@ -88,19 +91,24 @@ public class PrimaryController implements Initializable {
 
     private ObservableList<Song> observableListSong;
     private ObservableList<Playlist> observableListPlaylist;
+    private ObservableList<SongOnPlaylist>ObservableListSongOnPlaylist;
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private Song song;
+    private SongOnPlaylistModle SongOnPlaylistModle;
     @FXML
     private TableView<Song> tbv_Library;
     @FXML
     private Label lbl_Library;
+    @FXML
+    private ListView<SongOnPlaylist> LV_SongsOnPlaylist;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
+        SongOnPlaylistModle = new SongOnPlaylistModle();
 
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
@@ -113,7 +121,7 @@ public class PrimaryController implements Initializable {
         
         tbv_Library.setItems(songModel.getSongList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
-
+        LV_SongsOnPlaylist.setItems(SongOnPlaylistModle.getSongOnPlaylist());
     }
     
     

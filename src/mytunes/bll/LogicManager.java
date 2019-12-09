@@ -4,6 +4,7 @@ package mytunes.bll;
 import java.util.List;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.be.SongOnPlaylist;
 import mytunes.dal.DBManager;
 import mytunes.dal.SongDAO;
 import mytunes.dal.PlaylistDAO;
@@ -76,6 +77,11 @@ public class LogicManager implements LogicFacade {
     @Override
     public void addSong(Song song) {
         dbManager.addSong(song);
+    }
+
+    @Override
+    public List<SongOnPlaylist> getSongOnPlaylist() {
+        return dbManager.getAllSongsOnPlaylist();
     }
 
 }

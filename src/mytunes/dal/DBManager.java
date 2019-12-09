@@ -7,16 +7,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import mytunes.be.SongOnPlaylist;
 import mytunes.bll.LogicManager;
 
 public class DBManager implements DBFacade{
 
     private PlaylistDAO playlistDAO;
     private SongDAO songDAO;
+    private SongsOnPlaylistDAO SongOnPlaylistDAO;
     public DBManager() {
         playlistDAO = new PlaylistDAO();
         songDAO = new SongDAO();
-        
+        SongOnPlaylistDAO = new SongsOnPlaylistDAO();
         }
     
     @Override
@@ -38,6 +40,11 @@ public class DBManager implements DBFacade{
         }
         return null;
     }
+    
+    @Override
+    public List<SongOnPlaylist> getAllSongsOnPlaylist() {
+        return SongOnPlaylistDAO.songOnPlaylist();
+    }
 
     @Override
     public void addSong(Song song) {
@@ -47,6 +54,8 @@ public class DBManager implements DBFacade{
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
 
 }
 
