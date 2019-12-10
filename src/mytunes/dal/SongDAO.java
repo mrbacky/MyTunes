@@ -35,28 +35,17 @@ public class SongDAO {
         List<Song> allSongs = new ArrayList<>();
 
         try (Connection con = connectDAO.getConnection()) {
-<<<<<<< Updated upstream
             String sql = "SELECT * FROM song";
-=======
-            String sql = "select * from song";
->>>>>>> Stashed changes
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String artist = rs.getString("artist");
-<<<<<<< Updated upstream
                 int time = rs.getInt("time");
                 String songpath = rs.getString("songpath");
                 String genre = rs.getString("genre");
                 allSongs.add(new Song(id, title, artist, time, songpath, genre));
-=======
-                String time = rs.getString("time");
-                String songPath = rs.getString("songPath");
-                String genre = rs.getString("genre");
-                songs.add(new Song(id, title, artist, time, songPath, genre));
->>>>>>> Stashed changes
             }
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);

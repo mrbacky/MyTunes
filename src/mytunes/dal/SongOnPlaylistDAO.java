@@ -30,27 +30,20 @@ public class SongOnPlaylistDAO {
        public List<SongOnPlaylist> fetchAllSongsOnPlaylist(){
         List<SongOnPlaylist> songsOnPlaylists = new ArrayList<>();
         try (Connection con = connectDAO.getConnection()) {
-<<<<<<< Updated upstream:src/mytunes/dal/SongOnPlaylistDAO.java
             String sql = "select songonplaylist.songid, song.id, song.title, song.artist, song.genre, song.time, song.songpath\n" +
-=======
-            String sql = "select songOnplaylist.songid, song.id, song.title, song.artist, song.genre, song.time, song.songpath\n" +
->>>>>>> Stashed changes:src/mytunes/dal/SongOnPlaylistDAO.java
+
             "from songonplaylist left join song on songonplaylist.songid = song.id\n" +
             "where songonplaylist.playlistid = 1";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int songID = rs.getInt("songid");
+                int songid = rs.getInt("songid");
                 String title = rs.getString("title");
-                String songPath = rs.getString("songpath");
-                int playlistID = rs.getInt("playlistid");
+                String songpath = rs.getString("songpath");
+                int playlistid = rs.getInt("playlistid");
                 int order = rs.getInt("order");
-<<<<<<< Updated upstream:src/mytunes/dal/SongOnPlaylistDAO.java
                 songsOnPlaylists.add(new SongOnPlaylist(order, playlistid, songid, title, songpath));
-=======
-                SongsOnPlaylists.add(new SongOnPlaylist(order, playlistID, songID, title, songPath));
->>>>>>> Stashed changes:src/mytunes/dal/SongOnPlaylistDAO.java
-                
+
             }
             
         } catch (SQLServerException ex) {
