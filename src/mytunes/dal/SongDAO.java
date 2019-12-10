@@ -70,14 +70,14 @@ public class SongDAO {
             Connection con = connectDAO.getConnection()) {
             //Create a prepared statement.
             String sql = "INSERT INTO song(title, artist, time, genre, songpath) VALUES (?,?,?,?,?)";
-            PreparedStatement pstmt = con.prepareStatement(sql);
+            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             pstmt.setString(1,  songToAdd.getTitle());
             pstmt.setString(2,  songToAdd.getArtist());
             pstmt.setInt(3,     songToAdd.getTime());
             pstmt.setString(4,  songToAdd.getGenre());
             pstmt.setString(5,  songToAdd.getPath());
-            pstmt.execute();
+            pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
