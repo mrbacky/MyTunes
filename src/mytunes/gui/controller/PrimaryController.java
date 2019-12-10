@@ -213,7 +213,19 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_deleteSong(ActionEvent event) {
+    private void handle_deleteSong(ActionEvent event) throws IOException {
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
+        fxmlLoader.<DeleteSongSceneController>getController().setContr(this);
+        
+        Stage songStage = new Stage();
+        Scene songScene = new Scene(root1);
+
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        songStage.setScene(songScene);
+        songStage.show();
     }
 
     @FXML
