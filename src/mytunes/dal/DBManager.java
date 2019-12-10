@@ -49,7 +49,11 @@ public class DBManager implements DBFacade {
 
     @Override
     public void deleteSong(Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            songDAO.deleteSong(song);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     //__________________________________________________________________________                       
