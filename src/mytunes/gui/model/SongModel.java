@@ -18,18 +18,15 @@ import mytunes.gui.controller.AddSongSceneController;
 public final class SongModel {
 
     private ObservableList<Song> libraryList;
-    private LogicFacade logicLayer;
+    private LogicFacade logicManager;
 
     /**
      * Establish a connection to the BLL.
      */
     public SongModel() {
         //Instantiate the BLL Manager.
-        logicLayer = new LogicManager();
-        
-        //
-        //getLibraryList();
-        libraryList = FXCollections.observableArrayList(logicLayer.getAllSongs());
+        logicManager = new LogicManager();
+        libraryList = FXCollections.observableArrayList(logicManager.getAllSongs());
     }
 
     /**
@@ -40,9 +37,7 @@ public final class SongModel {
         return libraryList;
     }
     
-    private void updateLibraryList(Song song){
-        libraryList.set(libraryList.indexOf(song), song);
-    }
+   
     
     /**
      * Creates and adds a new song. The method calls the BLL to create a song in
@@ -55,9 +50,9 @@ public final class SongModel {
      * @param path The path of the song.
      * @param genre The genre of the song.
      */
-    public void createSong(String title, String artist, String time, String path, String genre) {
-        Song song = logicLayer.createSong(title, artist, time, path, genre);
-        libraryList.add(song);
+    public void createSong(String title, String artist, int time, String genre, String path) {
+        Song song = new Song(0,title, artist, time ,path, genre);
+        logicManager.createSong(song);
     }
 
     /**
@@ -69,8 +64,8 @@ public final class SongModel {
      * @param editedGenre
      */
     public void updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        Song updatedSong = logicLayer.updateSong(song, editedTitle, editedArtist, editedGenre);
-        updateLibraryList(updatedSong);
+        Song updatedSong = logicManager.updateSong(song, editedTitle, editedArtist, editedGenre);
+        //updateLibraryList(updatedSong);
     }
 
     /**
@@ -81,13 +76,13 @@ public final class SongModel {
      * @param songToDelete The song to be deleted.
      */
     public void deleteSong(Song songToDelete) {
-        logicLayer.deleteSong(songToDelete);
+        logicManager.deleteSong(songToDelete);
         libraryList.remove(songToDelete);
     }
 
     public void filteredSongs(String query) {
         //Create a temporary list which contains the songs obtained from the search method.
-        List<Song> temp = logicLayer.search(logicLayer.getAllSongs(), query);
+        List<Song> temp = logicManager.search(logicManager.getAllSongs(), query);
         //Clear all songs from the library and the songs from the temporary list to the library list.
         libraryList.clear();
         libraryList.addAll(temp);
@@ -97,10 +92,7 @@ public final class SongModel {
         return getLibraryList();
     }
     
-    public void addSong(String title, String artist, String time, String genre, String path) {
-        Song song = new Song(0, title, artist, time ,path, genre);
-        logicManager.addSong(song);
-    }
+    
     
     public int format_To_Sec(String timeString){
         return logicManager.format_To_Sec(timeString);

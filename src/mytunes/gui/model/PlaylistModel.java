@@ -66,7 +66,7 @@ public final class PlaylistModel {
      * @param playlist The playlist to be deleted.
      */
     public void deletePlaylist(Playlist playlist){
-        logicManager.deletePlaylist(playlist);
-        allPlaylists.remove(playlist);
+        //logicManager.deletePlaylist(playlist);
+        
     }
 }

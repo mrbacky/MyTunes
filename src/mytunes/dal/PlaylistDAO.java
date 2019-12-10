@@ -32,16 +32,16 @@ public class PlaylistDAO {
         connectDAO = new ConnectDAO();
     }
     
-    public Playlist createPlaylist(String name){
+    public Playlist createPlaylist(Playlist playlistToAdd){
         try (Connection con = connectDAO.getConnection()) {
             String sql = "INSERT INTO playlist(title) VALUES (?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, name);
+            pstmt.setString(1, playlistToAdd.getName());
             pstmt.executeUpdate();
-            ResultSet rs = pstmt.getGeneratedKeys();
-            rs.next();
-            int id = rs.getInt(1);
-            return new Playlist(id, name);
+//            ResultSet rs = pstmt.getGeneratedKeys();
+//            rs.next();
+//            int id = rs.getInt(1);
+            return playlistToAdd;
             
         } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,28 +85,26 @@ public class PlaylistDAO {
      * Gets a list of all the playlists from the database.
      * @return List with all the playlists.
      */
-    public List<Playlist> getAllPlaylists() {
+    public List<Playlist> fetchAllPlaylists() {
+        List<Playlist> allPlaylists = new ArrayList<>();
+        
         try ( Connection con = connectDAO.getConnection()) {
             String sql = "SELECT * FROM playlist";
             Statement stmt = con.createStatement();
-            List<Playlist> allPlaylists = new ArrayList<>();
             ResultSet rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                String time    = rs.getString("time");
                 int songs   = rs.getInt("nrOfSongs");
-                playlists.add(new Playlist(id, name, time, songs));
+                String time    = rs.getString("time");
+                allPlaylists.add(new Playlist(id, name, songs, time));
             }
-            return allPlaylists;
-
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return allPlaylists;
     }
     
     public void deletePlaylist(Playlist playlist) throws SQLException {

@@ -20,17 +20,17 @@ import mytunes.be.SongOnPlaylist;
  *
  * @author Bruger
  */
-public class SongsOnPlaylistDAO {
+public class SongOnPlaylistDAO {
    
     ConnectDAO connectDAO ;
-    public SongsOnPlaylistDAO( ){
+    public SongOnPlaylistDAO( ){
         connectDAO = new ConnectDAO();
     }
     
-       public List<SongOnPlaylist> songOnPlaylist(){
-        List<SongOnPlaylist> SongsOnPlaylists = new ArrayList<>();
+       public List<SongOnPlaylist> fetchAllSongsOnPlaylist(){
+        List<SongOnPlaylist> songsOnPlaylists = new ArrayList<>();
         try (Connection con = connectDAO.getConnection()) {
-            String sql = "select songonplaylist.songid, song.id, song.title, song.artist, song.genre, song.lengthInMS, song.songpath\n" +
+            String sql = "select songonplaylist.songid, song.id, song.title, song.artist, song.genre, song.time, song.songpath\n" +
             "from songonplaylist left join song on songonplaylist.songid = song.id\n" +
             "where songonplaylist.playlistid = 1";
             Statement stmt = con.createStatement();
@@ -41,15 +41,15 @@ public class SongsOnPlaylistDAO {
                 String songpath = rs.getString("songpath");
                 int playlistid = rs.getInt("playlistid");
                 int order = rs.getInt("order");
-                SongsOnPlaylists.add(new SongOnPlaylist(order, playlistid, songid, title, songpath));
+                songsOnPlaylists.add(new SongOnPlaylist(order, playlistid, songid, title, songpath));
                 
             }
             
         } catch (SQLServerException ex) {
-            Logger.getLogger(SongsOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(SongsOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return SongsOnPlaylists;
+    return songsOnPlaylists;
     }
 }

@@ -12,7 +12,7 @@ public class Song {
     private final int id;
     private String title;
     private String artist;
-    private String time;
+    private int time;
     private String path;
     private String genre;
 
@@ -26,7 +26,7 @@ public class Song {
      * @param path Path of the song.
      * @param genre Genre of the song.
      */
-    public Song(int id, String title, String artist, String time, String path, String genre) {
+    public Song(int id, String title, String artist, int time, String path, String genre) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -82,23 +82,8 @@ public class Song {
     
     
     
-    public String getTime() {
-        return time;
-
-    /**
-     * Gets the time (duration) of the song.
-     *
-     * @return The time of the song.
-     */
-    public String getTime() {
-        return time;
-    }
-    
-    //Should the user be able to set the time? Does not make sense to me?
-    public void setTime(String time) {
-        this.time = time;
-    }
-
+   
+   
     /**
      * Gets the path of the song.
      *
@@ -128,9 +113,10 @@ public class Song {
         this.genre = genre;
     }
 
-    @Override
-    public String toString() {
-        return title;
+    public int getTime() {
+        return time;
     }
+
+    
 
 }

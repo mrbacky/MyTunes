@@ -74,8 +74,6 @@ public class AddSongSceneController implements Initializable {
 
     @FXML
     private void handle_OpenFileChooser(ActionEvent event) throws MalformedURLException {
-        //txtField_AddSong_filePath.setText("");
-        //txtField_AddSong_time.setText("");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("mp3 Files", "*.mp3"),
@@ -95,41 +93,35 @@ public class AddSongSceneController implements Initializable {
                     int time, hours, mins, secs;
                     Duration timeDuration = media.getDuration();
                     time = (int) (timeDuration.toSeconds());// it will cut .898956
-                    //String stringTime = String.format("%02d:%02d:%02d", hours, mins, secs);
-
                     txtField_AddSong_time.setText(songModel.sec_To_Format(time));
                 }
-
             });
-
         }
     }
 
     @FXML
     private void handle_AddSongToDB(ActionEvent event) throws InterruptedException, IOException {
-
         txtField_AddSong_title.getText();
         txtField_AddSong_artist.getText();
-        txtField_AddSong_time.getText();
+        
         choiseBox_AddSong_genre.getSelectionModel().getSelectedItem();
         txtField_AddSong_filePath.getText();
 
-        songModel.addSong(
+        songModel.createSong(
                 txtField_AddSong_title.getText(),
                 txtField_AddSong_artist.getText(),
-                txtField_AddSong_time.getText(),
+                songModel.format_To_Sec(txtField_AddSong_time.getText()),
                 choiseBox_AddSong_genre.getSelectionModel().getSelectedItem(),
                 txtField_AddSong_filePath.getText()
         );
-        updateLibrary();
-
+        refreshLibrary();
         Stage stage;
         stage = (Stage) btn_AddSong_saveSong.getScene().getWindow();
         stage.close();
     }
 
-    public void updateLibrary() {
-        pCon.updateLibrary();
+    public void refreshLibrary() {
+        pCon.refreshLibrary();
     }
 
     @FXML

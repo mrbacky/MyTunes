@@ -1,4 +1,3 @@
-
 package mytunes.gui.controller;
 
 import java.io.File;
@@ -29,6 +28,8 @@ import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.be.SongOnPlaylist;
+import mytunes.bll.LogicFacade;
+import mytunes.bll.LogicManager;
 import mytunes.gui.model.PlaylistModel;
 import mytunes.gui.model.SongModel;
 import mytunes.gui.model.SongOnPlaylistModel;
@@ -91,40 +92,36 @@ public class PrimaryController implements Initializable {
     private ListView<SongOnPlaylist> lv_SongsOnPlaylist;
     @FXML
     private Label lbl_Library;
-    
+    @FXML
+    private TextField txtSongSearch;
+    @FXML
+    private Button btn_deletePlaylist;
+
     private ObservableList<Song> observableListSong;
     private ObservableList<Playlist> observableListPlaylist;
     private ObservableList<SongOnPlaylist> ObservableListSongOnPlaylist;
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
-    private Song song;
-    @FXML
-    private TableView<Song> tbv_Library;
-    @FXML
-    private Label lbl_Library;
-    private AddSongSceneController addSongSceneController;
-    @FXML
-    private TextField txtSongSearch;
     private SongOnPlaylistModel SongOnPlaylistModel;
-
-    private LogicFacade logicfacade = new LogicManager();     
-    @FXML
-    private Button btn_deletePlaylist;
+    private Song song;
     private Playlist playlist;
+    private AddSongSceneController addSongSceneController;
     
+    
+
     @Override
-    
+
     public void initialize(URL url, ResourceBundle rb) {
         settingTableViews();
-       
+
         //Set the filter Predicate when the filter changes. Any changes to the
         //search textfield activates the filter.
         txtSongSearch.textProperty().addListener((obs, oldVal, newVal) -> {
             songModel.filteredSongs(newVal);
-        });       
+        });
     }
-    
+
     private void settingTableViews() {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
@@ -141,7 +138,7 @@ public class PrimaryController implements Initializable {
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
-        lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
+        //lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
 
     }
 
@@ -192,7 +189,7 @@ public class PrimaryController implements Initializable {
 
     }
 
-    public void updateLibrary() {
+    public void refreshLibrary() {
         tbv_Library.getItems().clear();
         tbv_Library.setItems(songModel.getLibraryList());
     }

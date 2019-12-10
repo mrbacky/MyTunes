@@ -32,29 +32,27 @@ public class SongDAO {
      * @throws java.sql.SQLException
      */
     public List<Song> fetchAllSongs() throws SQLException {
-        List<Song> songs = new ArrayList<>();
+        List<Song> allSongs = new ArrayList<>();
 
         try (Connection con = connectDAO.getConnection()) {
             String sql = "SELECT * FROM song";
             Statement stmt = con.createStatement();
-            List<Song> allSongs = new ArrayList<>();
             ResultSet rs = stmt.executeQuery(sql);
-            
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String artist = rs.getString("artist");
-                String time = rs.getString("time");
+                int time = rs.getInt("time");
                 String songpath = rs.getString("songpath");
                 String genre = rs.getString("genre");
-                songs.add(new Song(id, title, artist, time, songpath, genre));
+                allSongs.add(new Song(id, title, artist, time, songpath, genre));
             }
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return allSongs;
     }
 
     /**
@@ -67,30 +65,29 @@ public class SongDAO {
      * @param genre The genre of the song.
      * @return The newly created song.
      */
-    public Song createSong(String title, String artist, String time, String path, String genre) {
+    public Song createSong(Song songToAdd) {
         try (//Get a connection to the database.
             Connection con = connectDAO.getConnection()) {
             //Create a prepared statement.
             String sql = "INSERT INTO song(title, artist, time, genre, songpath) VALUES (?,?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            /**
-             * we need to make the filds done by the gui
-             */
-            //Song songToAdd = new Song(0, sql, sql, 0, sql, sql)
-            pstmt.setString(1, songToAdd.getTitle());
-            pstmt.setString(2, songToAdd.getArtist());
-            pstmt.setString(3,    songToAdd.getTime());
-            pstmt.setString(4, songToAdd.getGenre());
-            pstmt.setString(5, songToAdd.getPath());
+            
+            pstmt.setString(1,  songToAdd.getTitle());
+            pstmt.setString(2,  songToAdd.getArtist());
+            pstmt.setInt(3,     songToAdd.getTime());
+            pstmt.setString(4,  songToAdd.getGenre());
+            pstmt.setString(5,  songToAdd.getPath());
             pstmt.execute();
-
+            ResultSet rs = pstmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+       
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return null;
+        return songToAdd;
     }
     
     /**
