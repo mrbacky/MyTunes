@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="450.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.DeletePlaylistSceneController">
+<AnchorPane id="AnchorPane" prefHeight="216.0" prefWidth="450.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.view.DeletePlaylistSceneController">
    <children>
-      <Label alignment="CENTER" layoutY="86.0" prefHeight="20.0" prefWidth="450.0" text="Delete playlist for all eternity?" textFill="WHITE">
+      <Label layoutX="57.0" layoutY="57.0" text="Are you sure you want to delete the playlist? " textFill="WHITE">
          <font>
-            <Font name="Arial Bold" size="18.0" />
+            <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btn_ConfirmDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="71.0">
+      <Button fx:id="btn_ConfirmDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="100.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -23,7 +23,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btn_CancelDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="38.0">
+      <Button fx:id="btn_CancelDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="356.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="70.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>

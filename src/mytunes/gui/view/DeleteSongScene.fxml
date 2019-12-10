@@ -7,33 +7,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.DeleteSongSceneController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="mytunes.gui.view.DeleteSongSceneController">
    <children>
-      <Label alignment="CENTER" layoutY="103.0" prefHeight="21.0" prefWidth="450.0" text="Delete song for all eternity?" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Arial Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbl_SongTitleToDelete" alignment="CENTER" layoutX="10.0" layoutY="146.0" prefHeight="20.0" prefWidth="430.0" text="&quot;song title&quot;" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="108.0" layoutY="53.0" text="Are you sure to delete this song?" textFill="WHITE">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btn_ConfirmDeleteSong" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deleteSong" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
+      <Label fx:id="lbl_SongTitleToDelete" layoutX="187.0" layoutY="94.0" text="&quot;song title&quot;" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_ConfirmDeleteSong" alignment="CENTER" contentDisplay="CENTER" layoutX="296.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/icons8-ok-30.png" />
                </image>
             </ImageView>
-         </graphic></Button>
-      <Button fx:id="btn_DeleteSong_cancelSong" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_CloseScene" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
+         </graphic>
+      </Button>
+      <Button fx:id="btn_CancelDeleteSong" alignment="CENTER" contentDisplay="CENTER" layoutX="322.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/icons8-cancel-30.png" />
                </image>
             </ImageView>
-         </graphic></Button>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

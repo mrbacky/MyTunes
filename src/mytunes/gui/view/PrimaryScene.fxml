@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #040404;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.PrimaryController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #040404;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.PrimaryController">
    <children>
       <VBox prefHeight="604.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,7 +29,7 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="lv_SongsOnPlaylist" layoutX="310.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" styleClass="greyBG" AnchorPane.bottomAnchor="95.0" AnchorPane.topAnchor="80.0" />
+                  <ListView fx:id="songsInPlaylist" layoutX="310.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" styleClass="greyBG" AnchorPane.bottomAnchor="95.0" AnchorPane.topAnchor="80.0" />
                   <Button fx:id="btn_newPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="31.0" layoutY="503.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="30.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -68,7 +68,7 @@
                               <Point3D />
                            </rotationAxis>
                         </Button>
-                        <Button fx:id="btn_previous" contentDisplay="CENTER" layoutX="490.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
+                        <Button fx:id="btn_previous" contentDisplay="CENTER" layoutX="490.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#handle_Previous" prefHeight="20.0" prefWidth="20.0">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -86,25 +86,25 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Slider fx:id="slider" layoutX="970.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="100.0" styleClass="button" />
+                        <Slider fx:id="slider" layoutX="970.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setSlider" prefHeight="10.0" prefWidth="100.0" styleClass="button" value="100.0" />
                         <ImageView cache="true" depthTest="DISABLE" fitHeight="20.0" fitWidth="20.0" layoutX="950.0" layoutY="24.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="button">
                            <image>
                               <Image url="@../assets/icons8-low-volume-50.png" />
                            </image>
                         </ImageView>
                         <ProgressBar fx:id="progressBar" layoutX="250.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3.0" prefWidth="600.0" progress="0.0" />
-                        <Button fx:id="btn_next1" layoutX="633.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
+                        <Button fx:id="btn_loop" layoutX="633.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#btn_loopAction" prefHeight="20.0" prefWidth="20.0">
                            <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#btn_loopAction" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../assets/icons8-repeat-50.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btn_next11" layoutX="446.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
+                        <Button fx:id="btn_next11" layoutX="446.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#btn_shuffleAction" prefHeight="20.0" prefWidth="20.0">
                            <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_shuffle" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../assets/icons8-shuffle-50.png" />
                                  </image>
@@ -113,19 +113,19 @@
                         </Button>
                      </children>
                   </Pane>
-                  <TableView fx:id="tbv_Playlists" layoutX="30.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="95.0" AnchorPane.topAnchor="80.0">
+                  <TableView fx:id="tbv_Playlists" layoutX="30.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selectPlaylist" prefHeight="400.0" prefWidth="250.0" styleClass="greyBG" AnchorPane.bottomAnchor="95.0" AnchorPane.topAnchor="80.0">
                     <columns>
-                      <TableColumn fx:id="col_PName" prefWidth="135.0" text="Name" />
-                      <TableColumn fx:id="col_PSongs" minWidth="9.0" prefWidth="43.0" text="Songs" />
-                        <TableColumn fx:id="col_PTime" prefWidth="71.0" text="Time" />
+                      <TableColumn fx:id="col_PName" prefWidth="141.0" text="Name" />
+                      <TableColumn fx:id="col_PSongs" minWidth="9.0" prefWidth="53.0" text="Songs" />
+                        <TableColumn fx:id="col_PTime" prefWidth="54.0" text="Time" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="tbv_Library" layoutX="590.0" layoutY="75.0" onMouseClicked="#handle_getSong" prefHeight="400.0" prefWidth="480.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="95.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="80.0">
+                  <TableView fx:id="tbv_Library" layoutX="590.0" layoutY="75.0" onMouseClicked="#handle_getSong" prefHeight="400.0" prefWidth="480.0" styleClass="greyBG" AnchorPane.bottomAnchor="95.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="80.0">
                     <columns>
-                      <TableColumn fx:id="col_title" prefWidth="168.0" text="Title" />
-                      <TableColumn fx:id="col_artist" prefWidth="167.0" text="Artist" />
-                        <TableColumn fx:id="col_genre" prefWidth="89.0" text="Genre" />
-                        <TableColumn fx:id="col_songTime" minWidth="4.0" prefWidth="55.0" text="Time" />
+                      <TableColumn fx:id="col_title" prefWidth="167.0" text="Title" />
+                      <TableColumn fx:id="col_artist" prefWidth="166.0" text="Artist" />
+                        <TableColumn fx:id="col_genre" prefWidth="100.0" text="Genre" />
+                        <TableColumn fx:id="col_songTime" minWidth="4.0" prefWidth="46.0" text="Time" />
                     </columns>
                   </TableView>
                   <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="30.0" layoutY="41.0" prefHeight="28.0" prefWidth="250.0" styleClass="lblFlow" stylesheets="@../css/style.css" text="Playlists" textAlignment="CENTER" AnchorPane.topAnchor="41.0">
@@ -183,7 +183,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_deleteSong" alignment="CENTER" contentDisplay="CENTER" layoutX="664.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deleteSong" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="650.0">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="664.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="650.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -201,7 +201,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="txtSongSearch" layoutX="805.0" layoutY="19.0" prefHeight="25.0" prefWidth="219.0" AnchorPane.topAnchor="40.0" />
+                  <TextField layoutX="805.0" layoutY="19.0" prefHeight="25.0" prefWidth="219.0" AnchorPane.topAnchor="40.0" />
                   <Button fx:id="btn_editPlaylist11" alignment="CENTER" contentDisplay="CENTER" layoutX="1033.0" layoutY="17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/style.css" AnchorPane.topAnchor="40.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -211,7 +211,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_deletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="500.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deletePlaylist" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="90.0">
+                  <Button fx:id="btn_deleteSong1" alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="500.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="90.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
