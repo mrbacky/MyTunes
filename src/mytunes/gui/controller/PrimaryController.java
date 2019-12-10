@@ -1,5 +1,3 @@
-
-
 package mytunes.gui.controller;
 
 import java.io.File;
@@ -89,7 +87,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private TableColumn<Playlist, String> col_PName;
     @FXML
-    private TableView<Song> tbv_Library;
+     TableView<Song> tbv_Library;
     @FXML
     private ListView<SongOnPlaylist> lv_SongsOnPlaylist;
     @FXML
@@ -214,6 +212,11 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void handle_deleteSong(ActionEvent event) throws IOException {
+       //move code to controller
+        /*Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
+        songModel.deleteSong(selectedSong);
+        tbv_Library.getSelectionModel().clearSelection();
+        */       
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
