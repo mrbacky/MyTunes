@@ -10,6 +10,8 @@ import javafx.util.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -188,7 +190,11 @@ public class PrimaryController implements Initializable {
 
                 }
                 mediaPlayer = null;
-                play();
+                try {
+                    play();
+                } catch (IOException ex) {
+                    Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             });
                       
@@ -335,5 +341,25 @@ public class PrimaryController implements Initializable {
     private void handle_deletePlaylist(ActionEvent event) {
     }
 
+    @FXML
+    private void MoveSongDown(ActionEvent event) {
+        
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        // swap items
+        lv_SongsOnPlaylist.getItems().add(index+1, lv_SongsOnPlaylist.getItems().remove(index));
+        // select item at new position
+        lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index+1);
+    }
+
+    @FXML
+    private void MoveSongUp(ActionEvent event) {
+        
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        // swap items
+        lv_SongsOnPlaylist.getItems().add(index-1, lv_SongsOnPlaylist.getItems().remove(index));
+        // select item at new position
+        lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index-1);
+
+    }
 }
 
