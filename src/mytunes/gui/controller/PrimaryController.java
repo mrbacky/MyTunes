@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -100,6 +101,8 @@ public class PrimaryController implements Initializable {
     private Button btn_deletePlaylist;
     
     private boolean isPaused = false;
+    private int currentSongPlaying = 0;
+    private Song song;
     private ObservableList<Playlist> observableListPlaylist;
     private ObservableList<Song> observableListSong;
     //private ObservableList<Playlist> observableListPlaylist;
@@ -107,11 +110,9 @@ public class PrimaryController implements Initializable {
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
-    private Song song;
     private SongOnPlaylistModel SongOnPlaylistModel;
-   
     
-    
+
     
     @FXML
     private Button btn_createSong;
@@ -159,16 +160,40 @@ public class PrimaryController implements Initializable {
     }
     
     public void play() throws IOException {
-        if(mediaPlayer != null && isPaused ==false){
+        if (mediaPlayer != null && isPaused == false) {
             mediaPlayer.pause();
             isPaused = true;
-        }else {
-            mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
-         mediaPlayer.setVolume(slider.getValue());
-        mediaPlayer.play();
-            isPaused= false;
-            
+
+        } else {
+            if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItems() != null && lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
+                currentSongPlaying = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+                lv_SongsOnPlaylist.getSelectionModel().clearSelection();
+            }
+            System.out.println(currentSongPlaying);
+            mediaPlayer = new MediaPlayer(new Media(new File(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getPath()).toURI().toString()));
+
+            mediaPlayer.setVolume(slider.getValue());
+            mediaPlayer.play();
+            isPaused = false;
+
+            lbl_Library.setText(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getTitle() + " is now playing");
+
+            mediaPlayer.setOnEndOfMedia(() -> {
+
+                if (lv_SongsOnPlaylist.getItems().size() == currentSongPlaying + 1 || currentSongPlaying == -1) {
+                    currentSongPlaying = 0;
+
+                } else {
+                    currentSongPlaying++;
+
+                }
+                mediaPlayer = null;
+                play();
+
+            });
+                      
         }
+
     }
 
     @FXML
@@ -285,13 +310,14 @@ public class PrimaryController implements Initializable {
     
     @FXML
     private void setSlider(MouseEvent event) {
-        
-        if(mediaPlayer != null){
+
+        if (mediaPlayer != null) {
             System.out.println(slider.getValue());
-             mediaPlayer.setVolume(slider.getValue());
-             
+            mediaPlayer.setVolume(slider.getValue() * 100);
+            mediaPlayer.setVolume(slider.getValue() / 100);
+
         }
-    
+
     }
     
     private void btn_loopAction(MouseEvent event) {
