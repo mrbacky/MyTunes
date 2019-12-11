@@ -65,8 +65,12 @@ public class DBManager implements DBFacade {
 
     @Override
     public List<Playlist> getAllPlaylists() {
-        return playlistDAO.fetchAllPlaylists();
-        
+        try {
+            return playlistDAO.fetchAllSongsInPlaylists();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
