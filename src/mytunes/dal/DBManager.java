@@ -1,5 +1,4 @@
 
-
 package mytunes.dal;
 
 import java.sql.SQLException;
@@ -7,34 +6,35 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mytunes.be.Playlist;
+import mytunes.be.PlaylistPowerMove;
 import mytunes.be.Song;
-import mytunes.be.SongOnPlaylist;
 import mytunes.bll.LogicManager;
 
-public class DBManager implements DBFacade {
+public class DBManager implements DBFacade{
 
     private PlaylistDAO playlistDAO;
     private SongDAO songDAO;
-    private SongOnPlaylistDAO SongOnPlaylistDAO;
-
+    private PowerMoveDAO powr;
     public DBManager() {
         playlistDAO = new PlaylistDAO();
         songDAO = new SongDAO();
-        SongOnPlaylistDAO = new SongOnPlaylistDAO();
-    }
-
-    //__________________________________________________________________________                       
-    //
-    //      Song  
-    //__________________________________________________________________________
+        powr = new PowerMoveDAO();
+        
+        }
+    
     @Override
-    public void createSong(Song song) {
-        songDAO.createSong(song);
+    public List<Playlist> getAllPlaylists() {
+        try {
+            return playlistDAO.fetchPlaylistsDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(LogicManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public List<Song> getAllSongs() {
-        try {
+    try {
             return songDAO.fetchAllSongs();
         } catch (SQLException ex) {
             Logger.getLogger(LogicManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,61 +43,26 @@ public class DBManager implements DBFacade {
     }
 
     @Override
-    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteSong(Song song) {
+    public void addSong(Song song) {
         try {
-            songDAO.deleteSong(song);
+            songDAO.addSong(song);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    //__________________________________________________________________________                       
-    //
-    //      Playlist  
-    //__________________________________________________________________________
     @Override
-    public Playlist createPlaylist(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Playlist> getAllPlaylists() {
-        return playlistDAO.fetchAllPlaylists();
-    }
-
-    @Override
-    public Playlist updatePlaylist(Playlist playlist, String editedName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deletePlaylist(Playlist playlist) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-//__________________________________________________________________________                       
-    //
-    //      Song on Playlist
-    //__________________________________________________________________________
-    @Override
-    public List<SongOnPlaylist> getAllSongsOnPlaylist() {
-        return SongOnPlaylistDAO.fetchAllSongsOnPlaylist();
-    }
-
-    @Override
-    public Playlist addSongToPlaylist(Playlist playlist, Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<PlaylistPowerMove> getAllPowerPlaylists() {
+        try {
+            return   powr.fetchPlaylistsDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }
+
+   
+
 

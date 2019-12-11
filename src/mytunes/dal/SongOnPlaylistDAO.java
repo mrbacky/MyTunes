@@ -22,18 +22,16 @@ import mytunes.be.SongOnPlaylist;
  */
 public class SongOnPlaylistDAO {
    
-    ConnectDAO connectDAO ;
-    public SongOnPlaylistDAO( ){
-        connectDAO = new ConnectDAO();
+    private Connection con;
+    
+    public SongOnPlaylistDAO(Connection con){
+        this.con=con;
     }
     
-       public List<SongOnPlaylist> fetchAllSongsOnPlaylist(){
-        List<SongOnPlaylist> songsOnPlaylists = new ArrayList<>();
-        try (Connection con = connectDAO.getConnection()) {
-            String sql = "select songonplaylist.songid, song.id, song.title, song.artist, song.genre, song.time, song.songpath\n" +
-
-            "from songonplaylist left join song on songonplaylist.songid = song.id\n" +
-            "where songonplaylist.playlistid = 1";
+       /* public list<SongOPlaylist> songOnPlaylist(){
+        List<SongOnPlaylist> SongsOnPlaylists = new ArrayList<>();
+        try (Connection xd = con) {
+            String sql = "select * from Song";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -42,8 +40,8 @@ public class SongOnPlaylistDAO {
                 String songpath = rs.getString("songpath");
                 int playlistid = rs.getInt("playlistid");
                 int order = rs.getInt("order");
-                songsOnPlaylists.add(new SongOnPlaylist(order, playlistid, songid, title, songpath));
-
+                SongsOnPlaylists.add(new SongOnPlaylist(order, playlistid, songid, title, songpath));
+                
             }
             
         } catch (SQLServerException ex) {
@@ -51,6 +49,6 @@ public class SongOnPlaylistDAO {
         } catch (SQLException ex) {
             Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return songsOnPlaylists;
-    }
+    return null;
+    }*/
 }

@@ -16,17 +16,17 @@ public class SongOnPlaylist {
     private int playlistid;
     private int order;
     private String title;
-    private String songPath;
+    private String songpath;
     
     
     
-    public SongOnPlaylist(int songID, int playlistID, int order, String title, String songPath){
+    public SongOnPlaylist(int songid, int playlistid, int order, String title, String songpath){
     
         this.order = order;
-        this.playlistid = playlistID;
-        this.songid = songID;
+        this.playlistid = playlistid;
+        this.songid = songid;
         this.title = title;
-        this.songPath = songPath;
+        this.songpath = songpath;
     }
 
     public void setTitle(String title) {
@@ -34,7 +34,7 @@ public class SongOnPlaylist {
     }
 
     public void setPath(String path) {
-        this.songPath = songPath;
+        this.songpath = songpath;
     }
 
     public String getTitle() {
@@ -42,7 +42,7 @@ public class SongOnPlaylist {
     }
 
     public String getPath() {
-        return songPath;
+        return songpath;
     }
 
     public int getSongid() {

@@ -1,5 +1,3 @@
-
-
 .button {
    
     -fx-background-color: transparent;
@@ -26,24 +24,15 @@
     
 }
 
-
-   
-
-
-
-
-.table-view{
-    -fx-background-color: #282828;
-    -fx-text-fill: white;
-}
-
 .button:hover{
-    transition: 1s all;
+    
     -fx-opacity: 1;
     
 }
 
 .greyBG{
     -fx-background-color: #282828;
-    }
     
+}
+
+

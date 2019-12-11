@@ -6,67 +6,51 @@
 
 package mytunes.be;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * The Playlist class is an entity class. It represents a table in the database,
- * where each entity instance corresponds to a row in the table. The columns of
- * each row is the attribute of the entity.
- * @author annem
+ * 
+ * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Playlist {
     private int id;
     private String name;
-    private int songCounter;
-    private String time;
+    private int time;
+    private int songs;
     
-    /**
-     * Constructs a new empty playlist.
-     *
-     * @param id The ID of the playlist.
-     * @param name The name of the playlist.
-     * @param songCounter
-     * @param time
-     */
-    public Playlist(int id, String name, int songCounter, String time) {
+    
+    public Playlist(int id, String name, int time, int songs) {
         this.id = id;
         this.name = name;
         this.time = time;
-        this.songCounter = songCounter;
-        
+        this.songs = songs;
     }
-
-    public int getId() {
-        return id;
+    
+    public void setName(String name)
+    {
+        this.name = name;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    
+    public String getName()
+    {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSongCounter() {
-        return songCounter;
-    }
-
-    public void setSongCounter(int songCounter) {
-        this.songCounter = songCounter;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
+    
+    public void setTime(int time)
+    {
         this.time = time;
     }
-
+    
+    public int getTime() 
+    {
+        return time;
+    }
+    
+    public void setSongs(int songs)
+    {
+        this.songs = songs;
+    }
+    
+    public int getSongs()
+    {
+        return songs;
+    }
 }
