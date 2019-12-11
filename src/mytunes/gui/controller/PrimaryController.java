@@ -1,4 +1,3 @@
-
 //  working primary controller
 package mytunes.gui.controller;
 
@@ -84,7 +83,7 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_genre;
     @FXML
     private TableColumn<Song, String> col_songTime;
-    
+
     @FXML
     private TableView<Playlist> tbv_Playlists;
     @FXML
@@ -92,7 +91,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private TableColumn<Playlist, String> col_PName;
     @FXML
-     TableView<Song> tbv_Library;
+    TableView<Song> tbv_Library;
     @FXML
     private ListView<Song> lv_SongsOnPlaylist;
     @FXML
@@ -101,7 +100,7 @@ public class PrimaryController implements Initializable {
     private TextField txtSongSearch;
     @FXML
     private Button btn_deletePlaylist;
-    
+
     private boolean isPaused = false;
     private int currentSongPlaying = 0;
     private Song song;
@@ -113,17 +112,13 @@ public class PrimaryController implements Initializable {
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private SongOnPlaylistModel SongOnPlaylistModel;
-    
 
-    
     @FXML
     private Button btn_createSong;
     @FXML
     private Button btn_next1;
     @FXML
     private Button btn_next11;
-    
-    
 
     @Override
 
@@ -135,7 +130,7 @@ public class PrimaryController implements Initializable {
     private void settingTableViews() {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
-        
+
         //  Library table view
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
@@ -148,56 +143,66 @@ public class PrimaryController implements Initializable {
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
-        
-       // lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
 
+        // lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
     }
 
-    private void setSearchFilter(){
+    private void setSearchFilter() {
         //Set the filter Predicate when the filter changes. Any changes to the
         //search textfield activates the filter.
         txtSongSearch.textProperty().addListener((obs, oldVal, newVal) -> {
             songModel.filteredSongs(newVal);
         });
     }
-    
-    public void play() throws IOException {
-        if (mediaPlayer != null && isPaused == false) {
-            mediaPlayer.pause();
-            isPaused = true;
 
-        } else {
+    private Duration currentTime;
+    private boolean isScheduelSong = true;
+
+    public void play() throws IOException {
+
+        if (isPaused == true && isScheduelSong == false) {
+            currentTime = mediaPlayer.getCurrentTime();
+            mediaPlayer.setStartTime(currentTime);
+            mediaPlayer.play();
+            isPaused = false;
+        }else{
+            if (mediaPlayer != null && isPaused == false && isScheduelSong == false) {
+                mediaPlayer.pause();
+                isPaused = true;
+            }else {
+                
             if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItems() != null && lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
                 currentSongPlaying = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
                 lv_SongsOnPlaylist.getSelectionModel().clearSelection();
+                isScheduelSong=false;
             }
-            System.out.println(currentSongPlaying);
-            mediaPlayer = new MediaPlayer(new Media(new File(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getPath()).toURI().toString()));
+                mediaPlayer = new MediaPlayer(new Media(new File(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getPath()).toURI().toString()));
 
-            mediaPlayer.setVolume(slider.getValue());
-            mediaPlayer.play();
-            isPaused = false;
+                mediaPlayer.setVolume(slider.getValue());
+                mediaPlayer.play();
+                isPaused = false;
 
-            lbl_Library.setText(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getTitle() + " is now playing");
+                lbl_Library.setText(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getTitle() + " is now playing");
 
-            mediaPlayer.setOnEndOfMedia(() -> {
+                mediaPlayer.setOnEndOfMedia(() -> {
 
-                if (lv_SongsOnPlaylist.getItems().size() == currentSongPlaying + 1 || currentSongPlaying == -1) {
-                    currentSongPlaying = 0;
+                    if (lv_SongsOnPlaylist.getItems().size() == currentSongPlaying + 1 || currentSongPlaying == -1) {
+                        currentSongPlaying = 0;
 
-                } else {
-                    currentSongPlaying++;
+                    } else {
+                        currentSongPlaying++;
 
-                }
-                mediaPlayer = null;
-                try {
-                    play();
-                } catch (IOException ex) {
-                    Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    }
+                    mediaPlayer = null;
+                    try {
+                        play();
+                    } catch (IOException ex) {
+                        Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-            });
-                      
+                });
+
+            }
         }
 
     }
@@ -274,20 +279,20 @@ public class PrimaryController implements Initializable {
         }
 
     }
-    
+
     @FXML
     private void handle_deleteSong(ActionEvent event) throws IOException {
-       //move code to controller
+        //move code to controller
         /*Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
         songModel.deleteSong(selectedSong);
         tbv_Library.getSelectionModel().clearSelection();
-        */       
+         */
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
         fxmlLoader.<DeleteSongSceneController>getController().setContr(this);
-        
+
         Stage songStage = new Stage();
         Scene songScene = new Scene(root1);
 
@@ -297,23 +302,22 @@ public class PrimaryController implements Initializable {
     }
 
     private void btn_shuffleAction(ActionEvent event) {
-        
-  lv_SongsOnPlaylist.getItems().clear();
-        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null){
-      //songsInPlaylist.getItems().clear();
-            List<Song> IDK =tbv_Playlists.getSelectionModel().getSelectedItem().getSongs();
-            
-        Collections.shuffle(IDK);
-                    ObservableList<Song> allOverPower = FXCollections.observableArrayList();
+
+        lv_SongsOnPlaylist.getItems().clear();
+        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null) {
+            //songsInPlaylist.getItems().clear();
+            List<Song> IDK = tbv_Playlists.getSelectionModel().getSelectedItem().getSongs();
+
+            Collections.shuffle(IDK);
+            ObservableList<Song> allOverPower = FXCollections.observableArrayList();
 
             allOverPower.addAll(FXCollections.observableArrayList(IDK));
             lv_SongsOnPlaylist.setItems(allOverPower);
 
-        
+        }
+
     }
-    
-}
-    
+
     @FXML
     private void setSlider(MouseEvent event) {
 
@@ -325,41 +329,88 @@ public class PrimaryController implements Initializable {
         }
 
     }
-    
-    private void btn_loopAction(MouseEvent event) {
-      
-      if(mediaPlayer != null){
-      }
-      mediaPlayer.seek(Duration.ZERO);
-      mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-      mediaPlayer.getOnEndOfMedia();
 
+    private void btn_loopAction(MouseEvent event) {
+
+        if (mediaPlayer != null) {
+        }
+        mediaPlayer.seek(Duration.ZERO);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.getOnEndOfMedia();
 
     }
-    
+
     @FXML
     private void handle_deletePlaylist(ActionEvent event) {
     }
 
-    @FXML
     private void MoveSongDown(ActionEvent event) {
-        
+
         int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
-        // swap items
-        lv_SongsOnPlaylist.getItems().add(index+1, lv_SongsOnPlaylist.getItems().remove(index));
-        // select item at new position
-        lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index+1);
+        if (index != lv_SongsOnPlaylist.getItems().size() - 1) {
+
+            // swap items            
+            lv_SongsOnPlaylist.getItems().add(index + 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index + 1);
+
+        }
+
+    }
+
+    private void MoveSongUp(ActionEvent event) {
+
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        if (index != 0) {
+            // swap items
+            lv_SongsOnPlaylist.getItems().add(index - 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
+        }
     }
 
     @FXML
-    private void MoveSongUp(ActionEvent event) {
-        
-        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
-        // swap items
-        lv_SongsOnPlaylist.getItems().add(index-1, lv_SongsOnPlaylist.getItems().remove(index));
-        // select item at new position
-        lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index-1);
+    private void handle_Previous(ActionEvent event) throws IOException {
 
+        if (lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
+            mediaPlayer.stop();
+            if (currentSongPlaying - 1 == -1) {
+                currentSongPlaying = 0;
+            } else {
+                currentSongPlaying--;
+            }
+            play();
+        }
     }
-}
 
+    @FXML
+    private void handle_Next(ActionEvent event) throws IOException {
+
+        if (lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
+            mediaPlayer.stop();
+            if (currentSongPlaying + 1 == lv_SongsOnPlaylist.getItems().size()) {
+                currentSongPlaying = 0;
+            } else {
+                currentSongPlaying++;
+            }
+            play();
+        }
+    }
+
+    @FXML
+    private void MoveDownSong(ActionEvent event) {
+    }
+
+    @FXML
+    private void MoveUpSong(ActionEvent event) {
+    }
+
+    @FXML
+    private void scheduleSong(MouseEvent event) {
+
+        if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItem() != null) {
+            isScheduelSong = true;
+        }
+    }
+
+}
