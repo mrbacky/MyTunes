@@ -71,7 +71,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private ProgressBar progressBar;
     @FXML
-    private TableColumn<Playlist, Integer> col_PTime;
+    private TableColumn<Playlist, String> col_PTime;
     @FXML
     private TableColumn<Song, String> col_title;
     @FXML
@@ -134,12 +134,12 @@ public class PrimaryController implements Initializable {
         //  Playlist table view
         col_PName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_PSongs.setCellValueFactory(new PropertyValueFactory<>("numberOfSongs"));
-        col_PTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        col_PTime.setCellValueFactory(new PropertyValueFactory<>("stringTime"));
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
-        tbv_Playlists.setItems(playlistModel.getPlaylists());
+        tbv_Playlists.setItems(playlistModel.getPlaylistList());
 
-        // lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
+        
     }
 
     private void setSearchFilter() {
@@ -218,7 +218,7 @@ public class PrimaryController implements Initializable {
 
     public void updatePlaylists() {
         tbv_Playlists.getItems().clear();
-        tbv_Playlists.setItems(playlistModel.getPlaylists());
+        tbv_Playlists.setItems(playlistModel.getPlaylistList());
     }
     
     @FXML
@@ -243,6 +243,7 @@ public class PrimaryController implements Initializable {
             ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
             songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
             lv_SongsOnPlaylist.setItems(songsInPlaylist);
+            
         }
 
     }

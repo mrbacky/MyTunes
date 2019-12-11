@@ -18,6 +18,19 @@ public class Playlist {
     private int time;
     private List<Song> songs = new ArrayList<>();
     private int numberOfSongs;
+    private String stringTime;
+
+    public String getStringTime() {
+        return stringTime;
+    }
+
+    public void setStringTime(String stringTime) {
+        this.stringTime = stringTime;
+    }
+
+    
+
+   
 
     public Playlist(int id, String name, int time) {
         this.id = id;
@@ -62,5 +75,7 @@ public class Playlist {
         songs.add(son);
         numberOfSongs = songs.size();
     }
+    
+    //public void calculatePlaylistTime
     
 }

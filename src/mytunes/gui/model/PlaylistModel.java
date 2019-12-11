@@ -5,6 +5,7 @@
  */
 package mytunes.gui.model;
 
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mytunes.be.Playlist;
@@ -16,25 +17,33 @@ import mytunes.bll.LogicFacade;
  * @author Bruger
  */
 public final class PlaylistModel {
-    private ObservableList<Playlist> allPlaylists;
+    private ObservableList<Playlist> playlistList;
     private LogicFacade logicManager;
 
     public PlaylistModel() {
         logicManager = new LogicManager();
-        allPlaylists = FXCollections.observableArrayList(logicManager.getAllPlaylists());
+        getPlaylistList();
     }
 
     /**
      * Gets the list of all playlists.
      * @return The list of all playlists.
      */
-    public ObservableList<Playlist> getPlaylists() {
-         allPlaylists = FXCollections.observableArrayList(logicManager.getAllPlaylists());
-         return allPlaylists;
+    public ObservableList<Playlist> getPlaylistList() {
+//         playlistList = FXCollections.observableArrayList(logicManager.getAllPlaylists());
+//         return playlistList;
+        List<Playlist> allPlaylists = logicManager.getAllPlaylists();
+        for (Playlist playlist1 : allPlaylists) {
+            playlist1.setStringTime(sec_To_Format(playlist1.getTime()));
+            System.out.println(sec_To_Format(playlist1.getTime()));
+        }
+        playlistList = FXCollections.observableArrayList(allPlaylists);
+        
+        return playlistList;
     }
     
     private void updateListofPlaylists(Playlist playlist){
-        allPlaylists.set(allPlaylists.indexOf(playlist), playlist);
+        playlistList.set(playlistList.indexOf(playlist), playlist);
         //setPlaylistSongs(playlist);
     }
    
@@ -70,6 +79,14 @@ public final class PlaylistModel {
      */
     public void deletePlaylist(Playlist playlist) {
         logicManager.deletePlaylist(playlist);
-        allPlaylists.remove(playlist);
+        playlistList.remove(playlist);
     }
+    public int format_To_Sec(String timeString) {
+        return logicManager.format_To_Sec(timeString);
+    }
+
+    public String sec_To_Format(int sec) {
+        return logicManager.sec_To_Format(sec);
+    }
+    
 }

@@ -35,7 +35,7 @@ public final class SongModel {
      * @return The list of all songs.
      */
     public ObservableList<Song> getLibraryList() {
-                List<Song> allSongs = logicManager.getAllSongs();
+        List<Song> allSongs = logicManager.getAllSongs();
         for (Song song1 : allSongs) {
             song1.setStringTime(sec_To_Format(song1.getTime()));
         }
