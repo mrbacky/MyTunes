@@ -1,8 +1,14 @@
+
+//  working primary controller
 package mytunes.gui.controller;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+//import java.time.Duration;
+import javafx.util.Duration;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +33,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import mytunes.be.Playlist;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
 import mytunes.be.SongOnPlaylist;
@@ -74,12 +81,7 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_genre;
     @FXML
     private TableColumn<Song, String> col_songTime;
-    @FXML
-    private Button btn_addSong;
-    @FXML
-    private Button btn_next1;
-    @FXML
-    private Button btn_next11;
+    
     @FXML
     private TableView<Playlist> tbv_Playlists;
     @FXML
@@ -89,7 +91,7 @@ public class PrimaryController implements Initializable {
     @FXML
      TableView<Song> tbv_Library;
     @FXML
-    private ListView<SongOnPlaylist> lv_SongsOnPlaylist;
+    private ListView<Song> lv_SongsOnPlaylist;
     @FXML
     private Label lbl_Library;
     @FXML
@@ -97,14 +99,26 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_deletePlaylist;
     
-    private ObservableList<Song> observableListSong;
+    private boolean isPaused = false;
     private ObservableList<Playlist> observableListPlaylist;
-    private ObservableList<SongOnPlaylist> ObservableListSongOnPlaylist;
+    private ObservableList<Song> observableListSong;
+    //private ObservableList<Playlist> observableListPlaylist;
+    private ObservableList<Song> ObservableListSongOnPlaylist;
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private Song song;
     private SongOnPlaylistModel SongOnPlaylistModel;
+   
+    
+    
+    
+    @FXML
+    private Button btn_createSong;
+    @FXML
+    private Button btn_next1;
+    @FXML
+    private Button btn_next11;
     
     
 
@@ -118,7 +132,7 @@ public class PrimaryController implements Initializable {
     private void settingTableViews() {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
-        SongOnPlaylistModel = new SongOnPlaylistModel();
+        
         //  Library table view
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
@@ -126,13 +140,13 @@ public class PrimaryController implements Initializable {
         col_songTime.setCellValueFactory(new PropertyValueFactory<>("stringTime"));
         //  Playlist table view
         col_PName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        col_PSongs.setCellValueFactory(new PropertyValueFactory<>("songs"));
+        col_PSongs.setCellValueFactory(new PropertyValueFactory<>("numberOfSongs"));
         col_PTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
         
-        //lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
+       // lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
 
     }
 
@@ -144,13 +158,21 @@ public class PrimaryController implements Initializable {
         });
     }
     
-    public void play() {
-        mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
+    public void play() throws IOException {
+        if(mediaPlayer != null && isPaused ==false){
+            mediaPlayer.pause();
+            isPaused = true;
+        }else {
+            mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
+         mediaPlayer.setVolume(slider.getValue());
         mediaPlayer.play();
+            isPaused= false;
+            
+        }
     }
 
     @FXML
-    private void handle_play(ActionEvent event) {
+    private void handle_play(ActionEvent event) throws IOException {
         play();
     }
 
@@ -175,7 +197,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_AddSong(ActionEvent event) throws IOException {
+    private void handle_createSong(ActionEvent event) throws IOException {
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
@@ -212,6 +234,17 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    private void selectPlaylist(MouseEvent event) {
+
+        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null) {
+            ObservableList<Song> allOverPower = FXCollections.observableArrayList();
+            allOverPower.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
+            lv_SongsOnPlaylist.setItems(allOverPower);
+        }
+
+    }
+    
+    @FXML
     private void handle_deleteSong(ActionEvent event) throws IOException {
        //move code to controller
         /*Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
@@ -232,6 +265,46 @@ public class PrimaryController implements Initializable {
         songStage.show();
     }
 
+    private void btn_shuffleAction(ActionEvent event) {
+        
+  lv_SongsOnPlaylist.getItems().clear();
+        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null){
+      //songsInPlaylist.getItems().clear();
+            List<Song> IDK =tbv_Playlists.getSelectionModel().getSelectedItem().getSongs();
+            
+        Collections.shuffle(IDK);
+                    ObservableList<Song> allOverPower = FXCollections.observableArrayList();
+
+            allOverPower.addAll(FXCollections.observableArrayList(IDK));
+            lv_SongsOnPlaylist.setItems(allOverPower);
+
+        
+    }
+    
+}
+    
+    @FXML
+    private void setSlider(MouseEvent event) {
+        
+        if(mediaPlayer != null){
+            System.out.println(slider.getValue());
+             mediaPlayer.setVolume(slider.getValue());
+             
+        }
+    
+    }
+    
+    private void btn_loopAction(MouseEvent event) {
+      
+      if(mediaPlayer != null){
+      }
+      mediaPlayer.seek(Duration.ZERO);
+      mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+      mediaPlayer.getOnEndOfMedia();
+
+
+    }
+    
     @FXML
     private void handle_deletePlaylist(ActionEvent event) {
     }

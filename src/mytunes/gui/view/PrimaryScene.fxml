@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #040404;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.PrimaryController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #040404;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.PrimaryController">
    <children>
       <VBox prefHeight="604.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -86,7 +86,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Slider fx:id="slider" layoutX="970.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="100.0" styleClass="button" />
+                        <Slider fx:id="slider" layoutX="970.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setSlider" prefHeight="10.0" prefWidth="100.0" styleClass="button" value="100.0" />
                         <ImageView cache="true" depthTest="DISABLE" fitHeight="20.0" fitWidth="20.0" layoutX="950.0" layoutY="24.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="button">
                            <image>
                               <Image url="@../assets/icons8-low-volume-50.png" />
@@ -113,7 +113,7 @@
                         </Button>
                      </children>
                   </Pane>
-                  <TableView fx:id="tbv_Playlists" layoutX="30.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="95.0" AnchorPane.topAnchor="80.0">
+                  <TableView fx:id="tbv_Playlists" layoutX="30.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selectPlaylist" prefHeight="400.0" prefWidth="250.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="95.0" AnchorPane.topAnchor="80.0">
                     <columns>
                       <TableColumn fx:id="col_PName" prefWidth="135.0" text="Name" />
                       <TableColumn fx:id="col_PSongs" minWidth="9.0" prefWidth="43.0" text="Songs" />
@@ -174,7 +174,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_addSong" alignment="CENTER" contentDisplay="CENTER" layoutX="587.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_AddSong" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="590.0">
+                  <Button fx:id="btn_createSong" alignment="CENTER" contentDisplay="CENTER" layoutX="587.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_createSong" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="590.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

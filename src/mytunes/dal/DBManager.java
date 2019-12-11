@@ -1,5 +1,3 @@
-
-
 package mytunes.dal;
 
 import java.sql.SQLException;
@@ -68,6 +66,7 @@ public class DBManager implements DBFacade {
     @Override
     public List<Playlist> getAllPlaylists() {
         return playlistDAO.fetchAllPlaylists();
+        
     }
 
     @Override
@@ -100,4 +99,3 @@ public class DBManager implements DBFacade {
     }
 
 }
-
