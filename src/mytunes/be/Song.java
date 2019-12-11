@@ -45,6 +45,11 @@ public class Song {
         this.genre = genre;
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
     /**
      * Gets the ID of the song.
      *
