@@ -14,7 +14,7 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btn_ConfirmDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="71.0">
+      <Button fx:id="btn_ConfirmDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deletePlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="71.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -23,7 +23,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btn_CancelDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="38.0">
+      <Button fx:id="btn_CancelDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_cancelDeletePlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="38.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>

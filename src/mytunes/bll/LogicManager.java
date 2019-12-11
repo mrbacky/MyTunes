@@ -35,8 +35,8 @@ public class LogicManager implements LogicFacade {
     }
 
     @Override
-    public Playlist createPlaylist(String name) {
-        return dbManager.createPlaylist(name);
+    public void createPlaylist(Playlist playlist) {
+        dbManager.createPlaylist(playlist);
     }
     
      @Override
@@ -81,10 +81,6 @@ public class LogicManager implements LogicFacade {
     public void deleteSong(Song song) {
         dbManager.deleteSong(song);
     }
-
-    public void deletePlaylist(Playlist playlist) {
-        dbManager.deletePlaylist(playlist);
-    }
     //__________________________________________________________________________
      @Override
     public List<Song> search(List<Song> searchBase, String query) {
@@ -97,8 +93,8 @@ public class LogicManager implements LogicFacade {
     }
 
     @Override
-    public void deletePlaylist() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deletePlaylist(Playlist playlist) {
+        dbManager.deletePlaylist(playlist);
     }
 
     @Override

@@ -83,7 +83,7 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_songTime;
     
     @FXML
-    private TableView<Playlist> tbv_Playlists;
+     TableView<Playlist> tbv_Playlists;
     @FXML
     private TableColumn<Playlist, Integer> col_PSongs;
     @FXML
@@ -119,6 +119,7 @@ public class PrimaryController implements Initializable {
     private Button btn_next1;
     @FXML
     private Button btn_next11;
+    private Playlist playlist;
     
     
 
@@ -178,9 +179,15 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void handle_addPlaylist(ActionEvent event) throws IOException {
-        Parent rootPlaylist = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
+        fxmlLoader.<CreatePlaylistSceneController>getController().setContr(this);
+        
         Stage playlistStage = new Stage();
-        Scene playlistScene = new Scene(rootPlaylist);
+        Scene playlistScene = new Scene(root1);
+
         //songStage.initStyle(StageStyle.UNDECORATED);
         playlistStage.setScene(playlistScene);
         playlistStage.show();
@@ -218,6 +225,11 @@ public class PrimaryController implements Initializable {
         tbv_Library.setItems(songModel.getLibraryList());
     }
 
+    public void updatePlaylists() {
+        tbv_Playlists.getItems().clear();
+        tbv_Playlists.setItems(playlistModel.getPlaylists());
+    }
+    
     @FXML
     private void handle_EditSong(ActionEvent event) throws IOException {
         Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/EditSongScene.fxml"));
@@ -306,7 +318,24 @@ public class PrimaryController implements Initializable {
     }
     
     @FXML
-    private void handle_deletePlaylist(ActionEvent event) {
+    private void handle_deletePlaylist(ActionEvent event) throws IOException {
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
+        fxmlLoader.<DeletePlaylistSceneController>getController().setContr(this);
+        
+        Stage playlistStage = new Stage();
+        Scene playlistScene = new Scene(root1);
+
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        playlistStage.setScene(playlistScene);
+        playlistStage.show();
+    }
+
+    @FXML
+    private void handle_getPlaylist(MouseEvent event) {
+        playlist = tbv_Playlists.getSelectionModel().getSelectedItem();
     }
 
 }

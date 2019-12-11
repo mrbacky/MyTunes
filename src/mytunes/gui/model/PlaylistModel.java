@@ -44,9 +44,10 @@ public final class PlaylistModel {
      * The created playlist is added to the temporary list of all playlists as well.
      @param name The name of the new playlist.
      */
-    public void createPlaylist(String name) {
-        Playlist playlist = logicManager.createPlaylist(name);
-        allPlaylists.add(playlist);
+    public void createPlaylist(String name, int songCounter, int time) {
+        Playlist playlist = new Playlist(0, name, 0, 0);
+        logicManager.createPlaylist(playlist);
+        //allPlaylists.add(playlist);
     }
     
     /**
@@ -61,13 +62,14 @@ public final class PlaylistModel {
     }
 
     /**
-     * Deletes a playlist from the list of all playlists.
-     * The method calls the BLL to delete a playlist from the database.
-     * The deleted playlist is deleted from the temporary list of all playlists as well.
+     * Deletes a playlist from the list of all playlists. The method calls the
+     * BLL to delete a playlist from the database. The deleted playlist is
+     * deleted from the temporary list of all playlists as well.
+     *
      * @param playlist The playlist to be deleted.
      */
-    public void deletePlaylist(Playlist playlist){
-        //logicManager.deletePlaylist(playlist);
-        
+    public void deletePlaylist(Playlist playlist) {
+        logicManager.deletePlaylist(playlist);
+        allPlaylists.remove(playlist);
     }
 }

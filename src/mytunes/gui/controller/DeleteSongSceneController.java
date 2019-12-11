@@ -25,9 +25,9 @@ public class DeleteSongSceneController implements Initializable {
     @FXML
     private Button btn_DeleteSong_cancelSong;
 
-    private SongModel songModel;
     private PrimaryController pCon;
-
+    private SongModel songModel;
+    
     /**
      * Initializes the controller class.
      */
@@ -36,6 +36,14 @@ public class DeleteSongSceneController implements Initializable {
         songModel = new SongModel();
     }
 
+    public void setContr(PrimaryController pCon) {
+        this.pCon = pCon;
+    }
+    
+    private void updateLibrary() {
+        pCon.updateLibrary();
+    }
+    
     @FXML
     private void handle_deleteSong(ActionEvent event) {
         //Deletes from the database, but the library is not showing properly.
@@ -49,18 +57,9 @@ public class DeleteSongSceneController implements Initializable {
         stage.close();
     }
 
-    private void updateLibrary() {
-        pCon.updateLibrary();
-    }
-
     @FXML
     private void handle_CloseScene(ActionEvent event) {
         Stage stage = (Stage) btn_DeleteSong_cancelSong.getScene().getWindow();
         stage.close();
     }
-
-    public void setContr(PrimaryController pCon) {
-        this.pCon = pCon;
-    }
-
 }

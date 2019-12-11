@@ -56,7 +56,8 @@ public interface LogicFacade {
      * @param name The name of the playlist.
      * @return The newly created playlist.
      */
-    Playlist createPlaylist(String name);
+    void createPlaylist(Playlist playlist);
+    
     void editPlaylist();
     /**
      * Updates the name of a playlist in the database.
@@ -69,7 +70,7 @@ public interface LogicFacade {
      * Deletes the playlist from the database.
      * @param playlist The playlist to be deleted.
      */
-    void deletePlaylist();
+    void deletePlaylist(Playlist playlist);
     /**
      * Gets a list of all playlists in the database.
      * @return List with all playlists.
