@@ -9,6 +9,8 @@ import javafx.util.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -80,6 +83,7 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_genre;
     @FXML
     private TableColumn<Song, String> col_songTime;
+
     @FXML
      TableView<Playlist> tbv_Playlists;
     @FXML
@@ -100,6 +104,8 @@ public class PrimaryController implements Initializable {
     private Button btn_createSong;
 
     private boolean isPaused = false;
+    private int currentSongPlaying = 0;
+    private Song song;
     private ObservableList<Playlist> observableListPlaylist;
     private ObservableList<Song> observableListSong;
     //private ObservableList<Playlist> observableListPlaylist;
@@ -107,7 +113,6 @@ public class PrimaryController implements Initializable {
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
-    private Song song;
     private SongOnPlaylistModel SongOnPlaylistModel;
     private Playlist playlist;
     
@@ -150,17 +155,56 @@ public class PrimaryController implements Initializable {
         });
     }
 
+    private Duration currentTime;
+    private boolean isScheduelSong = true;
+
     public void play() throws IOException {
-        if (mediaPlayer != null && isPaused == false) {
-            mediaPlayer.pause();
-            isPaused = true;
-        } else {
-            mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
-            mediaPlayer.setVolume(slider.getValue());
+
+        if (isPaused == true && isScheduelSong == false) {
+            currentTime = mediaPlayer.getCurrentTime();
+            mediaPlayer.setStartTime(currentTime);
             mediaPlayer.play();
             isPaused = false;
+        }else{
+            if (mediaPlayer != null && isPaused == false && isScheduelSong == false) {
+                mediaPlayer.pause();
+                isPaused = true;
+            }else {
+                
+            if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItems() != null && lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
+                currentSongPlaying = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+                lv_SongsOnPlaylist.getSelectionModel().clearSelection();
+                isScheduelSong=false;
+            }
+                mediaPlayer = new MediaPlayer(new Media(new File(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getPath()).toURI().toString()));
 
+                mediaPlayer.setVolume(slider.getValue());
+                mediaPlayer.play();
+                isPaused = false;
+
+                lbl_Library.setText(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getTitle() + " is now playing");
+
+                mediaPlayer.setOnEndOfMedia(() -> {
+
+                    if (lv_SongsOnPlaylist.getItems().size() == currentSongPlaying + 1 || currentSongPlaying == -1) {
+                        currentSongPlaying = 0;
+
+                    } else {
+                        currentSongPlaying++;
+
+                    }
+                    mediaPlayer = null;
+                    try {
+                        play();
+                    } catch (IOException ex) {
+                        Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                });
+
+            }
         }
+
     }
 
     @FXML
@@ -292,7 +336,8 @@ public class PrimaryController implements Initializable {
 
         if (mediaPlayer != null) {
             System.out.println(slider.getValue());
-            mediaPlayer.setVolume(slider.getValue());
+            mediaPlayer.setVolume(slider.getValue() * 100);
+            mediaPlayer.setVolume(slider.getValue() / 100);
 
         }
 
@@ -324,8 +369,73 @@ public class PrimaryController implements Initializable {
         playlistStage.show();
     }
 
+    private void MoveSongDown(ActionEvent event) {
+
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        if (index != lv_SongsOnPlaylist.getItems().size() - 1) {
+
+            // swap items            
+            lv_SongsOnPlaylist.getItems().add(index + 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index + 1);
+
+        }
+
+    }
+
+    private void MoveSongUp(ActionEvent event) {
+
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        if (index != 0) {
+            // swap items
+            lv_SongsOnPlaylist.getItems().add(index - 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
+        }
+    }
+
     @FXML
-    private void handle_AddSongToPlaylist(ActionEvent event) {
+    private void handle_Previous(ActionEvent event) throws IOException {
+
+        if (lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
+            mediaPlayer.stop();
+            if (currentSongPlaying - 1 == -1) {
+                currentSongPlaying = 0;
+            } else {
+                currentSongPlaying--;
+            }
+            play();
+        }
+    }
+
+    @FXML
+    private void handle_Next(ActionEvent event) throws IOException {
+
+        if (lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
+            mediaPlayer.stop();
+            if (currentSongPlaying + 1 == lv_SongsOnPlaylist.getItems().size()) {
+                currentSongPlaying = 0;
+            } else {
+                currentSongPlaying++;
+            }
+            play();
+        }
+    }
+
+    @FXML
+    private void MoveDownSong(ActionEvent event) {
+    }
+
+    @FXML
+    private void MoveUpSong(ActionEvent event) {
+    }
+
+    @FXML
+    private void scheduleSong(MouseEvent event) {
+
+        if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItem() != null) {
+            isScheduelSong = true;
+        }
     }
 
 }
