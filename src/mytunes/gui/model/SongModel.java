@@ -38,7 +38,6 @@ public final class SongModel {
                 List<Song> allSongs = logicManager.getAllSongs();
         for (Song song1 : allSongs) {
             song1.setStringTime(sec_To_Format(song1.getTime()));
-            System.out.println(song1.getStringTime());
         }
         libraryList = FXCollections.observableArrayList(allSongs);
         return libraryList;

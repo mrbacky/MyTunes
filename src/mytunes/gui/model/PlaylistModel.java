@@ -44,8 +44,8 @@ public final class PlaylistModel {
      * The created playlist is added to the temporary list of all playlists as well.
      @param name The name of the new playlist.
      */
-    public void createPlaylist(String name, int songCounter, int time) {
-        Playlist playlist = new Playlist(0, name, 0, 0);
+    public void createPlaylist(int id,String name,int numberOfSongs) {
+        Playlist playlist = new Playlist(id,name,numberOfSongs);
         logicManager.createPlaylist(playlist);
         //allPlaylists.add(playlist);
     }

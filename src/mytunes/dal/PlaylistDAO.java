@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import mytunes.be.Playlist;
 import mytunes.be.Playlist;
 import mytunes.be.Song;
+import java.sql.PreparedStatement;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,14 +32,15 @@ public class PlaylistDAO {
         connectDAO = new ConnectDAO();
     }
     
-        public Playlist createPlaylist(Playlist playlisttoCreate){
+        public Playlist createPlaylist(Playlist playlistToCreate){
         try ( Connection con = connectDAO.getConnection()) {
             String sql = "INSERT INTO playlist(name,time,nrOfSongs) VALUES (?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt.setString(1, playlisttoCreate.getName());
-            pstmt.setInt(2, playlisttoCreate.getTime());
-            pstmt.setInt(3, playlisttoCreate.getSongCounter());
+            
+            pstmt.setString(1, playlistToCreate.getName());
+            pstmt.setInt(2, playlistToCreate.getTime());
+            pstmt.setInt(3, playlistToCreate.getNumberOfSongs());
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();
@@ -50,7 +52,7 @@ public class PlaylistDAO {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return playlisttoCreate;
+        return playlistToCreate;
     }
     
         public List<Playlist> fetchAllSongsInPlaylists() throws SQLException {

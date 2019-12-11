@@ -40,9 +40,7 @@ public class CreatePlaylistSceneController implements Initializable {
     private void handle_CreatePlaylist(ActionEvent event) {
         txtField_namePlaylist.getText();
         //String name = txtField_namePlaylist.getText().trim();
-        playlistModel.createPlaylist
-        (txtField_namePlaylist.getText(),0,0);
-       
+        playlistModel.createPlaylist(0,txtField_namePlaylist.getText(),0);
         updatePlaylists();
         Stage stage;
         stage = (Stage) btn_savePlaylist.getScene().getWindow();

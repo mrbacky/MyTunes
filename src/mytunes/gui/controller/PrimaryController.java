@@ -109,7 +109,7 @@ public class PrimaryController implements Initializable {
     private PlaylistModel playlistModel;
     private Song song;
     private SongOnPlaylistModel SongOnPlaylistModel;
-   
+    private Playlist playlist;
     
     
     
@@ -119,7 +119,8 @@ public class PrimaryController implements Initializable {
     private Button btn_next1;
     @FXML
     private Button btn_next11;
-    private Playlist playlist;
+    
+  
     
     
 
@@ -246,12 +247,12 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void selectPlaylist(MouseEvent event) {
+    private void handle_getPlaylist(MouseEvent event) {
 
         if (tbv_Playlists.getSelectionModel().getSelectedItem() != null) {
-            ObservableList<Song> allOverPower = FXCollections.observableArrayList();
-            allOverPower.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
-            lv_SongsOnPlaylist.setItems(allOverPower);
+            ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
+            songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
+            lv_SongsOnPlaylist.setItems(songsInPlaylist);
         }
 
     }
@@ -333,10 +334,7 @@ public class PrimaryController implements Initializable {
         playlistStage.show();
     }
 
-    @FXML
-    private void handle_getPlaylist(MouseEvent event) {
-        playlist = tbv_Playlists.getSelectionModel().getSelectedItem();
-    }
+    
 
 }
 
