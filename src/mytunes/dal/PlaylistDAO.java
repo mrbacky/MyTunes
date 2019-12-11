@@ -32,24 +32,26 @@ public class PlaylistDAO {
         connectDAO = new ConnectDAO();
     }
     
-    public Playlist createPlaylist(Playlist playlistToAdd){
-        try (Connection con = connectDAO.getConnection()) {
-            String sql = "INSERT INTO playlist(title) VALUES (?)";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, playlistToAdd.getName());
+    public Playlist createPlaylist(Playlist playlisttoCreate){
+        try ( Connection con = connectDAO.getConnection()) {
+            String sql = "INSERT INTO playlist(name,time,nrOfSongs) VALUES (?,?,?)";
+            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, playlisttoCreate.getName());
+            pstmt.setInt(2, playlisttoCreate.getTime());
+            pstmt.setInt(3, playlisttoCreate.getSongCounter());
             pstmt.executeUpdate();
-//            ResultSet rs = pstmt.getGeneratedKeys();
-//            rs.next();
-//            int id = rs.getInt(1);
-            return playlistToAdd;
-            
+            ResultSet rs = pstmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+
         } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return null;
+
+        return playlisttoCreate;
     }
     
     /**
@@ -96,7 +98,7 @@ public class PlaylistDAO {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int songs   = rs.getInt("nrOfSongs");
-                String time    = rs.getString("time");
+                int time    = rs.getInt("time");
                 allPlaylists.add(new Playlist(id, name, songs, time));
             }
         } catch (SQLServerException ex) {

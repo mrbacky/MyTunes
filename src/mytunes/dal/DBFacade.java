@@ -59,7 +59,7 @@ public interface DBFacade {
      * @param name The name of the playlist.
      * @return The newly created playlist.
      */
-    Playlist createPlaylist(String name);
+    void createPlaylist(Playlist playlist);
 
     /**
      * Gets a list of all playlists in the database.

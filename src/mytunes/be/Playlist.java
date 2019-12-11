@@ -19,7 +19,7 @@ public class Playlist {
     private int id;
     private String name;
     private int songCounter;
-    private String time;
+    private int time;
     
     /**
      * Constructs a new empty playlist.
@@ -29,7 +29,7 @@ public class Playlist {
      * @param songCounter
      * @param time
      */
-    public Playlist(int id, String name, int songCounter, String time) {
+    public Playlist(int id, String name, int songCounter, int time) {
         this.id = id;
         this.name = name;
         this.time = time;
@@ -61,11 +61,11 @@ public class Playlist {
         this.songCounter = songCounter;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
