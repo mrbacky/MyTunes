@@ -12,7 +12,7 @@ import mytunes.gui.controller.AddSongSceneController;
 
 /**
  * Description to be added...
- * 
+ *
  * @author annem
  */
 public final class SongModel {
@@ -24,22 +24,26 @@ public final class SongModel {
      * Establish a connection to the BLL.
      */
     public SongModel() {
-        //Instantiate the BLL Manager.
+        
         logicManager = new LogicManager();
-        libraryList = FXCollections.observableArrayList(logicManager.getAllSongs());
+        getLibraryList();
     }
 
     /**
      * Returns a list with all the songs (library).
+     *
      * @return The list of all songs.
      */
-    public ObservableList<Song> getLibraryList(){
-        libraryList = FXCollections.observableArrayList(logicManager.getAllSongs());
+    public ObservableList<Song> getLibraryList() {
+                List<Song> allSongs = logicManager.getAllSongs();
+        for (Song song1 : allSongs) {
+            song1.setStringTime(sec_To_Format(song1.getTime()));
+            System.out.println(song1.getStringTime());
+        }
+        libraryList = FXCollections.observableArrayList(allSongs);
         return libraryList;
     }
-    
-   
-    
+
     /**
      * Creates and adds a new song. The method calls the BLL to create a song in
      * the database. The created song is added to the library list (the library
@@ -52,13 +56,13 @@ public final class SongModel {
      * @param genre The genre of the song.
      */
     public void createSong(String title, String artist, int time, String genre, String path) {
-        Song song = new Song(0,title, artist, time ,path, genre);
+        Song song = new Song(0, title, artist, time, path, genre);
         logicManager.createSong(song);
     }
 
     /**
-     * Updates a song.
-     * NOT COMPLETED!!
+     * Updates a song. NOT COMPLETED!!
+     *
      * @param song
      * @param editedTitle
      * @param editedArtist
@@ -88,11 +92,13 @@ public final class SongModel {
         libraryList.clear();
         libraryList.addAll(temp);
     }
-    public int format_To_Sec(String timeString){
+
+    public int format_To_Sec(String timeString) {
         return logicManager.format_To_Sec(timeString);
     }
-    public String sec_To_Format(int sec){
+
+    public String sec_To_Format(int sec) {
         return logicManager.sec_To_Format(sec);
     }
-    
+
 }

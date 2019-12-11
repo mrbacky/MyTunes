@@ -15,6 +15,16 @@ public class Song {
     private int time;
     private String path;
     private String genre;
+    private String stringTime ;
+
+    public String getStringTime() {
+        return stringTime;
+    }
+
+    public void setStringTime(String stringTime) {
+        this.stringTime = stringTime;
+    }
+
 
     /**
      * Constructs a new song.
@@ -80,9 +90,6 @@ public class Song {
         this.artist = artist;
     }
     
-    
-    
-   
    
     /**
      * Gets the path of the song.

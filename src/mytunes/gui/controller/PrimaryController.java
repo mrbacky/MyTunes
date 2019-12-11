@@ -123,7 +123,7 @@ public class PrimaryController implements Initializable {
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        col_songTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        col_songTime.setCellValueFactory(new PropertyValueFactory<>("stringTime"));
         //  Playlist table view
         col_PName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_PSongs.setCellValueFactory(new PropertyValueFactory<>("songs"));
@@ -131,6 +131,7 @@ public class PrimaryController implements Initializable {
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
+        
         //lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
 
     }
@@ -193,7 +194,6 @@ public class PrimaryController implements Initializable {
     public void updateLibrary() {
         tbv_Library.getItems().clear();
         tbv_Library.setItems(songModel.getLibraryList());
-        System.out.println("im here");
     }
 
     @FXML
