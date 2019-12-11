@@ -21,7 +21,7 @@ public final class PlaylistModel {
 
     public PlaylistModel() {
         logicManager = new LogicManager();
-        allPlaylists = FXCollections.observableArrayList();
+        allPlaylists = FXCollections.observableArrayList(logicManager.getAllPlaylists());
     }
 
     /**
@@ -29,7 +29,8 @@ public final class PlaylistModel {
      * @return The list of all playlists.
      */
     public ObservableList<Playlist> getPlaylists() {
-        return allPlaylists;
+         allPlaylists = FXCollections.observableArrayList(logicManager.getAllPlaylists());
+         return allPlaylists;
     }
     
     private void updateListofPlaylists(Playlist playlist){
