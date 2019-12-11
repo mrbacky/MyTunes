@@ -120,6 +120,7 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         settingTableViews();
         setSearchFilter();
+        System.out.println("bruh");
     }
 
     private void settingTableViews() {
