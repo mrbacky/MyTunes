@@ -39,7 +39,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_addSongToPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="535.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/style.css" AnchorPane.leftAnchor="535.0" AnchorPane.topAnchor="100.0">
+                  <Button fx:id="btn_addSongToPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="535.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_AddSongToPlaylist" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/style.css" AnchorPane.leftAnchor="535.0" AnchorPane.topAnchor="100.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

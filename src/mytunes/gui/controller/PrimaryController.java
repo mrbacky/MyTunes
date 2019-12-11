@@ -1,4 +1,3 @@
-
 //  working primary controller
 package mytunes.gui.controller;
 
@@ -81,7 +80,6 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_genre;
     @FXML
     private TableColumn<Song, String> col_songTime;
-    
     @FXML
      TableView<Playlist> tbv_Playlists;
     @FXML
@@ -89,7 +87,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private TableColumn<Playlist, String> col_PName;
     @FXML
-     TableView<Song> tbv_Library;
+    TableView<Song> tbv_Library;
     @FXML
     private ListView<Song> lv_SongsOnPlaylist;
     @FXML
@@ -98,7 +96,9 @@ public class PrimaryController implements Initializable {
     private TextField txtSongSearch;
     @FXML
     private Button btn_deletePlaylist;
-    
+    @FXML
+    private Button btn_createSong;
+
     private boolean isPaused = false;
     private ObservableList<Playlist> observableListPlaylist;
     private ObservableList<Song> observableListSong;
@@ -113,19 +113,10 @@ public class PrimaryController implements Initializable {
     
     
     
-    @FXML
-    private Button btn_createSong;
-    @FXML
-    private Button btn_next1;
-    @FXML
-    private Button btn_next11;
     
   
-    
-    
 
     @Override
-
     public void initialize(URL url, ResourceBundle rb) {
         settingTableViews();
         setSearchFilter();
@@ -134,7 +125,7 @@ public class PrimaryController implements Initializable {
     private void settingTableViews() {
         songModel = new SongModel();
         playlistModel = new PlaylistModel();
-        
+
         //  Library table view
         col_title.setCellValueFactory(new PropertyValueFactory<>("title"));
         col_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
@@ -147,29 +138,28 @@ public class PrimaryController implements Initializable {
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylists());
-        
-       // lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
 
+        // lv_SongsOnPlaylist.setItems(SongOnPlaylistModel.getSongOnPlaylist());
     }
 
-    private void setSearchFilter(){
+    private void setSearchFilter() {
         //Set the filter Predicate when the filter changes. Any changes to the
         //search textfield activates the filter.
         txtSongSearch.textProperty().addListener((obs, oldVal, newVal) -> {
             songModel.filteredSongs(newVal);
         });
     }
-    
+
     public void play() throws IOException {
-        if(mediaPlayer != null && isPaused ==false){
+        if (mediaPlayer != null && isPaused == false) {
             mediaPlayer.pause();
             isPaused = true;
-        }else {
+        } else {
             mediaPlayer = new MediaPlayer(new Media(new File(song.getPath()).toURI().toString()));
-         mediaPlayer.setVolume(slider.getValue());
-        mediaPlayer.play();
-            isPaused= false;
-            
+            mediaPlayer.setVolume(slider.getValue());
+            mediaPlayer.play();
+            isPaused = false;
+
         }
     }
 
@@ -256,20 +246,20 @@ public class PrimaryController implements Initializable {
         }
 
     }
-    
+
     @FXML
     private void handle_deleteSong(ActionEvent event) throws IOException {
-       //move code to controller
+        //move code to controller
         /*Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
         songModel.deleteSong(selectedSong);
         tbv_Library.getSelectionModel().clearSelection();
-        */       
+         */
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
         fxmlLoader.<DeleteSongSceneController>getController().setContr(this);
-        
+
         Stage songStage = new Stage();
         Scene songScene = new Scene(root1);
 
@@ -279,45 +269,43 @@ public class PrimaryController implements Initializable {
     }
 
     private void btn_shuffleAction(ActionEvent event) {
-        
-  lv_SongsOnPlaylist.getItems().clear();
-        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null){
-      //songsInPlaylist.getItems().clear();
-            List<Song> IDK =tbv_Playlists.getSelectionModel().getSelectedItem().getSongs();
-            
-        Collections.shuffle(IDK);
-                    ObservableList<Song> allOverPower = FXCollections.observableArrayList();
+
+        lv_SongsOnPlaylist.getItems().clear();
+        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null) {
+            //songsInPlaylist.getItems().clear();
+            List<Song> IDK = tbv_Playlists.getSelectionModel().getSelectedItem().getSongs();
+
+            Collections.shuffle(IDK);
+            ObservableList<Song> allOverPower = FXCollections.observableArrayList();
 
             allOverPower.addAll(FXCollections.observableArrayList(IDK));
             lv_SongsOnPlaylist.setItems(allOverPower);
 
-        
+        }
+
     }
-    
-}
-    
+
     @FXML
     private void setSlider(MouseEvent event) {
-        
-        if(mediaPlayer != null){
+
+        if (mediaPlayer != null) {
             System.out.println(slider.getValue());
-             mediaPlayer.setVolume(slider.getValue());
-             
+            mediaPlayer.setVolume(slider.getValue());
+
         }
-    
+
     }
-    
+
     private void btn_loopAction(MouseEvent event) {
-      
-      if(mediaPlayer != null){
-      }
-      mediaPlayer.seek(Duration.ZERO);
-      mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-      mediaPlayer.getOnEndOfMedia();
 
+        if (mediaPlayer != null) {
+        }
+        mediaPlayer.seek(Duration.ZERO);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.getOnEndOfMedia();
 
     }
-    
+
     @FXML
     private void handle_deletePlaylist(ActionEvent event) throws IOException {
         Parent root1;
@@ -334,7 +322,8 @@ public class PrimaryController implements Initializable {
         playlistStage.show();
     }
 
-    
+    @FXML
+    private void handle_AddSongToPlaylist(ActionEvent event) {
+    }
 
 }
-
