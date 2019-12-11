@@ -34,6 +34,7 @@ public final class SongModel {
      * @return The list of all songs.
      */
     public ObservableList<Song> getLibraryList(){
+        libraryList = FXCollections.observableArrayList(logicManager.getAllSongs());
         return libraryList;
     }
     
@@ -87,17 +88,9 @@ public final class SongModel {
         libraryList.clear();
         libraryList.addAll(temp);
     }
-    public ObservableList<Song> updateLibraryList(){
-        System.out.println("test");
-        return getLibraryList();
-    }
-    
-    
-    
     public int format_To_Sec(String timeString){
         return logicManager.format_To_Sec(timeString);
     }
-    
     public String sec_To_Format(int sec){
         return logicManager.sec_To_Format(sec);
     }

@@ -193,6 +193,7 @@ public class PrimaryController implements Initializable {
     public void updateLibrary() {
         tbv_Library.getItems().clear();
         tbv_Library.setItems(songModel.getLibraryList());
+        System.out.println("im here");
     }
 
     @FXML

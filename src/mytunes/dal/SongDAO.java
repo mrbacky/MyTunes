@@ -46,6 +46,7 @@ public class SongDAO {
                 String songpath = rs.getString("songpath");
                 String genre = rs.getString("genre");
                 allSongs.add(new Song(id, title, artist, time, songpath, genre));
+                System.out.println("im heeeeeeeeeeeere");
             }
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);

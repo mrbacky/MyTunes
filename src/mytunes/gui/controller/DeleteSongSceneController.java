@@ -42,14 +42,14 @@ public class DeleteSongSceneController implements Initializable {
         Song selectedSong = this.pCon.tbv_Library.getSelectionModel().getSelectedItem();
         songModel.deleteSong(selectedSong);
         this.pCon.tbv_Library.getSelectionModel().clearSelection();
-
+        
         updateLibrary();
         Stage stage;
         stage = (Stage) btn_ConfirmDeleteSong.getScene().getWindow();
         stage.close();
     }
 
-    public void updateLibrary() {
+    private void updateLibrary() {
         pCon.updateLibrary();
     }
 
