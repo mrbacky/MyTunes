@@ -234,6 +234,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private void handle_getSong(MouseEvent event) {
         song = tbv_Library.getSelectionModel().getSelectedItem();
+        
     }
 
     @FXML

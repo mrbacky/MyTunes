@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import mytunes.gui.model.SongModel;
 
 public class EditSongSceneController implements Initializable {
     @FXML
@@ -36,7 +37,7 @@ public class EditSongSceneController implements Initializable {
         // TODO
     }    
 
-    
+
     
     
    
