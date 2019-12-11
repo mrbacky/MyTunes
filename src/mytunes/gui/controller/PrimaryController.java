@@ -56,10 +56,6 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_next;
     @FXML
-    private Button btn_downSong;
-    @FXML
-    private Button btn_upSong;
-    @FXML
     private Button btn_editPlaylist;
     @FXML
     private Button btn_deleteSongFromPlaylist;
@@ -85,7 +81,7 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_songTime;
 
     @FXML
-     TableView<Playlist> tbv_Playlists;
+    TableView<Playlist> tbv_Playlists;
     @FXML
     private TableColumn<Playlist, Integer> col_PSongs;
     @FXML
@@ -115,11 +111,14 @@ public class PrimaryController implements Initializable {
     private PlaylistModel playlistModel;
     private SongOnPlaylistModel SongOnPlaylistModel;
     private Playlist playlist;
-    
-    
-    
-    
-  
+    @FXML
+    private Button btn_next1;
+    @FXML
+    private Button btn_next11;
+    @FXML
+    private Button btn_moveSongDown;
+    @FXML
+    private Button btn_moveSongUp;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -144,7 +143,6 @@ public class PrimaryController implements Initializable {
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylistList());
 
-        
     }
 
     private void setSearchFilter() {
@@ -165,17 +163,17 @@ public class PrimaryController implements Initializable {
             mediaPlayer.setStartTime(currentTime);
             mediaPlayer.play();
             isPaused = false;
-        }else{
+        } else {
             if (mediaPlayer != null && isPaused == false && isScheduelSong == false) {
                 mediaPlayer.pause();
                 isPaused = true;
-            }else {
-                
-            if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItems() != null && lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
-                currentSongPlaying = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
-                lv_SongsOnPlaylist.getSelectionModel().clearSelection();
-                isScheduelSong=false;
-            }
+            } else {
+
+                if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItems() != null && lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
+                    currentSongPlaying = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+                    lv_SongsOnPlaylist.getSelectionModel().clearSelection();
+                    isScheduelSong = false;
+                }
                 mediaPlayer = new MediaPlayer(new Media(new File(lv_SongsOnPlaylist.getItems().get(currentSongPlaying).getPath()).toURI().toString()));
 
                 mediaPlayer.setVolume(slider.getValue());
@@ -219,7 +217,7 @@ public class PrimaryController implements Initializable {
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
         fxmlLoader.<CreatePlaylistSceneController>getController().setContr(this);
-        
+
         Stage playlistStage = new Stage();
         Scene playlistScene = new Scene(root1);
 
@@ -264,7 +262,7 @@ public class PrimaryController implements Initializable {
         tbv_Playlists.getItems().clear();
         tbv_Playlists.setItems(playlistModel.getPlaylistList());
     }
-    
+
     @FXML
     private void handle_EditSong(ActionEvent event) throws IOException {
         Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/EditSongScene.fxml"));
@@ -278,7 +276,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private void handle_getSong(MouseEvent event) {
         song = tbv_Library.getSelectionModel().getSelectedItem();
-        
+
     }
 
     @FXML
@@ -288,7 +286,7 @@ public class PrimaryController implements Initializable {
             ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
             songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
             lv_SongsOnPlaylist.setItems(songsInPlaylist);
-            
+
         }
 
     }
@@ -325,8 +323,8 @@ public class PrimaryController implements Initializable {
             ObservableList<Song> allOverPower = FXCollections.observableArrayList();
 
             allOverPower.addAll(FXCollections.observableArrayList(IDK));
-            lv_SongsOnPlaylist.setItems(allOverPower);
 
+            lv_SongsOnPlaylist.setItems(allOverPower);
         }
 
     }
@@ -360,38 +358,13 @@ public class PrimaryController implements Initializable {
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
         fxmlLoader.<DeletePlaylistSceneController>getController().setContr(this);
-        
+
         Stage playlistStage = new Stage();
         Scene playlistScene = new Scene(root1);
 
         //songStage.initStyle(StageStyle.UNDECORATED);
         playlistStage.setScene(playlistScene);
         playlistStage.show();
-    }
-
-    private void MoveSongDown(ActionEvent event) {
-
-        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
-        if (index != lv_SongsOnPlaylist.getItems().size() - 1) {
-
-            // swap items            
-            lv_SongsOnPlaylist.getItems().add(index + 1, lv_SongsOnPlaylist.getItems().remove(index));
-            // select item at new position
-            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index + 1);
-
-        }
-
-    }
-
-    private void MoveSongUp(ActionEvent event) {
-
-        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
-        if (index != 0) {
-            // swap items
-            lv_SongsOnPlaylist.getItems().add(index - 1, lv_SongsOnPlaylist.getItems().remove(index));
-            // select item at new position
-            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
-        }
     }
 
     @FXML
@@ -423,19 +396,43 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void MoveDownSong(ActionEvent event) {
-    }
-
-    @FXML
-    private void MoveUpSong(ActionEvent event) {
-    }
-
-    @FXML
     private void scheduleSong(MouseEvent event) {
 
         if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItem() != null) {
             isScheduelSong = true;
         }
+    }
+
+    @FXML
+    private void handle_moveSongDown(ActionEvent event) {
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        if (index != lv_SongsOnPlaylist.getItems().size() - 1) {
+
+            // swap items
+            lv_SongsOnPlaylist.getItems().add(index + 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index + 1);
+
+        }
+    }
+
+    @FXML
+    private void handle_moveSongUp(ActionEvent event) {
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        if (index != 0) {
+            System.out.println(index);
+            // swap items
+            lv_SongsOnPlaylist.getItems().add(index - 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
+
+        }
+    }
+
+    @FXML
+    private void handle_AddSongToPlaylist(ActionEvent event) {
+        
+    
     }
 
 }

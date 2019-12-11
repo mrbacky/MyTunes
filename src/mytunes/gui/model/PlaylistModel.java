@@ -35,7 +35,6 @@ public final class PlaylistModel {
         List<Playlist> allPlaylists = logicManager.getAllPlaylists();
         for (Playlist playlist1 : allPlaylists) {
             playlist1.setStringTime(sec_To_Format(playlist1.getTime()));
-            System.out.println(sec_To_Format(playlist1.getTime()));
         }
         playlistList = FXCollections.observableArrayList(allPlaylists);
         
