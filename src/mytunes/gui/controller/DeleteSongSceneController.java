@@ -34,6 +34,8 @@ public class DeleteSongSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         songModel = new SongModel();
+
+        
     }
 
     public void setContr(PrimaryController pCon) {
@@ -49,8 +51,6 @@ public class DeleteSongSceneController implements Initializable {
         //Deletes from the database, but the library is not showing properly.
         Song selectedSong = this.pCon.tbv_Library.getSelectionModel().getSelectedItem();
         songModel.deleteSong(selectedSong);
-        this.pCon.tbv_Library.getSelectionModel().clearSelection();
-        
         updateLibrary();
         Stage stage;
         stage = (Stage) btn_ConfirmDeleteSong.getScene().getWindow();

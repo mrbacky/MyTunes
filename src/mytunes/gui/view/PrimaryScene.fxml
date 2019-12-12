@@ -165,7 +165,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_deleteSongFromPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="370.0">
+                  <Button fx:id="btn_deleteSongFromPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deleteSongFromPlaylst" prefHeight="20.0" prefWidth="20.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="370.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

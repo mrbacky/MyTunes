@@ -23,6 +23,7 @@ public final class PlaylistModel {
     public PlaylistModel() {
         logicManager = new LogicManager();
         getPlaylistList();
+        
     }
 
     /**

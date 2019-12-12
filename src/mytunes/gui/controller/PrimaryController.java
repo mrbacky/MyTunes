@@ -102,10 +102,7 @@ public class PrimaryController implements Initializable {
     private boolean isPaused = false;
     private int currentSongPlaying = 0;
     private Song song;
-    private ObservableList<Playlist> observableListPlaylist;
-    private ObservableList<Song> observableListSong;
     //private ObservableList<Playlist> observableListPlaylist;
-    private ObservableList<Song> ObservableListSongOnPlaylist;
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
@@ -279,15 +276,24 @@ public class PrimaryController implements Initializable {
 
     }
 
+    private void getSongsInPlaylist() {
+        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
+        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
+        lv_SongsOnPlaylist.setItems(songsInPlaylist);
+
+    }
+
     @FXML
     private void handle_getPlaylist(MouseEvent event) {
-
-        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null) {
-            ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
-            songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
-            lv_SongsOnPlaylist.setItems(songsInPlaylist);
-
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist != null) {
+            getSongsInPlaylist();
         }
+    }
+
+    @FXML
+    private void handle_deleteSongFromPlaylst(ActionEvent event) {
+        
 
     }
 
@@ -434,11 +440,12 @@ public class PrimaryController implements Initializable {
         Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
         Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
         selectedPlaylist.addSong(selectedSong);
-//        updatePlaylists();
-//        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
-//        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
-//        lv_SongsOnPlaylist.setItems(songsInPlaylist);
-//  bruh
+
+        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
+        songsInPlaylist.clear();
+        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
+        lv_SongsOnPlaylist.setItems(songsInPlaylist);
+
     }
 
 }
