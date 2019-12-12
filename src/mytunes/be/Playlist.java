@@ -71,7 +71,7 @@ public class Playlist {
         return songs;
     }
 
-    public void addSongs(Song son) {
+    public void addSong(Song son) {
         songs.add(son);
         numberOfSongs = songs.size();
     }

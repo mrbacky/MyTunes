@@ -30,20 +30,17 @@ public final class PlaylistModel {
      * @return The list of all playlists.
      */
     public ObservableList<Playlist> getPlaylistList() {
-//         playlistList = FXCollections.observableArrayList(logicManager.getAllPlaylists());
-//         return playlistList;
         List<Playlist> allPlaylists = logicManager.getAllPlaylists();
         for (Playlist playlist1 : allPlaylists) {
             playlist1.setStringTime(sec_To_Format(playlist1.getTime()));
         }
         playlistList = FXCollections.observableArrayList(allPlaylists);
-        
         return playlistList;
     }
     
     private void updateListofPlaylists(Playlist playlist){
-        playlistList.set(playlistList.indexOf(playlist), playlist);
-        //setPlaylistSongs(playlist);
+        playlistList.set( playlistList.indexOf(playlist) , playlist);
+       //setPlaylistSongs(playlist);
     }
    
     /**

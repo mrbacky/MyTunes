@@ -431,8 +431,13 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void handle_AddSongToPlaylist(ActionEvent event) {
-        
-    
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
+        selectedPlaylist.addSong(selectedSong);
+//        updatePlaylists();
+//        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
+//        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
+//        lv_SongsOnPlaylist.setItems(songsInPlaylist);
     }
 
 }

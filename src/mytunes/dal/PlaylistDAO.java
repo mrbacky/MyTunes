@@ -77,7 +77,7 @@ public class PlaylistDAO {
                 String title = rs.getString("title");
                 int order = rs.getInt("order");
 
-                playlists.get(playlistid).addSongs(new Song(id, title, "ert", time, songPath, "lol"));
+                playlists.get(playlistid).addSong(new Song(id, title, "ert", time, songPath, "lol"));
             }
         } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
