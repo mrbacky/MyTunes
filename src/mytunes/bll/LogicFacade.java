@@ -27,7 +27,7 @@ public interface LogicFacade {
      * @return The newly created song.
      */
     //Song createSong(String title, String artist, String time, String path, String genre);
-    void createSong(Song song);//done
+    Song createSong(String title, String artist, int time, String path, String genre);//done
     /**
      * Gets a list of all the songs in the database.
      * @return List with all songs.

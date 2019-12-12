@@ -57,8 +57,7 @@ public final class PlaylistModel {
      * @param editedName The edited name of the playlist.
      */
     public void updatePlaylist(Playlist playlist, String editedName) {
-        Playlist updatedPlaylist = logicManager.updatePlaylist(playlist, editedName);
-        updateListofPlaylists(updatedPlaylist);
+        logicManager.updatePlaylist(playlist, editedName);
     }
 
     /**

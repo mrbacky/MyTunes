@@ -44,8 +44,8 @@ public class LogicManager implements LogicFacade {
         return dbManager.updatePlaylist(playlist, editedName);
     }
     
-    public void createSong(Song song) {
-        dbManager.createSong(song);
+   public Song createSong(String title, String artist, int time, String path, String genre) {
+        return dbManager.createSong(title, artist, time, path, genre);
         
     }
 //    public Song createSong(String title, String artist, String time, String path, String genre) {

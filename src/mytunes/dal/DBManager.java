@@ -26,8 +26,8 @@ public class DBManager implements DBFacade {
     //      Song  
     //__________________________________________________________________________
     @Override
-    public void createSong(Song song) {
-        songDAO.createSong(song);
+    public Song createSong(String title, String artist, int time, String path, String genre) {
+        return songDAO.createSong(title, artist, time, path, genre);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DBManager implements DBFacade {
 
     @Override
     public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return songDAO.updateSong(song, editedTitle, editedArtist, editedGenre);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class DBManager implements DBFacade {
 
     @Override
     public Playlist updatePlaylist(Playlist playlist, String editedName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return playlistDAO.updatePlaylist(playlist, editedName);
     }
 
     @Override

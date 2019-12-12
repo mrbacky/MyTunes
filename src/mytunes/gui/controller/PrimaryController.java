@@ -196,9 +196,18 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void handle_editPlaylist(ActionEvent event) throws IOException {
-        Parent rootPlaylist = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/EditPlaylistScene.fxml"));
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
+        CreatePlaylistSceneController controller = (CreatePlaylistSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        controller.editMode(selectedPlaylist);
+        
         Stage playlistStage = new Stage();
-        Scene playlistScene = new Scene(rootPlaylist);
+        Scene playlistScene = new Scene(root1);
+
         //songStage.initStyle(StageStyle.UNDECORATED);
         playlistStage.setScene(playlistScene);
         playlistStage.show();
@@ -233,12 +242,21 @@ public class PrimaryController implements Initializable {
     
     @FXML
     private void handle_EditSong(ActionEvent event) throws IOException {
-        Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/EditSongScene.fxml"));
+        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
+        
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        AddSongSceneController controller = (AddSongSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        controller.editMode(selectedSong); //set mode to edit song.
         Stage songStage = new Stage();
-        Scene songScene = new Scene(rootSong);
+        Scene songScene = new Scene(root1);
+
         //songStage.initStyle(StageStyle.UNDECORATED);
         songStage.setScene(songScene);
-        songStage.show();
+        songStage.show();    
     }
 
     @FXML

@@ -55,21 +55,20 @@ public final class SongModel {
      * @param genre The genre of the song.
      */
     public void createSong(String title, String artist, int time, String genre, String path) {
-        Song song = new Song(0, title, artist, time, path, genre);
-        logicManager.createSong(song);
+        Song song = logicManager.createSong(title, artist, time, path, genre);
+        libraryList.add(song);
     }
 
     /**
-     * Updates a song. NOT COMPLETED!!
-     *
-     * @param song
-     * @param editedTitle
-     * @param editedArtist
-     * @param editedGenre
+     * Updates a song. The method calls the BLL to update an edited song in
+     * the database.
+     * @param song The song to be updated.
+     * @param editedTitle The edited title of the song.
+     * @param editedArtist The edited artist of the song.
+     * @param editedGenre The edited genre of the song.
      */
     public void updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        Song updatedSong = logicManager.updateSong(song, editedTitle, editedArtist, editedGenre);
-        //updateLibraryList(updatedSong);
+        logicManager.updateSong(song, editedTitle, editedArtist, editedGenre);
     }
 
     /**

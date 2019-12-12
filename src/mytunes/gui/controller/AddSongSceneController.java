@@ -1,4 +1,3 @@
-
 package mytunes.gui.controller;
 
 import java.io.File;
@@ -29,6 +28,7 @@ import mytunes.gui.controller.PrimaryController;
 import java.util.concurrent.TimeUnit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mytunes.be.Song;
 
 public class AddSongSceneController implements Initializable {
 
@@ -49,13 +49,15 @@ public class AddSongSceneController implements Initializable {
     @FXML
     private TextField txtField_AddSong_time;
 
-    
+    private boolean edit;
+    private Song songToEdit;
     private SongModel songModel;
     private PrimaryController pCon;
     private ObservableList<String> observableListGenre = FXCollections.observableArrayList
             ("Rock","Pop","Hip-Hop","R&B/Soul","Metal","LoFi","Metal");
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        edit = false;
         songModel = new SongModel();
         loadGenres();
     }
@@ -109,35 +111,56 @@ public class AddSongSceneController implements Initializable {
 
     @FXML
     private void handle_AddSongToDB(ActionEvent event) throws InterruptedException, IOException {
-
-        txtField_AddSong_title.getText();
-        txtField_AddSong_artist.getText();
-        choiseBox_AddSong_genre.getSelectionModel().getSelectedItem();
-        txtField_AddSong_filePath.getText();
-
-        songModel.createSong(
-                txtField_AddSong_title.getText(),
-                txtField_AddSong_artist.getText(),
-                songModel.format_To_Sec(txtField_AddSong_time.getText()),
-                choiseBox_AddSong_genre.getSelectionModel().getSelectedItem(),
-                txtField_AddSong_filePath.getText()
-        );
+        //THIS handle should be renamed. Now the functionality can be either create or update.
+        if (!edit) {
+            songModel.createSong(
+                    txtField_AddSong_title.getText(),
+                    txtField_AddSong_artist.getText(),
+                    songModel.format_To_Sec(txtField_AddSong_time.getText()),
+                    choiseBox_AddSong_genre.getSelectionModel().getSelectedItem(),
+                    txtField_AddSong_filePath.getText());
+        } else {
+            songModel.updateSong(
+                    songToEdit,
+                    txtField_AddSong_title.getText(),
+                    txtField_AddSong_artist.getText(),
+                    choiseBox_AddSong_genre.getSelectionModel().getSelectedItem());
+        }
+        
         updateLibrary();
 
         Stage stage;
         stage = (Stage) btn_AddSong_saveSong.getScene().getWindow();
         stage.close();
     }
-
+    
     public void updateLibrary() {
         pCon.updateLibrary();
     }
 
+    /**
+     * Enables the edit mode, so the song can be edited. The existing info of
+     * the selected song is displayed.
+     *
+     * @param song The song to be edited.
+     */
+    public void editMode(Song song) {
+        edit = true;
+        songToEdit = song;
+
+        //sets the existing info of the selected song.
+        txtField_AddSong_title.setText(songToEdit.getTitle());
+        txtField_AddSong_artist.setText(songToEdit.getArtist());
+        txtField_AddSong_time.setText(songToEdit.getStringTime());
+        txtField_AddSong_filePath.setText(songToEdit.getPath());
+        //not working...        
+        choiseBox_AddSong_genre.getSelectionModel();
+    }
+    
     @FXML
     private void handle_CloseScene(ActionEvent event) {
         Stage stage = (Stage) btn_AddSong_cancelSong.getScene().getWindow();
         stage.close();
-
     }
 
     public void setContr(PrimaryController pCon) {

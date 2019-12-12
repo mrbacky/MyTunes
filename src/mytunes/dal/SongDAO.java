@@ -65,34 +65,37 @@ public class SongDAO {
      * @param genre The genre of the song.
      * @return The newly created song.
      */
-    public Song createSong(Song songToAdd) {
+    public Song createSong(String title, String artist, int time, String path, String genre) {
         try (//Get a connection to the database.
             Connection con = connectDAO.getConnection()) {
             //Create a prepared statement.
             String sql = "INSERT INTO song(title, artist, time, genre, songpath) VALUES (?,?,?,?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            pstmt.setString(1,  songToAdd.getTitle());
-            pstmt.setString(2,  songToAdd.getArtist());
-            pstmt.setInt(3,     songToAdd.getTime());
-            pstmt.setString(4,  songToAdd.getGenre());
-            pstmt.setString(5,  songToAdd.getPath());
+            //Set parameter values.
+            pstmt.setString(1, title);
+            pstmt.setString(2, artist);
+            pstmt.setInt(3, time);
+            pstmt.setString(4, genre);
+            pstmt.setString(5, path);
+            //Execute SQL query.
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-       
+            return new Song(id, title, artist, time, path, genre);
+            
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return songToAdd;
+        
+        return null;
     }
     
     /**
      * Updates a song in the database after editing.
-     * @param song The song to be updated after editing.
+     * @param songToEdit The song to be updated after editing.
      * @param editedTitle The edited title of the song.
      * @param editedArtist The edited artist of the song.
      * @param editedGenre The edited genre of the song.
