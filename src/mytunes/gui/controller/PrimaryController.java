@@ -142,7 +142,7 @@ public class PrimaryController implements Initializable {
 
     }
 
-    private void setSearchFilter() {
+    private void setSearchFilter() { 
         //Set the filter Predicate when the filter changes. Any changes to the
         //search textfield activates the filter.
         txtSongSearch.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -153,7 +153,7 @@ public class PrimaryController implements Initializable {
     private Duration currentTime;
     private boolean isScheduelSong = true;
 
-    public void play() throws IOException {
+    public void play() throws IOException { // plays, pauses, resumes song when chosen
 
         if (isPaused == true && isScheduelSong == false) {
             currentTime = mediaPlayer.getCurrentTime();
@@ -243,7 +243,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_createSong(ActionEvent event) throws IOException {
+    private void handle_createSong(ActionEvent event) throws IOException {  
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
@@ -289,7 +289,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_getSong(MouseEvent event) {
+    private void handle_getSong(MouseEvent event) { // pick  selected song
         song = tbv_Library.getSelectionModel().getSelectedItem();
 
     }
@@ -316,7 +316,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_deleteSong(ActionEvent event) throws IOException {
+    private void handle_deleteSong(ActionEvent event) throws IOException { // deletion of songs
         //move code to controller
         /*Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
         songModel.deleteSong(selectedSong);
@@ -336,7 +336,7 @@ public class PrimaryController implements Initializable {
         songStage.show();
     }
 
-    private void btn_shuffleAction(ActionEvent event) {
+    private void btn_shuffleAction(ActionEvent event) { // shuffle songs in playlist
 
         lv_SongsOnPlaylist.getItems().clear();
         if (tbv_Playlists.getSelectionModel().getSelectedItem() != null) {
@@ -354,7 +354,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void setSlider(MouseEvent event) {
+    private void setSlider(MouseEvent event) { // volume
 
         if (mediaPlayer != null) {
             System.out.println(slider.getValue());
@@ -365,7 +365,7 @@ public class PrimaryController implements Initializable {
 
     }
 
-    private void btn_loopAction(MouseEvent event) {
+    private void btn_loopAction(MouseEvent event) { // loop
 
         if (mediaPlayer != null) {
         }
@@ -392,7 +392,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_Previous(ActionEvent event) throws IOException {
+    private void handle_Previous(ActionEvent event) throws IOException { // back button
 
         if (lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
             mediaPlayer.stop();
@@ -406,7 +406,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_Next(ActionEvent event) throws IOException {
+    private void handle_Next(ActionEvent event) throws IOException { //skip button
 
         if (lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
             mediaPlayer.stop();
