@@ -21,7 +21,7 @@ public interface DBFacade {
      * Creates and adds a new song to the database.
      * @param song
      */
-    void createSong(Song song);
+    Song createSong(String title, String artist, int time, String path, String genre);
 
     /**
      * Updates the song in the database to reflect the values in the given Song

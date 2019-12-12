@@ -25,6 +25,8 @@ public class CreatePlaylistSceneController implements Initializable {
     @FXML
     private Button btn_savePlaylist;
         
+    private boolean edit;
+    private Playlist playlistToEdit;
     private PlaylistModel playlistModel;
     private PrimaryController pCon;
 
@@ -36,12 +38,22 @@ public class CreatePlaylistSceneController implements Initializable {
         playlistModel = new PlaylistModel();
     }    
 
+    public void setContr(PrimaryController pCon) {
+        this.pCon = pCon;
+    }
+     
     @FXML
+    //RENAME!! Now the functionality can be either create or update.
     private void handle_CreatePlaylist(ActionEvent event) {
-        txtField_namePlaylist.getText();
-        //String name = txtField_namePlaylist.getText().trim();
-        playlistModel.createPlaylist(0,txtField_namePlaylist.getText(),0);
+        if (!edit) {
+            String name = txtField_namePlaylist.getText().trim();
+            playlistModel.createPlaylist(0, name, 0);
+        } else {
+            playlistModel.updatePlaylist(playlistToEdit, txtField_namePlaylist.getText());
+        }
+
         updatePlaylists();
+
         Stage stage;
         stage = (Stage) btn_savePlaylist.getScene().getWindow();
         stage.close();
@@ -51,16 +63,16 @@ public class CreatePlaylistSceneController implements Initializable {
         pCon.updatePlaylists();
     }
 
+    public void editMode(Playlist playlist) {
+        edit = true;
+        playlistToEdit = playlist;
+        
+        //sets the existing info of the selected playlist.
+        txtField_namePlaylist.setText(playlistToEdit.getName());
+    }
     @FXML
     private void handle_ClosePlaylistScene(ActionEvent event) {
         Stage stage = (Stage) btn_cancelPlaylist.getScene().getWindow();
         stage.close();
-    }
-
-    public void setContr(PrimaryController pCon) {
-        this.pCon = pCon;
-    }
-
-    
-    
+    }    
 }
