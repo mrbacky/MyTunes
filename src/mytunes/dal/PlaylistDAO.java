@@ -55,10 +55,19 @@ public class PlaylistDAO {
         return playlistToCreate;
     }
 
-    
-
-
-    
+    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException {
+        try (Connection con = connectDAO.getConnection()) {
+            String sql = "INSERT INTO SongOnPlaylist(playlistid, songid,[order]) values(?,?,?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            
+            pstmt.setInt(1, selectedPlaylist.getId());
+            pstmt.setInt(2, selectedSong.getId());
+            pstmt.setInt(3, selectedPlaylist.getId());
+            pstmt.execute();
+            selectedPlaylist.addSong(selectedSong);
+            return selectedPlaylist;
+        }
+    }
 
     public List<Playlist> fetchAllSongsInPlaylists() throws SQLException {
         //List<Playlist> playlists = new ArrayList<>();
@@ -80,25 +89,28 @@ public class PlaylistDAO {
                 playlists.get(playlistid).addSong(new Song(id, title, "ert", time, songPath, "lol"));
             }
         } catch (SQLServerException ex) {
-            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaylistDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaylistDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         List<Playlist> unhashedPlaylists = new ArrayList<>();
         for (Map.Entry<Integer, Playlist> entry : playlists.entrySet()) {
             unhashedPlaylists.add(entry.getValue());
 
         }
-    
+
         return unhashedPlaylists;
     }
-        /**
-         * Updates the name of the playlist in the database.
-         *
-         * @param playlist The playlist to be updated.
-         * @param editedName The edited name of the playlist.
-         * @return The updated playlist.
-         */
+
+    /**
+     * Updates the name of the playlist in the database.
+     *
+     * @param playlist The playlist to be updated.
+     * @param editedName The edited name of the playlist.
+     * @return The updated playlist.
+     */
     public Playlist updatePlaylist(Playlist playlist, String editedName) {
         try (//Get a connection to the database.
                 Connection con = connectDAO.getConnection()) {
@@ -114,9 +126,11 @@ public class PlaylistDAO {
             return playlist;
 
         } catch (SQLServerException ex) {
-            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaylistDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaylistDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -131,13 +145,13 @@ public class PlaylistDAO {
             pstmt.setInt(1, playlist.getId());
             pstmt.execute();
         } catch (SQLServerException ex) {
-            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
 
     private HashMap<Integer, Playlist> fetchAllPlaylists() {
         //List<Playlist> allPlaylists = new ArrayList<>();
@@ -155,12 +169,13 @@ public class PlaylistDAO {
                 allPlaylists.put(id, new Playlist(id, name, time));
             }
         } catch (SQLServerException ex) {
-            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SongDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return allPlaylists;
     }
 
 }
-

@@ -110,7 +110,7 @@ public class AddSongSceneController implements Initializable {
     }
 
     @FXML
-    private void handle_AddSongToDB(ActionEvent event) throws InterruptedException, IOException {
+    private void handle_createUpdateSong(ActionEvent event) throws InterruptedException, IOException {
         //THIS handle should be renamed. Now the functionality can be either create or update.
         if (!edit) {
             songModel.createSong(

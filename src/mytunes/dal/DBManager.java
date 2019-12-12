@@ -97,13 +97,20 @@ public class DBManager implements DBFacade {
     }
 
     @Override
-    public Playlist addSongToPlaylist(Playlist playlist, Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        try {
+            return playlistDAO.addSongToPlaylist(selectedPlaylist, selectedSong);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public void deleteSongFromPlaylist(Playlist playlist, Song song) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
 }

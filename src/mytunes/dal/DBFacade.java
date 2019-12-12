@@ -92,12 +92,14 @@ public interface DBFacade {
      * @param song The song to be added to the playlist.
      * @return Playlist with the added song.
      */
-    Playlist addSongToPlaylist(Playlist playlist, Song song);
+    Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong);
 
     //__________________________________________________________________________                       
     //
     //      Song On Playlist    
     //__________________________________________________________________________                     
+    
+    
     List<SongOnPlaylist> getAllSongsOnPlaylist();
 
     /**

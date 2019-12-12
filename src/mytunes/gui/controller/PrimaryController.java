@@ -139,9 +139,13 @@ public class PrimaryController implements Initializable {
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylistList());
+        
+        
 
     }
 
+    
+    
     private void setSearchFilter() { 
         //Set the filter Predicate when the filter changes. Any changes to the
         //search textfield activates the filter.
@@ -457,13 +461,10 @@ public class PrimaryController implements Initializable {
     private void handle_AddSongToPlaylist(ActionEvent event) {
         Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
         Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
-        selectedPlaylist.addSong(selectedSong);
-
-        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
-        songsInPlaylist.clear();
-        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
-        lv_SongsOnPlaylist.setItems(songsInPlaylist);
-
+        playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
+            
+        
+        
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mytunes.be.Playlist;
+import mytunes.be.Song;
 import mytunes.bll.LogicManager;
 import mytunes.bll.LogicFacade;
 
@@ -44,11 +45,20 @@ public final class PlaylistModel {
        //setPlaylistSongs(playlist);
     }
    
+    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong){
+        try {
+            System.out.println(logicManager.addSongToPlaylist(selectedPlaylist, selectedSong));
+           return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong); 
+        } catch (Exception eeee) {
+        }
+        return null;
+    }
+    
     /**
-     * Creates a new playlist.
-     * The method calls the BLL to create a playlist in the database.
-     * The created playlist is added to the temporary list of all playlists as well.
+     * Creates a new playlist.The method calls the BLL to create a playlist in the database.The created playlist is added to the temporary list of all playlists as well.
+     * @param id
      @param name The name of the new playlist.
+     * @param numberOfSongs
      */
     public void createPlaylist(int id,String name,int numberOfSongs) {
         Playlist playlist = new Playlist(id,name,numberOfSongs);

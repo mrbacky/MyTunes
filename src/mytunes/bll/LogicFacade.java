@@ -76,6 +76,13 @@ public interface LogicFacade {
      * @return List with all playlists.
      */
     List<Playlist> getAllPlaylists();//done
+    /**
+     * Returns Playlist with fresh added song
+     * @param playlist
+     * @return playlist
+     */
+    
+    
     
 //  Songs on Playlist methods
     /**
@@ -84,7 +91,7 @@ public interface LogicFacade {
      * @param song The song to be added to the playlist.
      * @return Playlist with the added song.
      */
-    Playlist addSongToPlaylist(Playlist playlist, Song song);
+    Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong);
     /**
      * Deletes the song from the playlist in the database.
      * @param playlist The playlist of the song.

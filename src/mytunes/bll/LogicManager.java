@@ -97,9 +97,11 @@ public class LogicManager implements LogicFacade {
         dbManager.deletePlaylist(playlist);
     }
 
+    
+
     @Override
-    public Playlist addSongToPlaylist(Playlist playlist, Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        return dbManager.addSongToPlaylist(selectedPlaylist, selectedSong);
     }
     
     

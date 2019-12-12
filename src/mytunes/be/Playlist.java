@@ -19,7 +19,19 @@ public class Playlist {
     private List<Song> songs = new ArrayList<>();
     private int numberOfSongs;
     private String stringTime;
+    private int playlistDuration;
 
+    public int getPlaylistsDuration() {
+        int totalTime = 0;
+        for (Song song : songs) {
+            song.getTime();
+            totalTime+=song.getTime();
+        }
+        return playlistDuration;
+    }
+
+    
+    
     public String getStringTime() {
         return stringTime;
     }
