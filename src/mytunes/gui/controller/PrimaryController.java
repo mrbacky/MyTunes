@@ -438,6 +438,7 @@ public class PrimaryController implements Initializable {
 //        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
 //        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
 //        lv_SongsOnPlaylist.setItems(songsInPlaylist);
+//  bruh
     }
 
 }
