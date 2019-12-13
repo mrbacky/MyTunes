@@ -39,7 +39,7 @@ public class LogicManager implements LogicFacade {
         dbManager.createPlaylist(playlist);
     }
     
-     @Override
+    @Override
     public Playlist updatePlaylist(Playlist playlist, String editedName) {
         return dbManager.updatePlaylist(playlist, editedName);
     }

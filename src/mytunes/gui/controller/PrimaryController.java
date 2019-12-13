@@ -290,6 +290,7 @@ public class PrimaryController implements Initializable {
         Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
         playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
         updateSongOnPlaylist();
+        updatePlaylists();
 
     }
     
