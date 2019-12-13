@@ -19,15 +19,15 @@ public class Playlist {
     private List<Song> songs = new ArrayList<>();
     private int numberOfSongs;
     private String stringTime;
-    private int playlistDuration;
+   
 
-    public int getPlaylistsDuration() {
-        int totalTime = 0;
+    public int getTotalPlaylistPlaytime() {
+        int totalPlaylistPlaytime = 0;
         for (Song song : songs) {
             song.getTime();
-            totalTime+=song.getTime();
+            totalPlaylistPlaytime+=song.getTime();
         }
-        return playlistDuration;
+        return totalPlaylistPlaytime;
     }
 
     
@@ -88,6 +88,6 @@ public class Playlist {
         numberOfSongs = songs.size();
     }
     
-    //public void calculatePlaylistTime
+    
     
 }

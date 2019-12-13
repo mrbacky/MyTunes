@@ -34,7 +34,7 @@ public final class PlaylistModel {
     public ObservableList<Playlist> getPlaylistList() {
         List<Playlist> allPlaylists = logicManager.getAllPlaylists();
         for (Playlist playlist1 : allPlaylists) {
-            playlist1.setStringTime(sec_To_Format(playlist1.getTime()));
+            playlist1.setStringTime(sec_To_Format(playlist1.getTotalPlaylistPlaytime()));
         }
         playlistList = FXCollections.observableArrayList(allPlaylists);
         return playlistList;
@@ -46,12 +46,7 @@ public final class PlaylistModel {
     }
    
     public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong){
-        try {
-            System.out.println(logicManager.addSongToPlaylist(selectedPlaylist, selectedSong));
-           return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong); 
-        } catch (Exception eeee) {
-        }
-        return null;
+        return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong); 
     }
     
     /**

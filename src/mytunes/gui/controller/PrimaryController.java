@@ -139,14 +139,10 @@ public class PrimaryController implements Initializable {
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylistList());
-        
-        
 
     }
 
-    
-    
-    private void setSearchFilter() { 
+    private void setSearchFilter() {
         //Set the filter Predicate when the filter changes. Any changes to the
         //search textfield activates the filter.
         txtSongSearch.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -237,7 +233,7 @@ public class PrimaryController implements Initializable {
         CreatePlaylistSceneController controller = (CreatePlaylistSceneController) fxmlLoader.getController();
         controller.setContr(this);
         controller.editMode(selectedPlaylist);
-        
+
         Stage playlistStage = new Stage();
         Scene playlistScene = new Scene(root1);
 
@@ -247,7 +243,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_createSong(ActionEvent event) throws IOException {  
+    private void handle_createSong(ActionEvent event) throws IOException {
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
@@ -273,10 +269,34 @@ public class PrimaryController implements Initializable {
         tbv_Playlists.setItems(playlistModel.getPlaylistList());
     }
 
+    public void updateSongOnPlaylist() {
+
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist != null) {
+           getSongsInPlaylist();
+        }
+    }
+    private void getSongsInPlaylist() {
+        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
+        songsInPlaylist.clear();
+        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
+        
+        lv_SongsOnPlaylist.setItems(songsInPlaylist);
+
+    }
+    @FXML
+    private void handle_AddSongToPlaylist(ActionEvent event) {
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
+        playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
+        updateSongOnPlaylist();
+
+    }
+    
     @FXML
     private void handle_EditSong(ActionEvent event) throws IOException {
         Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
-        
+
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
@@ -289,7 +309,7 @@ public class PrimaryController implements Initializable {
 
         //songStage.initStyle(StageStyle.UNDECORATED);
         songStage.setScene(songScene);
-        songStage.show();    
+        songStage.show();
     }
 
     @FXML
@@ -298,12 +318,7 @@ public class PrimaryController implements Initializable {
 
     }
 
-    private void getSongsInPlaylist() {
-        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
-        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
-        lv_SongsOnPlaylist.setItems(songsInPlaylist);
-
-    }
+    
 
     @FXML
     private void handle_getPlaylist(MouseEvent event) {
@@ -313,9 +328,10 @@ public class PrimaryController implements Initializable {
         }
     }
 
+    
+
     @FXML
     private void handle_deleteSongFromPlaylst(ActionEvent event) {
-        
 
     }
 
@@ -455,16 +471,6 @@ public class PrimaryController implements Initializable {
             lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
 
         }
-    }
-
-    @FXML
-    private void handle_AddSongToPlaylist(ActionEvent event) {
-        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
-        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
-        playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
-            
-        
-        
     }
 
 }
