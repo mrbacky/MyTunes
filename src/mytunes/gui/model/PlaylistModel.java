@@ -40,11 +40,6 @@ public final class PlaylistModel {
         return playlistList;
     }
     
-    private void updateListofPlaylists(Playlist playlist){
-        playlistList.set( playlistList.indexOf(playlist) , playlist);
-       //setPlaylistSongs(playlist);
-    }
-   
     public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong){
         return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong); 
     }

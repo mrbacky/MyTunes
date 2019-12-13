@@ -122,12 +122,12 @@ public class SongOnPlaylistDAO {
      * @param selectedSong The song to be deleted.
      * @throws SQLException
      */
-/*    public void deleteSongFromAllPlaylists(Song selectedSong) throws SQLException {
+    public void deleteSongFromAllPlaylists(Song selectedSong) throws SQLException {
         try ( Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM SongOnPlaylist WHERE songid = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, selectedSong.getId());
             pstmt.executeUpdate();
         }
-    }*/
+    }
 }

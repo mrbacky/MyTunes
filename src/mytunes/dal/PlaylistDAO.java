@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mytunes.be.Playlist;
-import mytunes.be.Playlist;
 import mytunes.be.Song;
 import java.sql.PreparedStatement;
 
@@ -26,14 +25,12 @@ import java.sql.PreparedStatement;
 public class PlaylistDAO {
 
     private ConnectDAO connectDAO;
-    private SongOnPlaylistDAO spDAO;
-
+    
     /**
      * Constructor, which creates the connection with the database and the DAO for SongOnPlaylist.
      */
     public PlaylistDAO() {
         connectDAO = new ConnectDAO();
-        spDAO = new SongOnPlaylistDAO();
     }
 
     /**
@@ -132,16 +129,14 @@ public class PlaylistDAO {
     }
 
     /**
-     * Deletes a playlist from the database. Uses object of SongOnPlaylistDAO to
-     * delete all the songs on the playlist to be deleted.
+     * Deletes a playlist from the database. Uses DELETE CASCADE to delete all
+     * the songs on the deleted playlist (songOnPlaylist).
      *
      * @param playlistToDelete The playlist to be deleted.
      * @throws SQLException
      */
     public void deletePlaylist(Playlist playlistToDelete) throws SQLException {
-        //Before the playlist is deleted, the songs are deleted from the playlist.
-        //spDAO.deleteAllSongsOnPlaylist(playlistToDelete);
-        //I think the CASCADE makes it, so that the spDAO.deleteAllSongsOnPlaylist() is uneccessary.
+        //When the playlist is deleted, the corresponding data in the songOnPlaylist is also deleted.
         try (Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM playlist WHERE id = ?"; //deleted based on ID
             PreparedStatement pstmt = con.prepareStatement(sql);
