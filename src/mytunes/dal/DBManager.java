@@ -99,7 +99,7 @@ public class DBManager implements DBFacade {
     @Override
     public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
         try {
-            return playlistDAO.addSongToPlaylist(selectedPlaylist, selectedSong);
+            return SongOnPlaylistDAO.addSongToPlaylist(selectedPlaylist, selectedSong);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
