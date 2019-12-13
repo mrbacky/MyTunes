@@ -48,6 +48,7 @@ public class DBManager implements DBFacade {
     @Override
     public void deleteSong(Song song) {
         try {
+            //SongOnPlaylistDAO.deleteSongFromAllPlaylists(song);
             songDAO.deleteSong(song);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);

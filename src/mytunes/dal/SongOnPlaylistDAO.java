@@ -86,10 +86,11 @@ public class SongOnPlaylistDAO {
      */
     public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException {
         try ( Connection con = connectDAO.getConnection()) {
-            String sql = "DELETE FROM SongOnPlaylist WHERE playlistid = ? and songid = ?";
+            String sql = "DELETE FROM SongOnPlaylist WHERE playlistid = ? and songid = ? and [order] = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, selectedPlaylist.getId());
             pstmt.setInt(2, selectedSong.getId());
+            pstmt.setInt(3, selectedPlaylist.getId());
             pstmt.executeUpdate();
         } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class
@@ -106,7 +107,7 @@ public class SongOnPlaylistDAO {
      * @param selectedPlaylist The playlist to empty.
      * @throws SQLException
      */
-    public void deleteAllSongsOnPlaylist(Playlist selectedPlaylist) throws SQLException {
+/*    public void deleteAllSongsOnPlaylist(Playlist selectedPlaylist) throws SQLException {
         try ( Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM SongOnPlaylist WHERE playlistid = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -114,19 +115,19 @@ public class SongOnPlaylistDAO {
             pstmt.executeUpdate();
         }
     }
-
+*/
     /**
      * Deletes a selected song from all playlist.
      *
      * @param selectedSong The song to be deleted.
      * @throws SQLException
      */
-    public void deleteSongFromAllPlaylists(Song selectedSong) throws SQLException {
+/*    public void deleteSongFromAllPlaylists(Song selectedSong) throws SQLException {
         try ( Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM SongOnPlaylist WHERE songid = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, selectedSong.getId());
             pstmt.executeUpdate();
         }
-    }
+    }*/
 }

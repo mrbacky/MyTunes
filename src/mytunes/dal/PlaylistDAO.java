@@ -140,7 +140,8 @@ public class PlaylistDAO {
      */
     public void deletePlaylist(Playlist playlistToDelete) throws SQLException {
         //Before the playlist is deleted, the songs are deleted from the playlist.
-        spDAO.deleteAllSongsOnPlaylist(playlistToDelete);
+        //spDAO.deleteAllSongsOnPlaylist(playlistToDelete);
+        //I think the CASCADE makes it, so that the spDAO.deleteAllSongsOnPlaylist() is uneccessary.
         try (Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM playlist WHERE id = ?"; //deleted based on ID
             PreparedStatement pstmt = con.prepareStatement(sql);
