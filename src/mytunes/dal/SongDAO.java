@@ -40,8 +40,8 @@ public class SongDAO {
 
         try (Connection con = connectDAO.getConnection()) {
             String sql = "SELECT * FROM song";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery(sql);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
