@@ -88,8 +88,8 @@ public interface DBFacade {
     /**
      * Adds the song to a playlist in the database.
      *
-     * @param playlist The playlist of the song.
-     * @param song The song to be added to the playlist.
+     * @param selectedPlaylist The playlist of the song.
+     * @param selectedSong The song to be added to the playlist.
      * @return Playlist with the added song.
      */
     Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong);
@@ -105,9 +105,9 @@ public interface DBFacade {
     /**
      * Deletes the song from the playlist in the database.
      *
-     * @param playlist The playlist of the song.
-     * @param song The song to be deleted from the playlist.
+     * @param selectedPlaylist The playlist of the song.
+     * @param selectedSong The song to be deleted from the playlist.
      */
-    void deleteSongFromPlaylist(Playlist playlist, Song song);
+    void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong);
 
 }

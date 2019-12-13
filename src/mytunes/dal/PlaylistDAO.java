@@ -38,12 +38,12 @@ public class PlaylistDAO {
 
     /**
      * Creates and adds a new playlist to the database.
-     * @param playlistToCreate
+     * @param playlistToCreate The newly created playlist.
      * @return
      */
     public Playlist createPlaylist(Playlist playlistToCreate) {
         try (Connection con = connectDAO.getConnection()) {
-            String sql = "INSERT INTO playlist(name,time,nrOfSongs) VALUES (?,?,?)";
+            String sql = "INSERT INTO playlist(name, time, nrOfSongs) VALUES (?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setString(1, playlistToCreate.getName());
@@ -135,16 +135,16 @@ public class PlaylistDAO {
      * Deletes a playlist from the database. Uses object of SongOnPlaylistDAO to
      * delete all the songs on the playlist to be deleted.
      *
-     * @param playlist The playlist to be deleted.
+     * @param playlistToDelete The playlist to be deleted.
      * @throws SQLException
      */
-    public void deletePlaylist(Playlist playlist) throws SQLException {
-        //When the song is deleted, it should also be removed from all playlists.
-        //spDAO.deleteAllSongsOnPlaylist(playlist);
+    public void deletePlaylist(Playlist playlistToDelete) throws SQLException {
+        //Before the playlist is deleted, the songs are deleted from the playlist.
+        spDAO.deleteAllSongsOnPlaylist(playlistToDelete);
         try (Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM playlist WHERE id = ?"; //deleted based on ID
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, playlist.getId());
+            pstmt.setInt(1, playlistToDelete.getId());
             pstmt.execute();
         } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class
@@ -179,8 +179,4 @@ public class PlaylistDAO {
         }
         return allPlaylists;
     }
-    
-    
-    
-
 }

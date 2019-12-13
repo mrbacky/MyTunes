@@ -80,6 +80,7 @@ public final class SongModel {
      */
     public void deleteSong(Song songToDelete) {
         logicManager.deleteSong(songToDelete);
+        //deleteSongFromAllPlaylist(songToDelete);
         libraryList.remove(songToDelete);
     }
 

@@ -58,8 +58,8 @@ public class LogicManager implements LogicFacade {
     }
     
     @Override
-    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        dbManager.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
     }
     
     @Override
