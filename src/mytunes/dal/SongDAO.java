@@ -18,10 +18,15 @@ import mytunes.be.Song;
  */
 public class SongDAO {
 
-    ConnectDAO connectDAO;
+    private ConnectDAO connectDAO;
+    private SongOnPlaylistDAO spDAO;
 
+    /**
+     * Constructor, which creates the connection with the database and the DAO for SongOnPlaylist.
+     */
     public SongDAO() {
         connectDAO = new ConnectDAO();
+        spDAO = new SongOnPlaylistDAO();
     }
 
     /**
@@ -128,9 +133,15 @@ public class SongDAO {
         return null;
     }
     
+    /**
+     * Deletes a song from the database. Also, uses object of SongOnPlaylistDAO to
+     * delete the song from all playlist it may part of.
+     * @param songToDelete The song to be deleted.
+     * @throws SQLException
+     */
     public void deleteSong(Song songToDelete) throws SQLException {
         //When the song is deleted, it should also be removed from all playlists.
-        //PlaylistDAO.deleteSongFromAllPlaylists(songToDelete);
+        //SongsOnPlaylistDAO.deleteSongFromAllPlaylists(songToDelete);
         try (Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM Song WHERE id = ?"; //deleted based on ID
             PreparedStatement pstmt = con.prepareStatement(sql);
