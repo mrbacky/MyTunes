@@ -17,12 +17,16 @@ import java.util.logging.Logger;
 import mytunes.be.SongOnPlaylist;
 
 /**
- *
- * @author Bruger
+ * This DAO class can perform CRUD operations on the database songsOnPlaylis!!!(name?) table.
+ * @author annem
  */
 public class SongOnPlaylistDAO {
    
-    ConnectDAO connectDAO ;
+    private ConnectDAO connectDAO;
+    
+    /**
+     * Constructor, which creates the connection with the database.
+     */
     public SongOnPlaylistDAO( ){
         connectDAO = new ConnectDAO();
     }
