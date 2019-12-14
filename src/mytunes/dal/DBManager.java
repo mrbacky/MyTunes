@@ -48,6 +48,7 @@ public class DBManager implements DBFacade {
     @Override
     public void deleteSong(Song song) {
         try {
+            //SongOnPlaylistDAO.deleteSongFromAllPlaylists(song);
             songDAO.deleteSong(song);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,9 +108,13 @@ public class DBManager implements DBFacade {
     }
 
     @Override
-    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        try {
+            SongOnPlaylistDAO.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ }
 
     
 

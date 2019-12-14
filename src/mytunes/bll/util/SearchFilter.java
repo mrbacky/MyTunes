@@ -31,9 +31,9 @@ public class SearchFilter {
     return searchBase;
     }    
         for (Song song : searchBase) {
-            if (song.getTitle().toLowerCase().contains(query.toLowerCase())) {
+            if (song.getTitle().toLowerCase().contains(query.trim().toLowerCase())) {
                 filtered.add(song);
-            } else if (song.getArtist().toLowerCase().contains(query.toLowerCase())) {
+            } else if (song.getArtist().toLowerCase().contains(query.trim().toLowerCase())) {
                 filtered.add(song);
             }
         }

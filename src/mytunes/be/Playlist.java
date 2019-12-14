@@ -83,11 +83,25 @@ public class Playlist {
         return songs;
     }
 
+    /**
+     * Adds a song to a playlist.
+     *
+     * @param son The song to add.
+     */
     public void addSong(Song son) {
         songs.add(son);
         numberOfSongs = songs.size();
     }
-    
+
+    /**
+     * Removes a song from a playlist.
+     *
+     * @param song
+     */
+    public void removeSong(Song song) {
+        songs.remove(song);
+        numberOfSongs--;
+    }
     
     
 }

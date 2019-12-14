@@ -44,6 +44,8 @@ public class DeleteSongSceneController implements Initializable {
     
     private void updateLibrary() {
         pCon.updateLibrary();
+        pCon.updateSongOnPlaylist();
+        pCon.updatePlaylists();
     }
     
     @FXML

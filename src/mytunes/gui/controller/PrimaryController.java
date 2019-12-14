@@ -295,6 +295,15 @@ public class PrimaryController implements Initializable {
     }
     
     @FXML
+    private void handle_deleteSongFromPlaylst(ActionEvent event) {
+        Song selectedSong = lv_SongsOnPlaylist.getSelectionModel().getSelectedItem();
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        playlistModel.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
+        updateSongOnPlaylist();
+        updatePlaylists();
+    }
+    
+    @FXML
     private void handle_EditSong(ActionEvent event) throws IOException {
         Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
 
@@ -331,10 +340,7 @@ public class PrimaryController implements Initializable {
 
     
 
-    @FXML
-    private void handle_deleteSongFromPlaylst(ActionEvent event) {
-
-    }
+    
 
     @FXML
     private void handle_deleteSong(ActionEvent event) throws IOException { // deletion of songs

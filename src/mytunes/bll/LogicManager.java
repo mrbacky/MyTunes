@@ -7,15 +7,13 @@ import mytunes.be.Song;
 import mytunes.be.SongOnPlaylist;
 import mytunes.bll.util.SearchFilter;
 import mytunes.dal.DBManager;
-import mytunes.dal.SongDAO;
-import mytunes.dal.PlaylistDAO;
 import mytunes.dal.DBFacade;
 import mytunes.bll.util.TimeConverter;
 
 public class LogicManager implements LogicFacade {
     private final DBFacade dbManager;
     private final TimeConverter timeConverter;
-    private SearchFilter searcher;
+    private final SearchFilter searcher;
     
     public LogicManager() {
         dbManager = new DBManager();
@@ -44,9 +42,10 @@ public class LogicManager implements LogicFacade {
         return dbManager.updatePlaylist(playlist, editedName);
     }
     
-   public Song createSong(String title, String artist, int time, String path, String genre) {
+    @Override
+    public Song createSong(String title, String artist, int time, String path, String genre) {
         return dbManager.createSong(title, artist, time, path, genre);
-        
+
     }
 //    public Song createSong(String title, String artist, String time, String path, String genre) {
 //        return dbManager.createSong(title, artist, time, path, genre);
@@ -58,8 +57,8 @@ public class LogicManager implements LogicFacade {
     }
     
     @Override
-    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        dbManager.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
     }
     
     @Override

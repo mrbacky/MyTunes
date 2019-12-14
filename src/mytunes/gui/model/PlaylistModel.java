@@ -40,11 +40,6 @@ public final class PlaylistModel {
         return playlistList;
     }
     
-    private void updateListofPlaylists(Playlist playlist){
-        playlistList.set( playlistList.indexOf(playlist) , playlist);
-       //setPlaylistSongs(playlist);
-    }
-   
     public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong){
         return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong); 
     }
@@ -90,4 +85,8 @@ public final class PlaylistModel {
         return logicManager.sec_To_Format(sec);
     }
     
+    public void deleteSongFromPlaylist(Playlist playlist, Song song){
+        logicManager.deleteSongFromPlaylist(playlist, song);
+        playlist.removeSong(song);
+    }
 }
