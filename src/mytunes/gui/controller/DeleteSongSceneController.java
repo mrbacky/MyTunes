@@ -25,6 +25,7 @@ public class DeleteSongSceneController implements Initializable {
     @FXML
     private Button btn_DeleteSong_cancelSong;
 
+    private Song selectedSong;
     private PrimaryController pCon;
     private SongModel songModel;
 
@@ -34,12 +35,12 @@ public class DeleteSongSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         songModel = new SongModel();
-    }
+        }
 
     public void setContr(PrimaryController pCon) {
         this.pCon = pCon;
     }
-
+    
     private void updateLibrary() {
         pCon.updateLibrary();
         pCon.updateSongOnPlaylist();
@@ -48,13 +49,17 @@ public class DeleteSongSceneController implements Initializable {
 
     @FXML
     private void handle_deleteSong(ActionEvent event) {
-        //Deletes from the database.
-        Song selectedSong = pCon.tbv_Library.getSelectionModel().getSelectedItem();
+        //Deletes the selected song from the database.
         songModel.deleteSong(selectedSong);
         updateLibrary();
         Stage stage;
         stage = (Stage) btn_ConfirmDeleteSong.getScene().getWindow();
         stage.close();
+    }
+
+    public void setDeleteSongLabel(Song song) {
+        selectedSong = song;
+        lbl_SongTitleToDelete.setText(selectedSong.getTitle());
     }
 
     @FXML

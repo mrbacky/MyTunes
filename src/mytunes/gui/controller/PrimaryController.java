@@ -342,17 +342,15 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void handle_deleteSong(ActionEvent event) throws IOException { // deletion of songs
-        //move code to controller
-        /*Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
-        songModel.deleteSong(selectedSong);
-        tbv_Library.getSelectionModel().clearSelection();
-         */
+        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
-        fxmlLoader.<DeleteSongSceneController>getController().setContr(this);
-
+        DeleteSongSceneController controller = (DeleteSongSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        controller.setDeleteSongLabel(selectedSong);
+        
         Stage songStage = new Stage();
         Scene songScene = new Scene(root1);
 
