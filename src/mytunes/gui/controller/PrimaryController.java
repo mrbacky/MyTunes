@@ -64,8 +64,6 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_editSong;
     @FXML
-    private Button btn_editPlaylist11;
-    @FXML
     private Slider slider;
     @FXML
     private ProgressBar progressBar;
