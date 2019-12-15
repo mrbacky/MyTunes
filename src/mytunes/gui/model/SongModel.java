@@ -1,14 +1,11 @@
 package mytunes.gui.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import mytunes.be.Song;
 import mytunes.bll.LogicManager;
 import mytunes.bll.LogicFacade;
-import mytunes.gui.controller.AddSongSceneController;
 
 /**
  * Description to be added...
@@ -24,7 +21,6 @@ public final class SongModel {
      * Establish a connection to the BLL.
      */
     public SongModel() {
-        
         logicManager = new LogicManager();
         getLibraryList();
     }
@@ -37,6 +33,7 @@ public final class SongModel {
     public ObservableList<Song> getLibraryList() {
         List<Song> allSongs = logicManager.getAllSongs();
         for (Song song1 : allSongs) {
+            //  Saving converted time as hh:mm:ss format before adding song to ObservableList.
             song1.setStringTime(sec_To_Format(song1.getTime()));
         }
         libraryList = FXCollections.observableArrayList(allSongs);
@@ -80,7 +77,6 @@ public final class SongModel {
      */
     public void deleteSong(Song songToDelete) {
         logicManager.deleteSong(songToDelete);
-        libraryList.remove(songToDelete);
     }
 
     public void filteredSongs(String query) {
@@ -91,6 +87,7 @@ public final class SongModel {
         libraryList.addAll(temp);
     }
 
+    
     public int format_To_Sec(String timeString) {
         return logicManager.format_To_Sec(timeString);
     }

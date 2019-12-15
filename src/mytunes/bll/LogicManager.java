@@ -47,9 +47,6 @@ public class LogicManager implements LogicFacade {
         return dbManager.createSong(title, artist, time, path, genre);
 
     }
-//    public Song createSong(String title, String artist, String time, String path, String genre) {
-//        return dbManager.createSong(title, artist, time, path, genre);
-//    }
 
     @Override
     public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
@@ -84,11 +81,6 @@ public class LogicManager implements LogicFacade {
      @Override
     public List<Song> search(List<Song> searchBase, String query) {
         return searcher.search(searchBase, query);
-    }
-
-    @Override
-    public void editPlaylist() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

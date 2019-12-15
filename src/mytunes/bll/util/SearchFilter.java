@@ -10,10 +10,10 @@ import java.util.List;
 import mytunes.be.Song;
 
 /**
- * The SearchFilter class is a tool used to filter out song items, which match the
- * search query.
+ * The SearchFilter class is a tool used to filter out song items, which 
+ * matches the search query.
  *
- * @author annem
+ * @author Anne
  */
 public class SearchFilter {
 

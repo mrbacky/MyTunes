@@ -245,10 +245,10 @@ public class PrimaryController implements Initializable {
     @FXML
     private void handle_createSong(ActionEvent event) throws IOException {
         Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
-        fxmlLoader.<AddSongSceneController>getController().setContr(this);
+        fxmlLoader.<SongSceneController>getController().setContr(this);
 
         Stage songStage = new Stage();
         Scene songScene = new Scene(root1);
@@ -259,7 +259,7 @@ public class PrimaryController implements Initializable {
 
     }
 
-    public void updateLibrary() {
+    public void refreshLibrary() {
         tbv_Library.getItems().clear();
         tbv_Library.setItems(songModel.getLibraryList());
     }
@@ -308,10 +308,10 @@ public class PrimaryController implements Initializable {
         Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
 
         Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
-        AddSongSceneController controller = (AddSongSceneController) fxmlLoader.getController();
+        SongSceneController controller = (SongSceneController) fxmlLoader.getController();
         controller.setContr(this);
         controller.editMode(selectedSong); //set mode to edit song.
         Stage songStage = new Stage();
