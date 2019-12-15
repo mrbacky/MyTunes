@@ -133,7 +133,7 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" graphicTextGap="5.0" layoutX="310.0" layoutY="41.0" prefHeight="28.0" prefWidth="200.0" styleClass="lblFlow" stylesheets="@../css/style.css" text="Name of Playlist" AnchorPane.topAnchor="41.0">
+                  <Label fx:id="lbl_SelectedPlaylist" alignment="CENTER" graphicTextGap="5.0" layoutX="310.0" layoutY="41.0" prefHeight="28.0" prefWidth="200.0" styleClass="lblFlow" stylesheets="@../css/style.css" text="Name of Playlist" AnchorPane.topAnchor="41.0">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>

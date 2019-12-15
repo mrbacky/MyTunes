@@ -114,6 +114,8 @@ public class PrimaryController implements Initializable {
     private Button btn_moveSongDown;
     @FXML
     private Button btn_moveSongUp;
+    @FXML
+    private Label lbl_SelectedPlaylist;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -333,6 +335,7 @@ public class PrimaryController implements Initializable {
         Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
         if (selectedPlaylist != null) {
             getSongsInPlaylist();
+            lbl_SelectedPlaylist.setText(selectedPlaylist.getName());
         }
     }
 
