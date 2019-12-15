@@ -30,7 +30,7 @@
                      </font>
                   </Label>
                   <ListView fx:id="lv_SongsOnPlaylist" layoutX="310.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#scheduleSong" prefHeight="400.0" prefWidth="200.0" styleClass="greyBG" AnchorPane.bottomAnchor="95.0" AnchorPane.topAnchor="80.0" />
-                  <Button fx:id="btn_newPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="31.0" layoutY="503.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_addPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="30.0">
+                  <Button fx:id="btn_createPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="31.0" layoutY="503.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_createPlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="30.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

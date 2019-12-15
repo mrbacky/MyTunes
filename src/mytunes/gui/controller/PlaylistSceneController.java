@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.gui.model.PlaylistModel;
 
-public class CreatePlaylistSceneController implements Initializable {
+public class PlaylistSceneController implements Initializable {
 
     @FXML
     private TextField txtField_namePlaylist;
@@ -60,7 +60,7 @@ public class CreatePlaylistSceneController implements Initializable {
     }
     
     private void updatePlaylists() {
-        pCon.updatePlaylists();
+        pCon.refreshPlaylists();
     }
 
     public void editMode(Playlist playlist) {

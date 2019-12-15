@@ -36,8 +36,8 @@ public class DeletePlaylistSceneController implements Initializable {
         this.pCon = pCon;
     }
     
-    private void updatePlaylists() {
-        pCon.updatePlaylists();
+    private void refreshPlaylists() {
+        pCon.refreshPlaylists();
     }
     
     @FXML
@@ -47,7 +47,7 @@ public class DeletePlaylistSceneController implements Initializable {
         playlistModel.deletePlaylist(selectedPlaylist);
         this.pCon.tbv_Playlists.getSelectionModel().clearSelection();
         
-        updatePlaylists();
+        refreshPlaylists();
         Stage stage;
         stage = (Stage) btn_ConfirmDeletePlaylist.getScene().getWindow();
         stage.close();

@@ -19,14 +19,12 @@ import java.util.logging.Logger;
  * @author Bruger
  */
 public class ConnectDAO {
-    
-    
+
     private static final String PROP_FILE = "data/DBProperties.properties";
     private SQLServerDataSource ds;
 
     public ConnectDAO() {
-        try
-        {
+        try {
             Properties databaseProperties = new Properties();
             databaseProperties.load(new FileInputStream(PROP_FILE));
             ds = new SQLServerDataSource();
@@ -35,15 +33,12 @@ public class ConnectDAO {
             ds.setUser(databaseProperties.getProperty("User"));
             ds.setPassword(databaseProperties.getProperty("Password"));
             ds.setPortNumber(Integer.parseInt(databaseProperties.getProperty("PortNumber")));
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             //To DO
         }
     }
-    
-    
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         try {
             return ds.getConnection();
         } catch (SQLServerException ex) {
