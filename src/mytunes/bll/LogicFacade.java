@@ -1,4 +1,3 @@
-
 package mytunes.bll;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public interface LogicFacade {
      * @param editedGenre The edited genre of the song.
      * @return The updated song.
      */
-    Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre);
+    Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath);
     /**
      * Deletes the given song from the database.
      *
@@ -110,7 +109,23 @@ public interface LogicFacade {
      */
     List<Song> search(List<Song> searchBase, String query);
     
+    /**
+     * Gets a list of the names of all the genres from the database,
+     * @return A list of all the genres.
+     */
+    List<String> getAllGenres();
     
+    /**
+     *
+     * @param name
+     */
+    void createGenre(String name);
+    
+    /**
+     *
+     * @param name
+     */
+    void deleteGenre(String name);
 
     
     

@@ -67,8 +67,8 @@ public final class SongModel {
      * @param editedArtist The edited artist of the song.
      * @param editedGenre The edited genre of the song.
      */
-    public void updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        logicManager.updateSong(song, editedTitle, editedArtist, editedGenre);
+    public void updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
+        logicManager.updateSong(song, editedTitle, editedArtist, editedGenre, editedTime, editedPath);
     }
 
     /**

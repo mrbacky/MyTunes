@@ -14,11 +14,13 @@ public class DBManager implements DBFacade {
     private PlaylistDAO playlistDAO;
     private SongDAO songDAO;
     private SongOnPlaylistDAO SongOnPlaylistDAO;
+    private final GenreDAO genreDAO;
 
     public DBManager() {
         playlistDAO = new PlaylistDAO();
         songDAO = new SongDAO();
         SongOnPlaylistDAO = new SongOnPlaylistDAO();
+        genreDAO = new GenreDAO();
     }
 
     //__________________________________________________________________________                       
@@ -41,8 +43,8 @@ public class DBManager implements DBFacade {
     }
 
     @Override
-    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        return songDAO.updateSong(song, editedTitle, editedArtist, editedGenre);
+    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
+        return songDAO.updateSong(song, editedTitle, editedArtist, editedGenre, editedTime, editedPath);
     }
 
     @Override
@@ -116,6 +118,16 @@ public class DBManager implements DBFacade {
         }
  }
 
-    
+    @Override
+    public List<String> getAllGenres() {
+        return genreDAO.getAllGenres();
+    }
 
+    @Override
+    public void createGenre(String name) {
+        genreDAO.createGenre(name);}
+
+    @Override
+    public void deleteGenre(String name) {
+        genreDAO.deleteGenre(name);}
 }

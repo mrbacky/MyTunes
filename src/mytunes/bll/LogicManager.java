@@ -52,8 +52,8 @@ public class LogicManager implements LogicFacade {
 //    }
 
     @Override
-    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        return dbManager.updateSong(song, editedTitle, editedArtist, editedGenre);
+    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
+        return dbManager.updateSong(song, editedTitle, editedArtist, editedGenre, editedTime, editedPath);
     }
     
     @Override
@@ -102,7 +102,19 @@ public class LogicManager implements LogicFacade {
     public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
         return dbManager.addSongToPlaylist(selectedPlaylist, selectedSong);
     }
+
+    @Override
+    public List<String> getAllGenres() {
+        return dbManager.getAllGenres();
+    }
+
+    @Override
+    public void createGenre(String name) {
+        dbManager.createGenre(name);
+    }
     
-    
-    
+    @Override
+    public void deleteGenre(String name) {
+        dbManager.deleteGenre(name);
+    }
 }

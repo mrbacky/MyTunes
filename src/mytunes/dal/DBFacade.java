@@ -33,7 +33,7 @@ public interface DBFacade {
      * @param editedGenre
      * @return The updated song.
      */
-    Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre);
+    Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String path);
 
     /**
      * Deletes the given song from the database.
@@ -110,4 +110,22 @@ public interface DBFacade {
      */
     void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong);
 
+    /**
+     * Gets a list with the names of all the genres in the database.
+     *
+     * @return List with all genres.
+     */
+    List<String> getAllGenres();
+    
+    /**
+     *
+     * @param name
+     */
+    void createGenre(String name);
+    
+    /**
+     *
+     * @param name
+     */
+    void deleteGenre(String name);
 }

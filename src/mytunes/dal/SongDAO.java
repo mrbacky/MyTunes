@@ -106,17 +106,19 @@ public class SongDAO {
      * @param editedGenre The edited genre of the song.
      * @return The updated song.
      */
-    public Song updateSong(Song songToEdit, String editedTitle, String editedArtist, String editedGenre) {
+    public Song updateSong(Song songToEdit, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
         try (//Get a connection to the database.
             Connection con = connectDAO.getConnection()) {
             //Create a prepared statement.
-            String sql = "UPDATE song SET title = ?, artist = ?, genre = ? WHERE id = ?";
+            String sql = "UPDATE song SET title = ?, artist = ?, genre = ?, time = ?, songpath = ? WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             //Set parameter values.
             pstmt.setString(1, editedTitle);
             pstmt.setString(2, editedArtist);
             pstmt.setString(3, editedGenre);
-            pstmt.setInt(4, songToEdit.getId());
+            pstmt.setInt(4, editedTime);
+            pstmt.setString(5, editedPath);
+            pstmt.setInt(6, songToEdit.getId());
             //Execute SQL query.
             pstmt.executeUpdate();
             songToEdit.setArtist(editedTitle);
