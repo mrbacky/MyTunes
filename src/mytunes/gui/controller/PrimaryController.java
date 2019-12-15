@@ -400,11 +400,14 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void handle_deletePlaylist(ActionEvent event) throws IOException {
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
-        fxmlLoader.<DeletePlaylistSceneController>getController().setContr(this);
+        DeletePlaylistSceneController controller = (DeletePlaylistSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        controller.setDeletePlaylistLabel(selectedPlaylist);
 
         Stage playlistStage = new Stage();
         Scene playlistScene = new Scene(root1);

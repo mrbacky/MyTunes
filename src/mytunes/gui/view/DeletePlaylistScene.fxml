@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="450.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.DeletePlaylistSceneController">
    <children>
-      <Label alignment="CENTER" layoutY="86.0" prefHeight="20.0" prefWidth="450.0" text="Delete playlist for all eternity?" textFill="WHITE">
+      <Label alignment="CENTER" layoutY="103.0" prefHeight="20.0" prefWidth="450.0" text="Delete playlist for all eternity?" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -32,5 +32,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="lbl_NameOfPlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="146.0" prefHeight="20.0" prefWidth="430.0" text="&quot;name of playlist&quot;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

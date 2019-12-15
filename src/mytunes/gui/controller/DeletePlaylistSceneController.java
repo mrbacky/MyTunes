@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.gui.model.PlaylistModel;
@@ -17,12 +18,15 @@ import mytunes.gui.model.PlaylistModel;
 public class DeletePlaylistSceneController implements Initializable {
 
     @FXML
+    private Label lbl_NameOfPlaylist;
+    @FXML
     private Button btn_ConfirmDeletePlaylist;
     @FXML
     private Button btn_CancelDeletePlaylist;
 
     private PrimaryController pCon;
     private PlaylistModel playlistModel;
+    private Playlist selectedPlaylist;
     
     /**
      * Initializes the controller class.
@@ -42,15 +46,18 @@ public class DeletePlaylistSceneController implements Initializable {
     
     @FXML
     private void handle_deletePlaylist(ActionEvent event) {
-        //Deletes from the database, but the library is not showing properly.
-        Playlist selectedPlaylist = this.pCon.tbv_Playlists.getSelectionModel().getSelectedItem();
+        //Deletes the selected playlist from the database, but the library is not showing properly(?).
         playlistModel.deletePlaylist(selectedPlaylist);
-        this.pCon.tbv_Playlists.getSelectionModel().clearSelection();
         
         updatePlaylists();
         Stage stage;
         stage = (Stage) btn_ConfirmDeletePlaylist.getScene().getWindow();
         stage.close();
+    }
+    
+    public void setDeletePlaylistLabel(Playlist playlist){
+        selectedPlaylist = playlist;
+        lbl_NameOfPlaylist.setText(selectedPlaylist.getName());
     }
 
     @FXML
