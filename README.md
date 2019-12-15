@@ -15,6 +15,6 @@ TO DO:
 9.1) Play Song from Library
 			10.) YES - DELETE PLAYLIST, DELETE SONG - set LABEL of selected item
 
-BUG: Previous Genre in edit Song is not showing.
+			FIXED!! BUG: Previous Genre in edit Song is not showing.
 
 BUG: ( song1 is playing. now u play song2 ... song1 will continue for a few secs)
