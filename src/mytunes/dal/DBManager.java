@@ -25,7 +25,7 @@ public class DBManager implements DBFacade {
 
     //__________________________________________________________________________                       
     //
-    //      Song  
+    //      Songs  
     //__________________________________________________________________________
     @Override
     public Song createSong(String title, String artist, int time, String path, String genre) {
@@ -59,7 +59,7 @@ public class DBManager implements DBFacade {
 
     //__________________________________________________________________________                       
     //
-    //      Playlist  
+    //      Playlists  
     //__________________________________________________________________________
     @Override
     public void createPlaylist(Playlist playlist) {
@@ -90,15 +90,10 @@ public class DBManager implements DBFacade {
         }
     }
 
-//__________________________________________________________________________                       
+    //__________________________________________________________________________                       
     //
-    //      Song on Playlist
+    //      Songs on Playlist
     //__________________________________________________________________________
-    @Override
-    public List<SongOnPlaylist> getAllSongsOnPlaylist() {
-        return SongOnPlaylistDAO.fetchAllSongsOnPlaylist();
-    }
-
     @Override
     public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
         try {
@@ -108,6 +103,11 @@ public class DBManager implements DBFacade {
         }
         return null;
     }
+    
+    @Override
+    public List<SongOnPlaylist> getAllSongsOnPlaylist() {
+        return SongOnPlaylistDAO.fetchAllSongsOnPlaylist();
+    }    
 
     @Override
     public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
@@ -116,17 +116,21 @@ public class DBManager implements DBFacade {
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
- }
+    }
+
+    //__________________________________________________________________________                       
+    //
+    //      Genre
+    //__________________________________________________________________________
+    @Override
+    public void createGenre(String name) {
+        genreDAO.createGenre(name);}
 
     @Override
     public List<String> getAllGenres() {
         return genreDAO.getAllGenres();
     }
-
-    @Override
-    public void createGenre(String name) {
-        genreDAO.createGenre(name);}
-
+    
     @Override
     public void deleteGenre(String name) {
         genreDAO.deleteGenre(name);}
