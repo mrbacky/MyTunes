@@ -27,31 +27,29 @@ public class DeleteSongSceneController implements Initializable {
 
     private PrimaryController pCon;
     private SongModel songModel;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         songModel = new SongModel();
-
-        
     }
 
     public void setContr(PrimaryController pCon) {
         this.pCon = pCon;
     }
-    
+
     private void updateLibrary() {
         pCon.updateLibrary();
         pCon.updateSongOnPlaylist();
         pCon.updatePlaylists();
     }
-    
+
     @FXML
     private void handle_deleteSong(ActionEvent event) {
-        //Deletes from the database, but the library is not showing properly.
-        Song selectedSong = this.pCon.tbv_Library.getSelectionModel().getSelectedItem();
+        //Deletes from the database.
+        Song selectedSong = pCon.tbv_Library.getSelectionModel().getSelectedItem();
         songModel.deleteSong(selectedSong);
         updateLibrary();
         Stage stage;
