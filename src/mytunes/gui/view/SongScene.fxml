@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="347.0" prefWidth="550.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.EditSongSceneController">
+<AnchorPane id="AnchorPane" prefHeight="347.0" prefWidth="550.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.SongSceneController">
    <children>
-      <TextField fx:id="txtField_EditSong_title" layoutX="158.0" layoutY="68.0" prefHeight="25.0" prefWidth="260.0" />
+      <TextField fx:id="txtField_AddSong_title" layoutX="158.0" layoutY="68.0" prefHeight="25.0" prefWidth="260.0" />
       <Label layoutX="98.0" layoutY="71.0" text="Title:" textFill="WHITE">
          <font>
             <Font name="Arial" size="15.0" />
@@ -37,20 +37,20 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="choiseBox_EditSong_genre" layoutX="157.0" layoutY="138.0" prefHeight="25.0" prefWidth="115.0" />
-      <TextField fx:id="txtField_EditSong_time" layoutX="158.0" layoutY="210.0" prefHeight="25.0" prefWidth="115.0" />
-      <TextField fx:id="txtField_EditSong_filePath" layoutX="158.0" layoutY="245.0" prefHeight="25.0" prefWidth="260.0" />
-      <Button fx:id="btn_chooseFile" layoutX="428.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" textFill="WHITE">
+      <ChoiceBox fx:id="choiseBox_AddSong_genre" layoutX="157.0" layoutY="138.0" prefHeight="25.0" prefWidth="115.0" />
+      <TextField fx:id="txtField_AddSong_time" layoutX="158.0" layoutY="210.0" prefHeight="25.0" prefWidth="115.0" />
+      <TextField fx:id="txtField_AddSong_filePath" layoutX="158.0" layoutY="245.0" prefHeight="25.0" prefWidth="260.0" />
+      <Button fx:id="btn_chooseFile" layoutX="428.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_OpenFileChooser" prefHeight="25.0" prefWidth="25.0" textFill="WHITE">
          <graphic>
-            <ImageView disable="true" fitHeight="25.0" fitWidth="25.0" opacity="0.43" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/icons8-browse-folder-50.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txtField_EditSong_artist" layoutX="158.0" layoutY="103.0" prefHeight="25.0" prefWidth="260.0" />
-      <Button fx:id="btn_EditSong_cancelSong" layoutX="430.0" layoutY="288.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" textFill="WHITE" AnchorPane.rightAnchor="100.0">
+      <TextField fx:id="txtField_AddSong_artist" layoutX="158.0" layoutY="103.0" prefHeight="25.0" prefWidth="260.0" />
+      <Button fx:id="btn_AddSong_cancelSong" layoutX="430.0" layoutY="288.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_CloseScene" prefHeight="20.0" prefWidth="20.0" textFill="WHITE" AnchorPane.rightAnchor="100.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -59,7 +59,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btn_EditSong_saveSong" layoutX="397.0" layoutY="288.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" textFill="WHITE" AnchorPane.rightAnchor="130.0">
+      <Button fx:id="btn_AddSong_saveSong" layoutX="397.0" layoutY="288.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_createUpdateSong" prefHeight="20.0" prefWidth="20.0" textFill="WHITE" AnchorPane.rightAnchor="130.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>

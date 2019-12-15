@@ -63,41 +63,32 @@ public class PlaylistDAO {
         return playlistToCreate;
     }
 
-    //Gets all the songs for each playlist from the database?
-    public List<Playlist> fetchAllSongsInPlaylists() throws SQLException {
-        //List<Playlist> playlists = new ArrayList<>();
-        HashMap<Integer, Playlist> playlists = fetchAllPlaylists();
-        try (Connection con = connectDAO.getConnection()) {
-            String sql = "select songonplaylist.songid, song.id, song.title, song.time, song.songpath, songOnPlaylist.[order],songOnPlaylist.playlistid\n"
-                    + "from songonplaylist left join song on songonplaylist.songid = song.id";
+    private HashMap<Integer, Playlist> fetchAllPlaylists() {
+        //List<Playlist> allPlaylists = new ArrayList<>();
+        HashMap<Integer, Playlist> allPlaylists = new HashMap<Integer, Playlist>();
 
+        try (Connection con = connectDAO.getConnection()) {
+            String sql = "SELECT * FROM playlist ORDER BY id ASC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("id");
-                int playlistid = rs.getInt("playlistid");
+                String name = rs.getString("name");
+                int songs = rs.getInt("nrOfSongs");
                 int time = rs.getInt("time");
-                String songPath = rs.getString("songPath");
-                String title = rs.getString("title");
-                int order = rs.getInt("order");
-
-                playlists.get(playlistid).addSong(new Song(id, title, "ert", time, songPath, "lol"));
+                allPlaylists.put(id, new Playlist(id, name, time));
             }
         } catch (SQLServerException ex) {
-            Logger.getLogger(PlaylistDAO.class
+            Logger.getLogger(SongDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(PlaylistDAO.class
+            Logger.getLogger(SongDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        List<Playlist> unhashedPlaylists = new ArrayList<>();
-        for (Map.Entry<Integer, Playlist> entry : playlists.entrySet()) {
-            unhashedPlaylists.add(entry.getValue());
-
-        }
-
-        return unhashedPlaylists;
+        return allPlaylists;
     }
+    //Gets all the songs for each playlist from the database?
+    
 
     /**
      * Updates the name of the playlist in the database.
@@ -155,32 +146,37 @@ public class PlaylistDAO {
         }
     }
 
-    private HashMap<Integer, Playlist> fetchAllPlaylists() {
-        //List<Playlist> allPlaylists = new ArrayList<>();
-        HashMap<Integer, Playlist> allPlaylists = new HashMap<Integer, Playlist>();
-
+    public List<Playlist> fetchAllSongsInPlaylists() throws SQLException {
+        //List<Playlist> playlists = new ArrayList<>();
+        HashMap<Integer, Playlist> playlists = fetchAllPlaylists();
         try (Connection con = connectDAO.getConnection()) {
-            String sql = "SELECT * FROM playlist ORDER BY id ASC";
+            String sql = "select songonplaylist.songid, song.id, song.title, song.time, song.songpath, songOnPlaylist.[order],songOnPlaylist.playlistid\n"
+                    + "from songonplaylist left join song on songonplaylist.songid = song.id";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
-                int songs = rs.getInt("nrOfSongs");
+                int playlistid = rs.getInt("playlistid");
                 int time = rs.getInt("time");
-                allPlaylists.put(id, new Playlist(id, name, time));
+                String songPath = rs.getString("songPath");
+                String title = rs.getString("title");
+                int order = rs.getInt("order");
+
+                playlists.get(playlistid).addSong(new Song(id, title, "ert", time, songPath, "lol"));
             }
         } catch (SQLServerException ex) {
-            Logger.getLogger(SongDAO.class
+            Logger.getLogger(PlaylistDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(SongDAO.class
+            Logger.getLogger(PlaylistDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        return allPlaylists;
+        List<Playlist> unhashedPlaylists = new ArrayList<>();
+        for (Map.Entry<Integer, Playlist> entry : playlists.entrySet()) {
+            unhashedPlaylists.add(entry.getValue());
+        }
+        return unhashedPlaylists;
     }
     
     
-    
-
 }

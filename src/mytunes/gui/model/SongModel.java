@@ -8,7 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import mytunes.be.Song;
 import mytunes.bll.LogicManager;
 import mytunes.bll.LogicFacade;
-import mytunes.gui.controller.AddSongSceneController;
+import mytunes.gui.controller.SongSceneController;
 
 /**
  * Description to be added...

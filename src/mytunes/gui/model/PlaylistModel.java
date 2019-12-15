@@ -18,52 +18,47 @@ import mytunes.bll.LogicFacade;
  * @author Bruger
  */
 public final class PlaylistModel {
+
     private ObservableList<Playlist> playlistList;
     private LogicFacade logicManager;
 
     public PlaylistModel() {
         logicManager = new LogicManager();
         getPlaylistList();
-        
+    }
+
+    /**
+     * Creates a new playlist.The method calls the BLL to create a playlist in
+     * the database.The created playlist is added to the temporary list of all
+     * playlists as well.
+     *
+     * @param id
+     * @param name The name of the new playlist.
+     * @param numberOfSongs
+     */
+    public void createPlaylist(int id, String name, int numberOfSongs) {
+        Playlist playlist = new Playlist(id, name, numberOfSongs);
+        logicManager.createPlaylist(playlist);
+        //allPlaylists.add(playlist);
     }
 
     /**
      * Gets the list of all playlists.
+     *
      * @return The list of all playlists.
      */
     public ObservableList<Playlist> getPlaylistList() {
         List<Playlist> allPlaylists = logicManager.getAllPlaylists();
         for (Playlist playlist1 : allPlaylists) {
-            playlist1.setStringTime(sec_To_Format(playlist1.getTotalPlaylistPlaytime()));
+            playlist1.setStringTime(sec_To_Format(playlist1.getPlaylistDuration()));
         }
         playlistList = FXCollections.observableArrayList(allPlaylists);
         return playlistList;
     }
-    
-    private void updateListofPlaylists(Playlist playlist){
-        playlistList.set( playlistList.indexOf(playlist) , playlist);
-       //setPlaylistSongs(playlist);
-    }
-   
-    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong){
-        return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong); 
-    }
-    
+
     /**
-     * Creates a new playlist.The method calls the BLL to create a playlist in the database.The created playlist is added to the temporary list of all playlists as well.
-     * @param id
-     @param name The name of the new playlist.
-     * @param numberOfSongs
-     */
-    public void createPlaylist(int id,String name,int numberOfSongs) {
-        Playlist playlist = new Playlist(id,name,numberOfSongs);
-        logicManager.createPlaylist(playlist);
-        //allPlaylists.add(playlist);
-    }
-    
-    /**
-     * Updates a playlist.
-     * NOT COMPLETED!!
+     * Updates a playlist. NOT COMPLETED!!
+     *
      * @param playlist The playlist to be updated.
      * @param editedName The edited name of the playlist.
      */
@@ -80,8 +75,16 @@ public final class PlaylistModel {
      */
     public void deletePlaylist(Playlist playlist) {
         logicManager.deletePlaylist(playlist);
-        playlistList.remove(playlist);
     }
+
+    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong);
+    }
+
+    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
+        logicManager.deleteSongFromPlaylist(playlist, song);
+    }
+
     public int format_To_Sec(String timeString) {
         return logicManager.format_To_Sec(timeString);
     }
@@ -89,5 +92,5 @@ public final class PlaylistModel {
     public String sec_To_Format(int sec) {
         return logicManager.sec_To_Format(sec);
     }
-    
+
 }

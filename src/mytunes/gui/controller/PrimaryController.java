@@ -1,10 +1,9 @@
-//  working primary controller
 package mytunes.gui.controller;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-//import java.time.Duration;
+
 import javafx.util.Duration;
 import java.util.Collections;
 import java.util.List;
@@ -28,17 +27,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import mytunes.be.Playlist;
-import mytunes.be.Playlist;
 import mytunes.be.Song;
-import mytunes.be.SongOnPlaylist;
 import mytunes.gui.model.PlaylistModel;
 import mytunes.gui.model.SongModel;
 import mytunes.gui.model.SongOnPlaylistModel;
@@ -46,7 +41,15 @@ import mytunes.gui.model.SongOnPlaylistModel;
 public class PrimaryController implements Initializable {
 
     @FXML
-    private Button btn_newPlaylist;
+    private Button btn_moveSongDown;
+    @FXML
+    private Button btn_moveSongUp;
+    @FXML
+    private Button btn_deletePlaylist;
+    @FXML
+    private Button btn_createSong;
+    @FXML
+    private Button btn_createPlaylist;
     @FXML
     private Button btn_addSongToPlaylist;
     @FXML
@@ -64,7 +67,11 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_editSong;
     @FXML
-    private Button btn_editPlaylist11;
+    private Label lbl_Library;
+    @FXML
+    private Label lbl_SelectedPlaylist;
+    @FXML
+    private TextField txtSongSearch;
     @FXML
     private Slider slider;
     @FXML
@@ -79,43 +86,28 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_genre;
     @FXML
     private TableColumn<Song, String> col_songTime;
-
-    @FXML
-    TableView<Playlist> tbv_Playlists;
     @FXML
     private TableColumn<Playlist, Integer> col_PSongs;
     @FXML
     private TableColumn<Playlist, String> col_PName;
     @FXML
-    TableView<Song> tbv_Library;
+    public ListView<Song> lv_SongsOnPlaylist;
     @FXML
-    private ListView<Song> lv_SongsOnPlaylist;
+    public TableView<Playlist> tbv_Playlists;
     @FXML
-    private Label lbl_Library;
-    @FXML
-    private TextField txtSongSearch;
-    @FXML
-    private Button btn_deletePlaylist;
-    @FXML
-    private Button btn_createSong;
+    public TableView<Song> tbv_Library;
 
     private boolean isPaused = false;
     private int currentSongPlaying = 0;
-    private Song song;
-    //private ObservableList<Playlist> observableListPlaylist;
+    private Duration currentTime;
+    private boolean isScheduelSong = true;
+
     private MediaPlayer mediaPlayer;
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private SongOnPlaylistModel SongOnPlaylistModel;
     private Playlist playlist;
-    @FXML
-    private Button btn_next1;
-    @FXML
-    private Button btn_next11;
-    @FXML
-    private Button btn_moveSongDown;
-    @FXML
-    private Button btn_moveSongUp;
+    private Song song;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -150,9 +142,215 @@ public class PrimaryController implements Initializable {
         });
     }
 
-    private Duration currentTime;
-    private boolean isScheduelSong = true;
+    //__________________________________________________________________________                       
+    //
+    //      Library
+    //__________________________________________________________________________
+    @FXML
+    private void handle_createSong(ActionEvent event) throws IOException {
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        
+        Stage songStage = new Stage();
+        Scene songScene = new Scene(root1);
 
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        songStage.setScene(songScene);
+        songStage.show();
+
+    }
+
+    @FXML
+    private void handle_getSong(MouseEvent event) { // pick  selected song
+        song = tbv_Library.getSelectionModel().getSelectedItem();
+
+    }
+
+    @FXML
+    private void handle_EditSong(ActionEvent event) throws IOException {
+        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
+
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
+        SongSceneController controller = (SongSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        controller.editMode(selectedSong); //set mode to edit song.
+        Stage songStage = new Stage();
+        Scene songScene = new Scene(root1);
+
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        songStage.setScene(songScene);
+        songStage.show();
+    }
+
+    @FXML
+    private void handle_deleteSong(ActionEvent event) throws IOException { // deletion of songs
+        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
+        root = (Parent) fxmlLoader.load();
+        DeleteSongSceneController controller = (DeleteSongSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        //controller.setDeleteSongLabel(selectedSong);
+        // TO DO
+
+        Stage songStage = new Stage();
+        Scene songScene = new Scene(root);
+
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        songStage.setScene(songScene);
+        songStage.show();
+    }
+
+    public void refreshLibrary() {
+        tbv_Library.getItems().clear();
+        tbv_Library.setItems(songModel.getLibraryList());
+    }
+
+    //__________________________________________________________________________                       
+    //
+    //      Playlists
+    //__________________________________________________________________________
+    @FXML
+    private void handle_createPlaylist(ActionEvent event) throws IOException {
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/PlaylistScene.fxml"));
+        root = (Parent) fxmlLoader.load();
+        fxmlLoader.<PlaylistSceneController>getController().setContr(this);
+
+        Stage playlistStage = new Stage();
+        Scene playlistScene = new Scene(root);
+
+        playlistStage.initStyle(StageStyle.UNDECORATED);
+        playlistStage.setScene(playlistScene);
+        playlistStage.show();
+    }
+
+    @FXML
+    private void handle_getPlaylist(MouseEvent event) {
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist != null) {
+            getSongsInPlaylist();
+            lbl_SelectedPlaylist.setText(selectedPlaylist.getName());
+        }
+    }
+
+    @FXML
+    private void handle_editPlaylist(ActionEvent event) throws IOException {
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/PlaylistScene.fxml"));
+        root = (Parent) fxmlLoader.load();
+        PlaylistSceneController controller = (PlaylistSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        controller.editMode(selectedPlaylist);
+
+        Stage playlistStage = new Stage();
+        Scene playlistScene = new Scene(root);
+
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        playlistStage.setScene(playlistScene);
+        playlistStage.show();
+    }
+
+    @FXML
+    private void handle_deletePlaylist(ActionEvent event) throws IOException {
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        Parent root1;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
+        root1 = (Parent) fxmlLoader.load();
+        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
+        DeletePlaylistSceneController controller = (DeletePlaylistSceneController) fxmlLoader.getController();
+        controller.setContr(this);
+        //controller.setDeletePlaylistLabel(selectedPlaylist);
+
+        Stage playlistStage = new Stage();
+        Scene playlistScene = new Scene(root1);
+
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        playlistStage.setScene(playlistScene);
+        playlistStage.show();
+    }
+
+    //__________________________________________________________________________                       
+    //
+    //      Songs on Playlist
+    //__________________________________________________________________________
+    @FXML
+    private void handle_AddSongToPlaylist(ActionEvent event) {
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
+        playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
+        updateSongOnPlaylist();
+        refreshPlaylists();
+
+    }
+
+    private void getSongsInPlaylist() {
+        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
+        songsInPlaylist.clear();
+        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
+
+        lv_SongsOnPlaylist.setItems(songsInPlaylist);
+
+    }
+
+    public void refreshPlaylists() {
+        tbv_Playlists.getItems().clear();
+        tbv_Playlists.setItems(playlistModel.getPlaylistList());
+    }
+
+    @FXML
+    private void handle_deleteSongFromPlaylst(ActionEvent event) {
+        Song selectedSong = lv_SongsOnPlaylist.getSelectionModel().getSelectedItem();
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        playlistModel.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
+        updateSongOnPlaylist();
+        refreshPlaylists();
+    }
+
+    public void updateSongOnPlaylist() {
+
+        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
+        if (selectedPlaylist != null) {
+            getSongsInPlaylist();
+        }
+    }
+
+    @FXML
+    private void handle_moveSongDown(ActionEvent event) {
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        if (index != lv_SongsOnPlaylist.getItems().size() - 1) {
+
+            // swap items
+            lv_SongsOnPlaylist.getItems().add(index + 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index + 1);
+
+        }
+    }
+
+    @FXML
+    private void handle_moveSongUp(ActionEvent event) {
+        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
+        if (index != 0) {
+            System.out.println(index);
+            // swap items
+            lv_SongsOnPlaylist.getItems().add(index - 1, lv_SongsOnPlaylist.getItems().remove(index));
+            // select item at new position
+            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
+
+        }
+    }
+
+    //__________________________________________________________________________                       
+    //
+    //      Controls
+    //__________________________________________________________________________
     public void play() throws IOException { // plays, pauses, resumes song when chosen
 
         if (isPaused == true && isScheduelSong == false) {
@@ -207,156 +405,6 @@ public class PrimaryController implements Initializable {
         play();
     }
 
-    @FXML
-    private void handle_addPlaylist(ActionEvent event) throws IOException {
-        Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
-        fxmlLoader.<CreatePlaylistSceneController>getController().setContr(this);
-
-        Stage playlistStage = new Stage();
-        Scene playlistScene = new Scene(root1);
-
-        //songStage.initStyle(StageStyle.UNDECORATED);
-        playlistStage.setScene(playlistScene);
-        playlistStage.show();
-    }
-
-    @FXML
-    private void handle_editPlaylist(ActionEvent event) throws IOException {
-        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
-        Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/CreatePlaylistScene.fxml"));
-        CreatePlaylistSceneController controller = (CreatePlaylistSceneController) fxmlLoader.getController();
-        controller.setContr(this);
-        controller.editMode(selectedPlaylist);
-
-        Stage playlistStage = new Stage();
-        Scene playlistScene = new Scene(root1);
-
-        //songStage.initStyle(StageStyle.UNDECORATED);
-        playlistStage.setScene(playlistScene);
-        playlistStage.show();
-    }
-
-    @FXML
-    private void handle_createSong(ActionEvent event) throws IOException {
-        Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
-        fxmlLoader.<AddSongSceneController>getController().setContr(this);
-
-        Stage songStage = new Stage();
-        Scene songScene = new Scene(root1);
-
-        //songStage.initStyle(StageStyle.UNDECORATED);
-        songStage.setScene(songScene);
-        songStage.show();
-
-    }
-
-    public void updateLibrary() {
-        tbv_Library.getItems().clear();
-        tbv_Library.setItems(songModel.getLibraryList());
-    }
-
-    public void updatePlaylists() {
-        tbv_Playlists.getItems().clear();
-        tbv_Playlists.setItems(playlistModel.getPlaylistList());
-    }
-
-    public void updateSongOnPlaylist() {
-
-        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
-        if (selectedPlaylist != null) {
-           getSongsInPlaylist();
-        }
-    }
-    private void getSongsInPlaylist() {
-        ObservableList<Song> songsInPlaylist = FXCollections.observableArrayList();
-        songsInPlaylist.clear();
-        songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
-        
-        lv_SongsOnPlaylist.setItems(songsInPlaylist);
-
-    }
-    @FXML
-    private void handle_AddSongToPlaylist(ActionEvent event) {
-        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
-        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
-        playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
-        updateSongOnPlaylist();
-        updatePlaylists();
-
-    }
-    
-    @FXML
-    private void handle_EditSong(ActionEvent event) throws IOException {
-        Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
-
-        Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
-        AddSongSceneController controller = (AddSongSceneController) fxmlLoader.getController();
-        controller.setContr(this);
-        controller.editMode(selectedSong); //set mode to edit song.
-        Stage songStage = new Stage();
-        Scene songScene = new Scene(root1);
-
-        //songStage.initStyle(StageStyle.UNDECORATED);
-        songStage.setScene(songScene);
-        songStage.show();
-    }
-
-    @FXML
-    private void handle_getSong(MouseEvent event) { // pick  selected song
-        song = tbv_Library.getSelectionModel().getSelectedItem();
-
-    }
-
-    
-
-    @FXML
-    private void handle_getPlaylist(MouseEvent event) {
-        Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
-        if (selectedPlaylist != null) {
-            getSongsInPlaylist();
-        }
-    }
-
-    
-
-    @FXML
-    private void handle_deleteSongFromPlaylst(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void handle_deleteSong(ActionEvent event) throws IOException { // deletion of songs
-        //move code to controller
-        /*Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
-        songModel.deleteSong(selectedSong);
-        tbv_Library.getSelectionModel().clearSelection();
-         */
-        Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeleteSongScene.fxml"));
-        fxmlLoader.<DeleteSongSceneController>getController().setContr(this);
-
-        Stage songStage = new Stage();
-        Scene songScene = new Scene(root1);
-
-        //songStage.initStyle(StageStyle.UNDECORATED);
-        songStage.setScene(songScene);
-        songStage.show();
-    }
-
     private void btn_shuffleAction(ActionEvent event) { // shuffle songs in playlist
 
         lv_SongsOnPlaylist.getItems().clear();
@@ -397,22 +445,6 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handle_deletePlaylist(ActionEvent event) throws IOException {
-        Parent root1;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
-        fxmlLoader.<DeletePlaylistSceneController>getController().setContr(this);
-
-        Stage playlistStage = new Stage();
-        Scene playlistScene = new Scene(root1);
-
-        //songStage.initStyle(StageStyle.UNDECORATED);
-        playlistStage.setScene(playlistScene);
-        playlistStage.show();
-    }
-
-    @FXML
     private void handle_Previous(ActionEvent event) throws IOException { // back button
 
         if (lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex() != -1) {
@@ -445,32 +477,6 @@ public class PrimaryController implements Initializable {
 
         if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItem() != null) {
             isScheduelSong = true;
-        }
-    }
-
-    @FXML
-    private void handle_moveSongDown(ActionEvent event) {
-        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
-        if (index != lv_SongsOnPlaylist.getItems().size() - 1) {
-
-            // swap items
-            lv_SongsOnPlaylist.getItems().add(index + 1, lv_SongsOnPlaylist.getItems().remove(index));
-            // select item at new position
-            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index + 1);
-
-        }
-    }
-
-    @FXML
-    private void handle_moveSongUp(ActionEvent event) {
-        int index = lv_SongsOnPlaylist.getSelectionModel().getSelectedIndex();
-        if (index != 0) {
-            System.out.println(index);
-            // swap items
-            lv_SongsOnPlaylist.getItems().add(index - 1, lv_SongsOnPlaylist.getItems().remove(index));
-            // select item at new position
-            lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
-
         }
     }
 

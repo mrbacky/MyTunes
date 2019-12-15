@@ -13,7 +13,8 @@ import java.util.List;
 import mytunes.be.Song;
 
 /**
- * This DAO class can perform CRUD operations on the database song table. 
+ * This DAO class can perform CRUD operations on the database song table.
+ *
  * @author annem
  */
 public class SongDAO {
@@ -22,7 +23,8 @@ public class SongDAO {
     private SongOnPlaylistDAO spDAO;
 
     /**
-     * Constructor, which creates the connection with the database and the DAO for SongOnPlaylist.
+     * Constructor, which creates the connection with the database and the DAO
+     * for SongOnPlaylist.
      */
     public SongDAO() {
         connectDAO = new ConnectDAO();
@@ -30,11 +32,48 @@ public class SongDAO {
     }
 
     /**
+     * Creates and adds a new song to the database.
      *
-     * this method read the table of the song list
+     * @param title The title of the song.
+     * @param artist The artist of the song.
+     * @param time The time (duration) of the song.
+     * @param path The path of the song.
+     * @param genre The genre of the song.
+     * @return The newly created song.
+     */
+    public Song createSong(String title, String artist, int time, String path, String genre) {
+        try (//Get a connection to the database.
+                Connection con = connectDAO.getConnection()) {
+            //Create a prepared statement.
+            String sql = "INSERT INTO song(title, artist, time, genre, songpath) VALUES (?,?,?,?,?)";
+            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //Set parameter values.
+            pstmt.setString(1, title);
+            pstmt.setString(2, artist);
+            pstmt.setInt(3, time);
+            pstmt.setString(4, genre);
+            pstmt.setString(5, path);
+            //Execute SQL query.
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            return new Song(id, title, artist, time, path, genre);
+
+        } catch (SQLServerException ex) {
+            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets all the songs from the database. MAYBE RENAME to getAllSongs?
      *
      * @return
-     * @throws java.sql.SQLException
+     * @throws SQLException
      */
     public List<Song> fetchAllSongs() throws SQLException {
         List<Song> allSongs = new ArrayList<>();
@@ -61,44 +100,6 @@ public class SongDAO {
     }
 
     /**
-     * Creates and adds a new song to the database.
-     *
-     * @param title The title of the song.
-     * @param artist The artist of the song.
-     * @param time The time (duration) of the song.
-     * @param path The path of the song.
-     * @param genre The genre of the song.
-     * @return The newly created song.
-     */
-    public Song createSong(String title, String artist, int time, String path, String genre) {
-        try (//Get a connection to the database.
-            Connection con = connectDAO.getConnection()) {
-            //Create a prepared statement.
-            String sql = "INSERT INTO song(title, artist, time, genre, songpath) VALUES (?,?,?,?,?)";
-            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            //Set parameter values.
-            pstmt.setString(1, title);
-            pstmt.setString(2, artist);
-            pstmt.setInt(3, time);
-            pstmt.setString(4, genre);
-            pstmt.setString(5, path);
-            //Execute SQL query.
-            pstmt.executeUpdate();
-            ResultSet rs = pstmt.getGeneratedKeys();
-            rs.next();
-            int id = rs.getInt(1);
-            return new Song(id, title, artist, time, path, genre);
-            
-        } catch (SQLServerException ex) {
-            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return null;
-    }
-    
-    /**
      * Updates a song in the database after editing.
      * @param songToEdit The song to be updated after editing.
      * @param editedTitle The edited title of the song.
@@ -108,7 +109,7 @@ public class SongDAO {
      */
     public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
         try (//Get a connection to the database.
-            Connection con = connectDAO.getConnection()) {
+                Connection con = connectDAO.getConnection()) {
             //Create a prepared statement.
             String sql = "UPDATE song SET title = ?, artist = ?, genre = ? WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -119,20 +120,20 @@ public class SongDAO {
             pstmt.setInt(4, song.getId());
             //Execute SQL query.
             pstmt.executeUpdate();
-            song.setArtist(editedTitle);
-            song.setArtist(editedArtist);
-            song.setGenre(editedGenre);
-            return song;
-            
+            songToEdit.setArtist(editedTitle);
+            songToEdit.setArtist(editedArtist);
+            songToEdit.setGenre(editedGenre);
+            return songToEdit;
+
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
+
     /**
      * Deletes a song from the database. Also, uses object of SongOnPlaylistDAO to
      * delete the song from all playlist it may part of.
@@ -140,20 +141,18 @@ public class SongDAO {
      * @throws SQLException
      */
     public void deleteSong(Song songToDelete) throws SQLException {
-        //When the song is deleted, it should also be removed from all playlists.
-        //SongsOnPlaylistDAO.deleteSongFromAllPlaylists(songToDelete);
+        spDAO.deleteSongFromAllPlaylists(songToDelete);
+        
         try (Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM Song WHERE id = ?"; //deleted based on ID
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, songToDelete.getId()); //need to add
             pstmt.execute();
-        }
-        
-        catch (SQLServerException ex) {
+        } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-   }
-    
+    }
+
 }

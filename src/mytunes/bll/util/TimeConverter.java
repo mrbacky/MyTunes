@@ -1,5 +1,11 @@
 package mytunes.bll.util;
 
+/**
+ * TimeConverter Class is used to convert the time value in seconds 
+ * to the format hh:mm:ss and the other way around.
+ * 
+ * @author Rado
+ */
 public class TimeConverter {
 
     public String sec_To_Format(int sec) {

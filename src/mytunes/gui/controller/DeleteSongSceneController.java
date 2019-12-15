@@ -16,6 +16,8 @@ import mytunes.gui.model.SongModel;
  *
  * @author annem
  */
+
+
 public class DeleteSongSceneController implements Initializable {
 
     @FXML
@@ -43,7 +45,9 @@ public class DeleteSongSceneController implements Initializable {
     }
     
     private void updateLibrary() {
-        pCon.updateLibrary();
+        pCon.refreshLibrary();
+        pCon.updateSongOnPlaylist();
+        pCon.refreshPlaylists();
     }
     
     @FXML
