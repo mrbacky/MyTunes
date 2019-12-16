@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -33,6 +30,14 @@ public class SongSceneController implements Initializable {
     @FXML
     private ChoiceBox<String> choiceBox_genre;
     @FXML
+    private Button btn_deleteGenre;
+    @FXML
+    private Button btn_createVisible;
+    @FXML
+    private Button btn_createGenre;
+    @FXML
+    private TextField txt_createGenre;
+    @FXML
     private TextField txtField_time;
     @FXML
     private TextField txtField_filePath;
@@ -48,8 +53,6 @@ public class SongSceneController implements Initializable {
     private SongModel songModel;
     private GenreModel genreModel;
     private PrimaryController pCon;
-    @FXML
-    private Button btn_openGenreScene;
     private SongSceneController conSong;
 
     @Override
@@ -151,25 +154,24 @@ public class SongSceneController implements Initializable {
     }
 
     @FXML
-    private void handle_openGenreScene(ActionEvent event) throws IOException {
-        Parent root;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/GenreScene.fxml"));
-        root = (Parent) fxmlLoader.load();
-        fxmlLoader.<GenreSceneController>getController().setContr(conSong);
-
-        Stage genreStage = new Stage();
-        Scene genreScene = new Scene(root);
-
-        //songStage.initStyle(StageStyle.UNDECORATED);
-        genreStage.setScene(genreScene);
-        genreStage.show();
+    private void handle_createVisible(ActionEvent event) {
+        txt_createGenre.setVisible(true);
+        btn_createGenre.setVisible(true);
     }
 
-    public void updateGenre(String name, boolean addingGenre) {
-        if (addingGenre) {
-            choiceBox_genre.getItems().add(name);
-        } else {
-            choiceBox_genre.getItems().remove(name);
-        }
+    @FXML
+    private void handle_createGenre(ActionEvent event) {
+        String name = txt_createGenre.getText().trim();
+        genreModel.createGenre(name);
+        choiceBox_genre.getItems().add(name);
+        txt_createGenre.setVisible(false);
+        btn_createGenre.setVisible(false);
+    }
+
+    @FXML
+    private void handle_deleteGenre(ActionEvent event) {
+        String name = choiceBox_genre.getSelectionModel().getSelectedItem();
+        genreModel.deleteGenre(name);
+        choiceBox_genre.getItems().remove(name);
     }
 }
