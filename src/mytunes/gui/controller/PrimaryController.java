@@ -46,6 +46,8 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_deleteSong;
     @FXML
+    private Button btn_newPlaylist;
+    @FXML
     private Button btn_editPlaylist;
     @FXML
     private Button btn_deletePlaylist;    
@@ -63,6 +65,8 @@ public class PrimaryController implements Initializable {
     private Button btn_next;
     @FXML
     private Button btn_previous;
+    @FXML
+    private Button btn_loop;
     @FXML
     private Slider slider;
     @FXML
@@ -109,12 +113,11 @@ public class PrimaryController implements Initializable {
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private SongOnPlaylistModel SongOnPlaylistModel;
-    @FXML
-    private Button btn_newPlaylist;
-    @FXML
-    private Button btn_next1;
+    
+    //WHAT IS THIS BUTTON?!
     @FXML
     private Button btn_next11;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -422,11 +425,12 @@ public class PrimaryController implements Initializable {
 
     private void btn_loopAction(MouseEvent event) { // loop
 
-        if (mediaPlayer != null) {
-        }
-        mediaPlayer.seek(Duration.ZERO);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.getOnEndOfMedia();
+        mediaPlayer.setOnEndOfMedia(() -> {
+            if (mediaPlayer != null) {
+            }
+            mediaPlayer.seek(Duration.ZERO);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        });
     }
 
     @FXML
@@ -463,5 +467,9 @@ public class PrimaryController implements Initializable {
         if (lv_SongsOnPlaylist.getSelectionModel().getSelectedItem() != null) {
             isScheduelSong = true;
         }
+    }
+
+    @FXML
+    private void btn_loopAction(ActionEvent event) {
     }
 }
