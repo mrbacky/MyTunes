@@ -68,5 +68,14 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="btn_openGenreScene" layoutX="288.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_openGenreScene" prefHeight="25.0" prefWidth="25.0" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons8-add-50.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

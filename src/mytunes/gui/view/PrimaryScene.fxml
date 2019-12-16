@@ -205,7 +205,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btn_next11" layoutX="446.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
+                        <Button fx:id="btn_shuffle" layoutX="446.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#btn_shuffleAction" prefHeight="20.0" prefWidth="20.0">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

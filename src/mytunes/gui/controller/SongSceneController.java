@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -45,6 +48,9 @@ public class SongSceneController implements Initializable {
     private SongModel songModel;
     private GenreModel genreModel;
     private PrimaryController pCon;
+    @FXML
+    private Button btn_openGenreScene;
+    private SongSceneController conSong;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -144,4 +150,26 @@ public class SongSceneController implements Initializable {
         stage.close();
     }
 
+    @FXML
+    private void handle_openGenreScene(ActionEvent event) throws IOException {
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/GenreScene.fxml"));
+        root = (Parent) fxmlLoader.load();
+        fxmlLoader.<GenreSceneController>getController().setContr(conSong);
+
+        Stage genreStage = new Stage();
+        Scene genreScene = new Scene(root);
+
+        //songStage.initStyle(StageStyle.UNDECORATED);
+        genreStage.setScene(genreScene);
+        genreStage.show();
+    }
+
+    public void updateGenre(String name, boolean addingGenre) {
+        if (addingGenre) {
+            choiceBox_genre.getItems().add(name);
+        } else {
+            choiceBox_genre.getItems().remove(name);
+        }
+    }
 }

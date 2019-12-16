@@ -116,7 +116,7 @@ public class PrimaryController implements Initializable {
     
     //WHAT IS THIS BUTTON?!
     @FXML
-    private Button btn_next11;
+    private Button btn_shuffle;
     
 
     @Override
@@ -471,5 +471,21 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void btn_loopAction(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btn_shuffleAction(ActionEvent event) { // shuffle songs in playlist
+        lv_SongsOnPlaylist.getItems().clear();
+        if (tbv_Playlists.getSelectionModel().getSelectedItem() != null) {
+            //songsInPlaylist.getItems().clear();
+            List<Song> songsInPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem().getSongs();
+
+            Collections.shuffle(songsInPlaylist);
+            ObservableList<Song> shuffledSongs = FXCollections.observableArrayList();
+
+            shuffledSongs.addAll(FXCollections.observableArrayList(songsInPlaylist));
+
+            lv_SongsOnPlaylist.setItems(shuffledSongs);
+        }
     }
 }
