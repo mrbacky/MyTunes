@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import mytunes.be.Playlist;
 import mytunes.gui.model.PlaylistModel;
@@ -17,12 +18,15 @@ import mytunes.gui.model.PlaylistModel;
 public class DeletePlaylistSceneController implements Initializable {
 
     @FXML
-    private Button btn_ConfirmDeletePlaylist;
+    private Label lbl_name;
     @FXML
-    private Button btn_CancelDeletePlaylist;
+    private Button btn_confirm;
+    @FXML
+    private Button btn_cancel;
 
     private PrimaryController pCon;
     private PlaylistModel playlistModel;
+    private Playlist selectedPlaylist;
     
     /**
      * Initializes the controller class.
@@ -42,21 +46,23 @@ public class DeletePlaylistSceneController implements Initializable {
     
     @FXML
     private void handle_deletePlaylist(ActionEvent event) {
-        //Deletes from the database, but the library is not showing properly.
-        Playlist selectedPlaylist = this.pCon.tbv_Playlists.getSelectionModel().getSelectedItem();
+        //Deletes the selected playlist from the database, but the library is not showing properly(?).
         playlistModel.deletePlaylist(selectedPlaylist);
-        this.pCon.tbv_Playlists.getSelectionModel().clearSelection();
         
         refreshPlaylists();
         Stage stage;
-        stage = (Stage) btn_ConfirmDeletePlaylist.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    private void handle_cancelDeletePlaylist(ActionEvent event) {
-        Stage stage = (Stage) btn_CancelDeletePlaylist.getScene().getWindow();
+        stage = (Stage) btn_confirm.getScene().getWindow();
         stage.close();
     }
     
+    public void setDeletePlaylistLabel(Playlist playlist){
+        selectedPlaylist = playlist;
+        lbl_name.setText(selectedPlaylist.getName());
+    }
+
+    @FXML
+    private void handle_cancelScene(ActionEvent event) {
+        Stage stage = (Stage) btn_cancel.getScene().getWindow();
+        stage.close();
+    }    
 }

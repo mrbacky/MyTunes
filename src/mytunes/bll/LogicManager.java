@@ -6,17 +6,24 @@ import mytunes.be.Song;
 import mytunes.be.SongOnPlaylist;
 import mytunes.bll.util.SearchFilter;
 import mytunes.dal.DBManager;
-import mytunes.dal.SongDAO;
-import mytunes.dal.PlaylistDAO;
 import mytunes.dal.DBFacade;
 import mytunes.bll.util.TimeConverter;
 
+/**
+ * This class manages the connection between GUI and DAL.
+ *
+ * @author annem
+ */
 public class LogicManager implements LogicFacade {
 
     private final DBFacade dbManager;
     private final TimeConverter timeConverter;
     private final SearchFilter searcher;
 
+    /**
+     * Creates a connection to the database.
+     * Constructs a TimeConverter and SearchFilter.
+     */
     public LogicManager() {
         dbManager = new DBManager();
         timeConverter = new TimeConverter();
@@ -30,20 +37,16 @@ public class LogicManager implements LogicFacade {
     @Override
     public Song createSong(String title, String artist, int time, String path, String genre) {
         return dbManager.createSong(title, artist, time, path, genre);
-
     }
 
     @Override
     public List<Song> getAllSongs() {
         return dbManager.getAllSongs();
     }
-//    public Song createSong(String title, String artist, String time, String path, String genre) {
-//        return dbManager.createSong(title, artist, time, path, genre);
-//    }
 
     @Override
-    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        return dbManager.updateSong(song, editedTitle, editedArtist, editedGenre);
+    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
+        return dbManager.updateSong(song, editedTitle, editedArtist, editedGenre, editedTime, editedPath);
     }
 
     @Override
@@ -63,17 +66,11 @@ public class LogicManager implements LogicFacade {
     @Override
     public List<Playlist> getAllPlaylists() {
         return dbManager.getAllPlaylists();
-
     }
 
     @Override
     public Playlist updatePlaylist(Playlist playlist, String editedName) {
         return dbManager.updatePlaylist(playlist, editedName);
-    }
-
-    @Override
-    public void editPlaylist() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -94,10 +91,12 @@ public class LogicManager implements LogicFacade {
     public List<SongOnPlaylist> getSongOnPlaylist() {
         return dbManager.getAllSongsOnPlaylist();
     }
+
     @Override
     public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
         dbManager.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
     }
+
     //__________________________________________________________________________                       
     //
     //      Genres
@@ -116,6 +115,7 @@ public class LogicManager implements LogicFacade {
     public void deleteGenre(String name) {
         dbManager.deleteGenre(name);
     }
+
     //__________________________________________________________________________                       
     //
     //      Utilities
@@ -133,5 +133,4 @@ public class LogicManager implements LogicFacade {
     public List<Song> search(List<Song> searchBase, String query) {
         return searcher.search(searchBase, query);
     }
-
 }

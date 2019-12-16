@@ -16,29 +16,27 @@ import mytunes.gui.model.SongModel;
  *
  * @author annem
  */
-
-
 public class DeleteSongSceneController implements Initializable {
 
     @FXML
-    private Label lbl_SongTitleToDelete;
+    private Label lbl_title;
     @FXML
-    private Button btn_ConfirmDeleteSong;
+    private Button btn_confirm;
     @FXML
-    private Button btn_DeleteSong_cancelSong;
+    private Button btn_cancel;
 
     private PrimaryController pCon;
     private SongModel songModel;
+    private Song selectedSong;
     
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         songModel = new SongModel();
-
-        
-    }
+        }
 
     public void setContr(PrimaryController pCon) {
         this.pCon = pCon;
@@ -49,21 +47,25 @@ public class DeleteSongSceneController implements Initializable {
         pCon.updateSongOnPlaylist();
         pCon.refreshPlaylists();
     }
-    
+
     @FXML
     private void handle_deleteSong(ActionEvent event) {
-        //Deletes from the database, but the library is not showing properly.
-        Song selectedSong = this.pCon.tbv_Library.getSelectionModel().getSelectedItem();
+        //Deletes the selected song from the database.
         songModel.deleteSong(selectedSong);
         updateLibrary();
         Stage stage;
-        stage = (Stage) btn_ConfirmDeleteSong.getScene().getWindow();
+        stage = (Stage) btn_confirm.getScene().getWindow();
         stage.close();
     }
 
+    public void setDeleteSongLabel(Song song) {
+        selectedSong = song;
+        lbl_title.setText(selectedSong.getTitle());
+    }
+
     @FXML
-    private void handle_CloseScene(ActionEvent event) {
-        Stage stage = (Stage) btn_DeleteSong_cancelSong.getScene().getWindow();
+    private void handle_closeScene(ActionEvent event) {
+        Stage stage = (Stage) btn_cancel.getScene().getWindow();
         stage.close();
     }
 }

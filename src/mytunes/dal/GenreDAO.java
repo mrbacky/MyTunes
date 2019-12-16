@@ -31,7 +31,7 @@ public class GenreDAO {
     public List<String> getAllGenres() {
         //Create a String array to store all genres.
         List<String> allGenres = new ArrayList();
-        try (Connection con = connectDAO.getConnection()) {
+        try ( Connection con = connectDAO.getConnection()) {
             String sql = "SELECT * FROM genre";
             PreparedStatement pstmt = con.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -54,7 +54,7 @@ public class GenreDAO {
      * @param name The name of the newly created genre.
      */
     public void createGenre(String name) {
-        try (Connection con = connectDAO.getConnection()) {
+        try ( Connection con = connectDAO.getConnection()) {
             String sql = "INSERT INTO genre VALUES (?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, name);
@@ -73,7 +73,7 @@ public class GenreDAO {
      * @param name The name of the deleted genre.
      */
     public void deleteGenre(String name) {
-        try (Connection con = connectDAO.getConnection()) {
+        try ( Connection con = connectDAO.getConnection()) {
             String sql = "DELETE FROM genre WHERE name = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, name);

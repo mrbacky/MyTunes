@@ -1,14 +1,11 @@
 package mytunes.gui.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import mytunes.be.Song;
 import mytunes.bll.LogicManager;
 import mytunes.bll.LogicFacade;
-import mytunes.gui.controller.SongSceneController;
 
 /**
  * Description to be added...
@@ -24,7 +21,6 @@ public final class SongModel {
      * Establish a connection to the BLL.
      */
     public SongModel() {
-        
         logicManager = new LogicManager();
         getLibraryList();
     }
@@ -37,6 +33,7 @@ public final class SongModel {
     public ObservableList<Song> getLibraryList() {
         List<Song> allSongs = logicManager.getAllSongs();
         for (Song song1 : allSongs) {
+            //Saving converted time as hh:mm:ss format before adding song to ObservableList.
             song1.setStringTime(sec_To_Format(song1.getTime()));
         }
         libraryList = FXCollections.observableArrayList(allSongs);
@@ -60,27 +57,28 @@ public final class SongModel {
     }
 
     /**
-     * Updates a song. The method calls the BLL to update an edited song in
-     * the database.
+     * Updates a song. The method calls the BLL to update an edited song in the
+     * database.
+     *
      * @param song The song to be updated.
      * @param editedTitle The edited title of the song.
      * @param editedArtist The edited artist of the song.
      * @param editedGenre The edited genre of the song.
      */
-    public void updateSong(Song song, String editedTitle, String editedArtist, String editedGenre) {
-        logicManager.updateSong(song, editedTitle, editedArtist, editedGenre);
+    public void updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
+        logicManager.updateSong(song, editedTitle, editedArtist, editedGenre, editedTime, editedPath);
     }
 
     /**
      * Deletes a song from the library list. The method calls the BLL to delete
      * a song from the database. The deleted song is deleted from the library
-     * list !!!and all other playlists.
+     * list and all other playlists.
      *
      * @param songToDelete The song to be deleted.
      */
     public void deleteSong(Song songToDelete) {
         logicManager.deleteSong(songToDelete);
-        libraryList.remove(songToDelete);
+        //libraryList.remove(songToDelete);
     }
 
     public void filteredSongs(String query) {

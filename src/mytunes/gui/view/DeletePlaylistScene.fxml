@@ -9,12 +9,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="450.0" styleClass="greyBG" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.gui.controller.DeletePlaylistSceneController">
    <children>
-      <Label alignment="CENTER" layoutY="86.0" prefHeight="20.0" prefWidth="450.0" text="Delete playlist for all eternity?" textFill="WHITE">
+      <Label alignment="CENTER" layoutY="103.0" prefHeight="20.0" prefWidth="450.0" text="Delete playlist for all eternity?" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btn_ConfirmDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deletePlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="71.0">
+      <Button fx:id="btn_confirm" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deletePlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="71.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -23,7 +23,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btn_CancelDeletePlaylist" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_cancelDeletePlaylist" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="38.0">
+      <Button fx:id="btn_cancel" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_cancelScene" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css" AnchorPane.rightAnchor="38.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,5 +32,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="lbl_name" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="146.0" prefHeight="20.0" prefWidth="430.0" text="&quot;name of playlist&quot;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

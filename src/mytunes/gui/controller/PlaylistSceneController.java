@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mytunes.gui.controller;
 
 import java.net.URL;
@@ -19,11 +14,11 @@ import mytunes.gui.model.PlaylistModel;
 public class PlaylistSceneController implements Initializable {
 
     @FXML
-    private TextField txtField_namePlaylist;
+    private TextField txtField_name;
     @FXML
-    private Button btn_cancelPlaylist;
+    private Button btn_confirm;
     @FXML
-    private Button btn_savePlaylist;
+    private Button btn_cancel;
         
     private boolean edit;
     private Playlist playlistToEdit;
@@ -43,19 +38,18 @@ public class PlaylistSceneController implements Initializable {
     }
      
     @FXML
-    //RENAME!! Now the functionality can be either create or update.
-    private void handle_CreatePlaylist(ActionEvent event) {
+    private void handle_savePlaylist(ActionEvent event) {
         if (!edit) {
-            String name = txtField_namePlaylist.getText().trim();
-            playlistModel.createPlaylist(0, name, 0);
+            String name = txtField_name.getText().trim();
+            playlistModel.createPlaylist(0, name);
         } else {
-            playlistModel.updatePlaylist(playlistToEdit, txtField_namePlaylist.getText());
+            playlistModel.updatePlaylist(playlistToEdit, txtField_name.getText());
         }
 
         updatePlaylists();
 
         Stage stage;
-        stage = (Stage) btn_savePlaylist.getScene().getWindow();
+        stage = (Stage) btn_confirm.getScene().getWindow();
         stage.close();
     }
     
@@ -68,11 +62,11 @@ public class PlaylistSceneController implements Initializable {
         playlistToEdit = playlist;
         
         //sets the existing info of the selected playlist.
-        txtField_namePlaylist.setText(playlistToEdit.getName());
+        txtField_name.setText(playlistToEdit.getName());
     }
     @FXML
-    private void handle_ClosePlaylistScene(ActionEvent event) {
-        Stage stage = (Stage) btn_cancelPlaylist.getScene().getWindow();
+    private void handle_closeScene(ActionEvent event) {
+        Stage stage = (Stage) btn_cancel.getScene().getWindow();
         stage.close();
     }    
 }

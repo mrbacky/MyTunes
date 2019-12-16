@@ -1,13 +1,19 @@
 package mytunes.bll.util;
 
 /**
- * TimeConverter Class is used to convert the time value in seconds 
- * to the format hh:mm:ss and the other way around.
- * 
+ * TimeConverter Class is used to convert the time value in seconds to the
+ * format hh:mm:ss and the other way around.
+ *
  * @author Rado
  */
 public class TimeConverter {
 
+    /**
+     * Converts the time from seconds to the format hh:mm:ss.
+     *
+     * @param sec The time in seconds.
+     * @return The formatted time.
+     */
     public String sec_To_Format(int sec) {
         int hours, mins, secs;
         mins = (int) (sec / 60);
@@ -20,6 +26,12 @@ public class TimeConverter {
         return stringTime;// format:   hh:mm:ss
     }
 
+    /**
+     * Converts the time from the format hh:mm:ss to seconds.
+     *
+     * @param formatString The time in the format hh:mm:ss.
+     * @return The time in seconds.
+     */
     public int format_To_Sec(String formatString) {
         String[] format = formatString.split(":");
         int hh, mm, ss, hours_In_Sec, mins_In_Sec, totalSec;
@@ -28,7 +40,7 @@ public class TimeConverter {
         ss = Integer.parseInt(format[2]);
         hours_In_Sec = hh * 3600;
         mins_In_Sec = mm * 60;
-        totalSec = hours_In_Sec+mins_In_Sec+ss;
+        totalSec = hours_In_Sec + mins_In_Sec + ss;
         return totalSec;
     }
 }

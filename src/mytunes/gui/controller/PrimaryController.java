@@ -3,8 +3,6 @@ package mytunes.gui.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-
-import javafx.util.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,6 +11,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.util.Duration;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,43 +40,36 @@ import mytunes.gui.model.SongOnPlaylistModel;
 public class PrimaryController implements Initializable {
 
     @FXML
-    private Button btn_moveSongDown;
-    @FXML
-    private Button btn_moveSongUp;
-    @FXML
-    private Button btn_deletePlaylist;
-    @FXML
     private Button btn_createSong;
-    @FXML
-    private Button btn_createPlaylist;
-    @FXML
-    private Button btn_addSongToPlaylist;
-    @FXML
-    private Button btn_play;
-    @FXML
-    private Button btn_previous;
-    @FXML
-    private Button btn_next;
-    @FXML
-    private Button btn_editPlaylist;
-    @FXML
-    private Button btn_deleteSongFromPlaylist;
-    @FXML
-    private Button btn_deleteSong;
     @FXML
     private Button btn_editSong;
     @FXML
-    private Label lbl_Library;
+    private Button btn_deleteSong;
     @FXML
-    private Label lbl_SelectedPlaylist;
+    private Button btn_editPlaylist;
     @FXML
-    private TextField txtSongSearch;
+    private Button btn_deletePlaylist;    
+    @FXML
+    private Button btn_addSongToPlaylist;
+    @FXML
+    private Button btn_deleteSongFromPlaylist;
+    @FXML
+    private Button btn_moveSongUp;
+    @FXML
+    private Button btn_moveSongDown;    
+    @FXML
+    private Button btn_play;
+    @FXML
+    private Button btn_next;
+    @FXML
+    private Button btn_previous;
     @FXML
     private Slider slider;
     @FXML
     private ProgressBar progressBar;
+    
     @FXML
-    private TableColumn<Playlist, String> col_PTime;
+    public TableView<Song> tbv_Library;
     @FXML
     private TableColumn<Song, String> col_title;
     @FXML
@@ -86,28 +78,43 @@ public class PrimaryController implements Initializable {
     private TableColumn<Song, String> col_genre;
     @FXML
     private TableColumn<Song, String> col_songTime;
-    @FXML
-    private TableColumn<Playlist, Integer> col_PSongs;
-    @FXML
-    private TableColumn<Playlist, String> col_PName;
-    @FXML
-    public ListView<Song> lv_SongsOnPlaylist;
+   
     @FXML
     public TableView<Playlist> tbv_Playlists;
     @FXML
-    public TableView<Song> tbv_Library;
-
+    private TableColumn<Playlist, String> col_PName;
+    @FXML
+    private TableColumn<Playlist, Integer> col_PSongs;
+    @FXML
+    private TableColumn<Playlist, String> col_PTime;
+    
+    @FXML
+    public ListView<Song> lv_SongsOnPlaylist;
+   
+    @FXML
+    private Label lbl_Library;
+    @FXML
+    private Label lbl_SelectedPlaylist;
+    @FXML
+    private TextField txtSongSearch;
+    
     private boolean isPaused = false;
     private int currentSongPlaying = 0;
     private Duration currentTime;
     private boolean isScheduelSong = true;
-
     private MediaPlayer mediaPlayer;
+
+    private Song song;
+    private Playlist playlist;
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private SongOnPlaylistModel SongOnPlaylistModel;
-    private Playlist playlist;
-    private Song song;
+    @FXML
+    private Button btn_newPlaylist;
+    @FXML
+    private Button btn_next1;
+    @FXML
+    private Button btn_next11;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -131,7 +138,6 @@ public class PrimaryController implements Initializable {
         //  displaying content
         tbv_Library.setItems(songModel.getLibraryList());
         tbv_Playlists.setItems(playlistModel.getPlaylistList());
-
     }
 
     private void setSearchFilter() {
@@ -151,36 +157,34 @@ public class PrimaryController implements Initializable {
         Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
         root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
-        
+        fxmlLoader.<SongSceneController>getController().setContr(this);
+
         Stage songStage = new Stage();
         Scene songScene = new Scene(root1);
 
         //songStage.initStyle(StageStyle.UNDECORATED);
         songStage.setScene(songScene);
         songStage.show();
-
     }
 
     @FXML
     private void handle_getSong(MouseEvent event) { // pick  selected song
         song = tbv_Library.getSelectionModel().getSelectedItem();
-
     }
 
     @FXML
     private void handle_EditSong(ActionEvent event) throws IOException {
         Song selectedSong = tbv_Library.getSelectionModel().getSelectedItem();
 
-        Parent root1;
+        Parent root;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/SongScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
+        root = (Parent) fxmlLoader.load();
         //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/AddSongScene.fxml"));
         SongSceneController controller = (SongSceneController) fxmlLoader.getController();
         controller.setContr(this);
         controller.editMode(selectedSong); //set mode to edit song.
         Stage songStage = new Stage();
-        Scene songScene = new Scene(root1);
+        Scene songScene = new Scene(root);
 
         //songStage.initStyle(StageStyle.UNDECORATED);
         songStage.setScene(songScene);
@@ -195,9 +199,8 @@ public class PrimaryController implements Initializable {
         root = (Parent) fxmlLoader.load();
         DeleteSongSceneController controller = (DeleteSongSceneController) fxmlLoader.getController();
         controller.setContr(this);
-        //controller.setDeleteSongLabel(selectedSong);
-        // TO DO
-
+        controller.setDeleteSongLabel(selectedSong);
+        
         Stage songStage = new Stage();
         Scene songScene = new Scene(root);
 
@@ -217,15 +220,15 @@ public class PrimaryController implements Initializable {
     //__________________________________________________________________________
     @FXML
     private void handle_createPlaylist(ActionEvent event) throws IOException {
-        Parent root;
+        Parent root1;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/PlaylistScene.fxml"));
-        root = (Parent) fxmlLoader.load();
+        root1 = (Parent) fxmlLoader.load();
         fxmlLoader.<PlaylistSceneController>getController().setContr(this);
 
         Stage playlistStage = new Stage();
-        Scene playlistScene = new Scene(root);
+        Scene playlistScene = new Scene(root1);
 
-        playlistStage.initStyle(StageStyle.UNDECORATED);
+        //songStage.initStyle(StageStyle.UNDECORATED);
         playlistStage.setScene(playlistScene);
         playlistStage.show();
     }
@@ -260,16 +263,15 @@ public class PrimaryController implements Initializable {
     @FXML
     private void handle_deletePlaylist(ActionEvent event) throws IOException {
         Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
-        Parent root1;
+        Parent root;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
-        root1 = (Parent) fxmlLoader.load();
-        //Parent rootSong = FXMLLoader.load(getClass().getResource("/mytunes/gui/view/DeletePlaylistScene.fxml"));
+        root = (Parent) fxmlLoader.load();
         DeletePlaylistSceneController controller = (DeletePlaylistSceneController) fxmlLoader.getController();
         controller.setContr(this);
-        //controller.setDeletePlaylistLabel(selectedPlaylist);
+        controller.setDeletePlaylistLabel(selectedPlaylist);
 
         Stage playlistStage = new Stage();
-        Scene playlistScene = new Scene(root1);
+        Scene playlistScene = new Scene(root);
 
         //songStage.initStyle(StageStyle.UNDECORATED);
         playlistStage.setScene(playlistScene);
@@ -287,7 +289,6 @@ public class PrimaryController implements Initializable {
         playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
         updateSongOnPlaylist();
         refreshPlaylists();
-
     }
 
     private void getSongsInPlaylist() {
@@ -296,7 +297,6 @@ public class PrimaryController implements Initializable {
         songsInPlaylist.addAll(tbv_Playlists.getSelectionModel().getSelectedItem().getSongs());
 
         lv_SongsOnPlaylist.setItems(songsInPlaylist);
-
     }
 
     public void refreshPlaylists() {
@@ -314,7 +314,6 @@ public class PrimaryController implements Initializable {
     }
 
     public void updateSongOnPlaylist() {
-
         Playlist selectedPlaylist = tbv_Playlists.getSelectionModel().getSelectedItem();
         if (selectedPlaylist != null) {
             getSongsInPlaylist();
@@ -330,7 +329,6 @@ public class PrimaryController implements Initializable {
             lv_SongsOnPlaylist.getItems().add(index + 1, lv_SongsOnPlaylist.getItems().remove(index));
             // select item at new position
             lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index + 1);
-
         }
     }
 
@@ -343,7 +341,6 @@ public class PrimaryController implements Initializable {
             lv_SongsOnPlaylist.getItems().add(index - 1, lv_SongsOnPlaylist.getItems().remove(index));
             // select item at new position
             lv_SongsOnPlaylist.getSelectionModel().clearAndSelect(index - 1);
-
         }
     }
 
@@ -419,7 +416,6 @@ public class PrimaryController implements Initializable {
 
             lv_SongsOnPlaylist.setItems(allOverPower);
         }
-
     }
 
     @FXML
@@ -429,9 +425,7 @@ public class PrimaryController implements Initializable {
             System.out.println(slider.getValue());
             mediaPlayer.setVolume(slider.getValue() * 100);
             mediaPlayer.setVolume(slider.getValue() / 100);
-
         }
-
     }
 
     private void btn_loopAction(MouseEvent event) { // loop
@@ -441,7 +435,6 @@ public class PrimaryController implements Initializable {
         mediaPlayer.seek(Duration.ZERO);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.getOnEndOfMedia();
-
     }
 
     @FXML
@@ -479,5 +472,4 @@ public class PrimaryController implements Initializable {
             isScheduelSong = true;
         }
     }
-
 }

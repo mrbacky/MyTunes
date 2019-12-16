@@ -14,12 +14,12 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_SongTitleToDelete" alignment="CENTER" layoutX="10.0" layoutY="146.0" prefHeight="20.0" prefWidth="430.0" text="&quot;song title&quot;" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="lbl_title" alignment="CENTER" layoutX="10.0" layoutY="146.0" prefHeight="20.0" prefWidth="430.0" text="&quot;title of song&quot;" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btn_ConfirmDeleteSong" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deleteSong" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
+      <Button fx:id="btn_confirm" alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_deleteSong" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -27,7 +27,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btn_DeleteSong_cancelSong" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_CloseScene" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
+      <Button fx:id="btn_cancel" alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="193.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handle_closeScene" prefHeight="20.0" prefWidth="20.0" stylesheets="@../css/style.css">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>

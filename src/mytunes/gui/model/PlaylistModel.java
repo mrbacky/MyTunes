@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mytunes.gui.model;
 
 import java.util.List;
@@ -14,30 +9,33 @@ import mytunes.bll.LogicManager;
 import mytunes.bll.LogicFacade;
 
 /**
+ * The PlaylistModel gets and passes data about the playlists to the BLL.
  *
- * @author Bruger
+ * @author annem
  */
 public final class PlaylistModel {
 
     private ObservableList<Playlist> playlistList;
     private LogicFacade logicManager;
 
+    /**
+     * Creates a connection to the BLL and gets the list of playlists.
+     */
     public PlaylistModel() {
         logicManager = new LogicManager();
         getPlaylistList();
     }
 
     /**
-     * Creates a new playlist.The method calls the BLL to create a playlist in
+     * Creates a new playlist. The method calls the BLL to create a playlist in
      * the database.The created playlist is added to the temporary list of all
      * playlists as well.
      *
-     * @param id
+     * @param id The ID of the new playlist.
      * @param name The name of the new playlist.
-     * @param numberOfSongs
      */
-    public void createPlaylist(int id, String name, int numberOfSongs) {
-        Playlist playlist = new Playlist(id, name, numberOfSongs);
+    public void createPlaylist(int id, String name) {
+        Playlist playlist = new Playlist(id, name);
         logicManager.createPlaylist(playlist);
         //allPlaylists.add(playlist);
     }
@@ -57,32 +55,47 @@ public final class PlaylistModel {
     }
 
     /**
-     * Updates a playlist. NOT COMPLETED!!
+     * Updates a playlist. The method calls the BLL to update a playlist in the
+     * database.
      *
-     * @param playlist The playlist to be updated.
+     * @param selectedPlaylist The playlist to be updated.
      * @param editedName The edited name of the playlist.
      */
-    public void updatePlaylist(Playlist playlist, String editedName) {
-        logicManager.updatePlaylist(playlist, editedName);
+    public void updatePlaylist(Playlist selectedPlaylist, String editedName) {
+        logicManager.updatePlaylist(selectedPlaylist, editedName);
     }
 
     /**
      * Deletes a playlist from the list of all playlists. The method calls the
-     * BLL to delete a playlist from the database. The deleted playlist is
-     * deleted from the temporary list of all playlists as well.
+     * BLL to delete a playlist from the database.
      *
-     * @param playlist The playlist to be deleted.
+     * @param selectedPlaylist The playlist to be deleted.
      */
-    public void deletePlaylist(Playlist playlist) {
-        logicManager.deletePlaylist(playlist);
+    public void deletePlaylist(Playlist selectedPlaylist) {
+        logicManager.deletePlaylist(selectedPlaylist);
     }
 
+    /**
+     * Adds a song to a playlist. The method calls the BLL to add a song to a
+     * playlist in the database.
+     *
+     * @param selectedPlaylist The playlist the song is added to.
+     * @param selectedSong The song to be added.
+     * @return
+     */
     public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
         return logicManager.addSongToPlaylist(selectedPlaylist, selectedSong);
     }
 
-    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
-        logicManager.deleteSongFromPlaylist(playlist, song);
+    /**
+     * Deletes a song from a playlist. The method calls the BLL to delete a song
+     * from a playlist in the database.
+     *
+     * @param selectedPlaylist The playlist the song is deleted from.
+     * @param selectedSong The song to be deleted.
+     */
+    public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        logicManager.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
     }
 
     public int format_To_Sec(String timeString) {

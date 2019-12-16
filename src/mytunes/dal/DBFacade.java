@@ -6,20 +6,26 @@ import mytunes.be.Song;
 import mytunes.be.SongOnPlaylist;
 
 /**
- * This interface is a facade for the data access layer.
+ * This interface is a facade for the data access layer. It contains methods
+ * used for database operations.
  *
  * @author annem
  */
 public interface DBFacade {
 
-    //    Song createSong(String title, String artist, String time, String path, String genre);
     //__________________________________________________________________________                       
     //
     //      Song  
     //__________________________________________________________________________
     /**
      * Creates and adds a new song to the database.
-     * @param song
+     *
+     * @param title
+     * @param artist
+     * @param time
+     * @param path
+     * @param genre
+     * @return
      */
     Song createSong(String title, String artist, int time, String path, String genre);
 
@@ -31,9 +37,11 @@ public interface DBFacade {
      * @param editedTitle
      * @param editedArtist
      * @param editedGenre
+     * @param editedTime
+     * @param path
      * @return The updated song.
      */
-    Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre);
+    Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String path);
 
     /**
      * Deletes the given song from the database.
@@ -56,8 +64,7 @@ public interface DBFacade {
     /**
      * Creates a playlist in the database.
      *
-     * @param name The name of the playlist.
-     * @return The newly created playlist.
+     * @param playlist The playlist to be created.
      */
     void createPlaylist(Playlist playlist);
 
@@ -88,8 +95,8 @@ public interface DBFacade {
     /**
      * Adds the song to a playlist in the database.
      *
-     * @param playlist The playlist of the song.
-     * @param song The song to be added to the playlist.
+     * @param selectedPlaylist The playlist of the song.
+     * @param selectedSong The song to be added to the playlist.
      * @return Playlist with the added song.
      */
     Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong);
@@ -98,16 +105,36 @@ public interface DBFacade {
     //
     //      Song On Playlist    
     //__________________________________________________________________________                     
-    
-    
     List<SongOnPlaylist> getAllSongsOnPlaylist();
 
     /**
      * Deletes the song from the playlist in the database.
      *
-     * @param playlist The playlist of the song.
-     * @param song The song to be deleted from the playlist.
+     * @param selectedPlaylist The playlist of the song.
+     * @param selectedSong The song to be deleted from the playlist.
      */
-    void deleteSongFromPlaylist(Playlist playlist, Song song);
+    void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong);
+    //__________________________________________________________________________                       
+    //
+    //      Song On Playlist    
+    //__________________________________________________________________________                     
 
+    /**
+     * Gets a list with the names of all the genres in the database.
+     *
+     * @return List with all genres.
+     */
+    List<String> getAllGenres();
+
+    /**
+     *
+     * @param name
+     */
+    void createGenre(String name);
+
+    /**
+     *
+     * @param name
+     */
+    void deleteGenre(String name);
 }

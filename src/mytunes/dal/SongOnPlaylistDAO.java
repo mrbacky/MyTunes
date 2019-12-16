@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mytunes.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -20,27 +15,49 @@ import mytunes.be.Song;
 import mytunes.be.SongOnPlaylist;
 
 /**
- * This DAO class can perform CRUD operations on the database songsOnPlaylis!!!(name?) table.
+ * This DAO class can perform CRUD operations on the database SongOnPlaylist
+ * table.
+ *
  * @author annem
  */
 public class SongOnPlaylistDAO {
-   
+
     private ConnectDAO connectDAO;
-    
+
     /**
      * Constructor, which creates the connection with the database.
      */
-    public SongOnPlaylistDAO( ){
+    public SongOnPlaylistDAO() {
         connectDAO = new ConnectDAO();
     }
-    
-       public List<SongOnPlaylist> fetchAllSongsOnPlaylist(){
-        List<SongOnPlaylist> songsOnPlaylists = new ArrayList<>();
-        try (Connection con = connectDAO.getConnection()) {
-            String sql = "select songonplaylist.songid, song.id, song.title, song.artist, song.genre, song.time, song.songpath\n" +
 
-            "from songonplaylist left join song on songonplaylist.songid = song.id\n" +
-            "where songonplaylist.playlistid = 1";
+    /**
+     * Adds a song to the playlist in the database.
+     *
+     * @param selectedPlaylist The playlist of the song is added to.
+     * @param selectedSong The song to be added to the playlist.
+     * @return Updated playlist with the newly added song.
+     * @throws SQLException
+     */
+    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException {
+        try ( Connection con = connectDAO.getConnection()) {
+            String sql = "INSERT INTO songOnPlaylist(playlistid, songid, [order]) VALUES(?,?,?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, selectedPlaylist.getId());
+            pstmt.setInt(2, selectedSong.getId());
+            pstmt.setInt(3, selectedPlaylist.getId());
+            pstmt.executeUpdate();
+            selectedPlaylist.addSong(selectedSong);
+            return selectedPlaylist;
+        }
+    }
+
+    public List<SongOnPlaylist> fetchAllSongsOnPlaylist() {
+        List<SongOnPlaylist> songsOnPlaylists = new ArrayList<>();
+        try ( Connection con = connectDAO.getConnection()) {
+            String sql = "select songonplaylist.songid, song.id, song.title, song.artist, song.genre, song.time, song.songpath\n"
+                    + "from songonplaylist left join song on songonplaylist.songid = song.id\n"
+                    + "where songonplaylist.playlistid = 1"; //Why = 1?
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -50,86 +67,64 @@ public class SongOnPlaylistDAO {
                 int playlistid = rs.getInt("playlistid");
                 int order = rs.getInt("order");
                 songsOnPlaylists.add(new SongOnPlaylist(order, playlistid, songid, title, songpath));
-
             }
-            
         } catch (SQLServerException ex) {
             Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(SongOnPlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return songsOnPlaylists;
+        return songsOnPlaylists;
     }
-       
-       /** MOVE TO SongsOnPlaylist.
-     * Adds a song to the playlist in the database.
-     * @param selectedPlaylist The playlist of the song is added to.
-     * @param selectedSong The song to be added to the playlist.
-     * @return Updated playlist with the newly added song.
+
+    /**
+     * Deletes a song from a selected playlist in the database.
+     *
+     * @param selectedPlaylist
+     * @param selectedSong
      * @throws SQLException
      */
-    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException {
-        try (Connection con = connectDAO.getConnection()) {
-            String sql = "INSERT INTO SongOnPlaylist(playlistid, songid,[order]) values(?,?,?)";
+    public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException {
+        try ( Connection con = connectDAO.getConnection()) {
+            String sql = "DELETE FROM songOnPlaylist WHERE playlistid = ? and songid = ? and [order] = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            
             pstmt.setInt(1, selectedPlaylist.getId());
             pstmt.setInt(2, selectedSong.getId());
             pstmt.setInt(3, selectedPlaylist.getId());
-            pstmt.execute();
-            selectedPlaylist.addSong(selectedSong);
-            return selectedPlaylist;
-        }
-    }
-    
-    /**
-     * Deletes a song from a selected playlist in the database.
-     * @param playlist
-     * @param song
-     * @throws SQLException
-     */
-    public void deleteSongFromPlaylist(Playlist playlist, Song song) throws SQLException{
-        try (Connection con = connectDAO.getConnection()) {
-            String sql = "DELETE FROM SongsOnPlaylist WHERE playlistID = ? and songId = ?";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, playlist.getId());
-            pstmt.setInt(2, song.getId());
             pstmt.executeUpdate();
-        }
-        catch (SQLServerException ex) {
-            Logger.getLogger(PlaylistDAO.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLServerException ex) {
+            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(PlaylistDAO.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
-     * Deletes all song on the selected playlist in the database.
-     * @param playlist The playlist to empty.
+     * Deletes all the songs on the selected playlist in the database.
+     *
+     * @param selectedPlaylist The playlist to empty.
      * @throws SQLException
      */
-    public void deleteAllSongsOnPlaylist(Playlist playlist) throws SQLException{
-        try (Connection con = connectDAO.getConnection()) {
-            String sql ="DELETE FROM songsOnPlaylist WHERE playlistId = ?";
+/*  public void deleteAllSongsOnPlaylist(Playlist selectedPlaylist) throws SQLException {
+        try ( Connection con = connectDAO.getConnection()) {
+            String sql = "DELETE FROM songOnPlaylist WHERE playlistid = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, playlist.getId());
+            pstmt.setInt(1, selectedPlaylist.getId());
             pstmt.executeUpdate();
         }
     }
-    
+*/
     /**
-     * Deletes a selected song from all playlist.
-     * @param song The song to be deleted.
+     * Deletes a selected song from all playlists.
+     *
+     * @param selectedSong The song to be deleted.
      * @throws SQLException
      */
-    public void deleteSongFromAllPlaylists(Song song) throws SQLException{
-         try (Connection con = connectDAO.getConnection()) {
-             String sql = "DELETE FROM songsOnPlaylist WHERE songId = ?";
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             pstmt.setInt(1, song.getId());
-             pstmt.executeUpdate();
-         }
+    public void deleteSongFromAllPlaylists(Song selectedSong) throws SQLException {
+        try ( Connection con = connectDAO.getConnection()) {
+            String sql = "DELETE FROM songOnPlaylist WHERE songid = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, selectedSong.getId());
+            pstmt.executeUpdate();
+        }
     }
 }

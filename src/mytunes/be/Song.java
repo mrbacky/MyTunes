@@ -15,16 +15,7 @@ public class Song {
     private int time;
     private String path;
     private String genre;
-    private String stringTime ;
-
-    public String getStringTime() {
-        return stringTime;
-    }
-
-    public void setStringTime(String stringTime) {
-        this.stringTime = stringTime;
-    }
-
+    private String stringTime;
 
     /**
      * Constructs a new song.
@@ -43,11 +34,6 @@ public class Song {
         this.time = time;
         this.path = path;
         this.genre = genre;
-    }
-
-    @Override
-    public String toString() {
-        return title;
     }
 
     /**
@@ -94,8 +80,7 @@ public class Song {
     public void setArtist(String artist) {
         this.artist = artist;
     }
-    
-   
+
     /**
      * Gets the path of the song.
      *
@@ -105,8 +90,15 @@ public class Song {
         return path;
     }
 
-    //Add a setPath?
-    
+    /**
+     * Sets the path of the song.
+     *
+     * @param path The path to set.
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     /**
      * Gets the genre of the song.
      *
@@ -125,10 +117,35 @@ public class Song {
         this.genre = genre;
     }
 
+    /**
+     * Gets the time of the song.
+     *
+     * @return The time of the song.
+     */
     public int getTime() {
         return time;
     }
 
-    
+    /**
+     * Gets time in the format hh:mm:ss.
+     *
+     * @return The formatted time.
+     */
+    public String getStringTime() {
+        return stringTime;
+    }
+
+    /**
+     *
+     * @param stringTime
+     */
+    public void setStringTime(String stringTime) {
+        this.stringTime = stringTime;
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 
 }
