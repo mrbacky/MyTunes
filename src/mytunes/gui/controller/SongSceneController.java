@@ -143,4 +143,5 @@ public class SongSceneController implements Initializable {
         Stage stage = (Stage) btn_cancel.getScene().getWindow();
         stage.close();
     }
+
 }
