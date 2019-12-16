@@ -93,7 +93,7 @@
                            </image>
                         </ImageView>
                         <ProgressBar fx:id="progressBar" layoutX="250.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3.0" prefWidth="600.0" progress="0.0" />
-                        <Button fx:id="btn_next1" layoutX="633.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
+                        <Button fx:id="btn_loop" layoutX="633.0" layoutY="15.0" maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#btn_loopAction" prefHeight="20.0" prefWidth="20.0">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

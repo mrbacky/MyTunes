@@ -68,7 +68,6 @@ public class PrimaryController implements Initializable {
     private Button btn_editSong;
     @FXML
     private Label lbl_Library;
-    @FXML
     private Label lbl_SelectedPlaylist;
     @FXML
     private TextField txtSongSearch;
@@ -108,6 +107,12 @@ public class PrimaryController implements Initializable {
     private SongOnPlaylistModel SongOnPlaylistModel;
     private Playlist playlist;
     private Song song;
+    @FXML
+    private Button btn_loop;
+    @FXML
+    private Button btn_next11;
+    @FXML
+    private Button btn_editPlaylist11;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -443,18 +448,6 @@ public class PrimaryController implements Initializable {
 
     }
 
-    private void btn_loopAction(MouseEvent event) { // loop
-
-        mediaPlayer.setOnEndOfMedia(() -> {
-        if (mediaPlayer != null) {
-        }
-        mediaPlayer.seek(Duration.ZERO);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.getOnEndOfMedia();
-        });
-    }
-
-
     @FXML
     private void handle_Previous(ActionEvent event) throws IOException { // back button
 
@@ -492,4 +485,14 @@ public class PrimaryController implements Initializable {
         }
     }
 
+    @FXML
+    private void btn_loopAction(MouseEvent event) { // loop
+
+        mediaPlayer.setOnEndOfMedia(() -> {
+        if (mediaPlayer != null) {
+        }
+        mediaPlayer.seek(Duration.ZERO);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        });
+    }
 }
