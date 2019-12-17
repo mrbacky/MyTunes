@@ -42,12 +42,11 @@ public class PlaylistDAO {
      */
     public Playlist createPlaylist(Playlist playlistToCreate) {
         try ( Connection con = connectDAO.getConnection()) {
-            String sql = "INSERT INTO playlist(name, time, nrOfSongs) VALUES (?,?,?)";
+            String sql = "INSERT INTO playlist(name, time) VALUES (?,?)";
             PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setString(1, playlistToCreate.getName());
             pstmt.setInt(2, playlistToCreate.getTime());
-            pstmt.setInt(3, playlistToCreate.getNumberOfSongs());
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();

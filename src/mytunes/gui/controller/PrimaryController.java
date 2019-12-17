@@ -69,8 +69,7 @@ public class PrimaryController implements Initializable {
     private Button btn_loop;
     @FXML
     private Slider slider;
-    @FXML
-    private ProgressBar progressBar;
+ 
     
     @FXML
     public TableView<Song> tbv_Library;
