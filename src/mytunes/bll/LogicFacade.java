@@ -8,7 +8,7 @@ import mytunes.be.SongOnPlaylist;
 /**
  * This interface is a facade for the business logic layer.
  *
- * @author annem
+ * @author Michael, Rado, Abdi, Anne
  */
 public interface LogicFacade {
 

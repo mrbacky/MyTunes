@@ -12,7 +12,7 @@ import mytunes.bll.util.TimeConverter;
 /**
  * This class manages the connection between GUI and DAL.
  *
- * @author annem
+ * @author Michael, Rado, Abdi, Anne
  */
 public class LogicManager implements LogicFacade {
 
@@ -31,7 +31,7 @@ public class LogicManager implements LogicFacade {
     }
 
     //__________________________________________________________________________                       
-    //      This is new master branch
+    //      
     //      Song  
     //__________________________________________________________________________
     @Override
