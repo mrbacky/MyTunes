@@ -66,6 +66,8 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_previous;
     @FXML
+    private Button btn_shuffle;
+    @FXML
     private Button btn_loop;
     @FXML
     private Slider slider;
@@ -113,9 +115,9 @@ public class PrimaryController implements Initializable {
     private PlaylistModel playlistModel;
     private SongOnPlaylistModel SongOnPlaylistModel;
     
-    //WHAT IS THIS BUTTON?!
-    @FXML
-    private Button btn_shuffle;
+    
+    
+   
     
 
     @Override
