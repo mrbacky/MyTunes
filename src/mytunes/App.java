@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mytunes;
 
 import javafx.application.Application;
@@ -15,24 +10,23 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
+ * This class is the entry point of the application. It sets and opens the
+ * application.
  *
- * @author MIKE, RADO, ABDI, ANNE.
+ * @author Abdiqafar Mohamud Abas Ahmed
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public class App extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("gui/view/PrimaryScene.fxml"));
         Scene startingScene = new Scene(root);
-        
+
         stage.setScene(startingScene);
         stage.show();
-        
-        
-        
-        
-        
-        
     }
 
     /**
@@ -40,13 +34,5 @@ public class App extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        
-        
     }
-    
-
-
-    
-
 }
-

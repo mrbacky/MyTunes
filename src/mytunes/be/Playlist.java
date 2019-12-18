@@ -7,7 +7,11 @@ import java.util.List;
  * The Playlist class is an entity class. It represents a table in the database,
  * where each entity instance corresponds to a row in the table. The columns of
  * each row is the attribute of the entity.
- * @author PC
+ *
+ * @author Abdiqafar Mohamud Abas Ahmed
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public class Playlist {
 
@@ -78,7 +82,7 @@ public class Playlist {
     }
 
     /**
-     * Gets the number of songs on the playlist.
+     * Gets the number of songs in the playlist.
      *
      * @return The number of songs.
      */
@@ -97,7 +101,8 @@ public class Playlist {
 
     /**
      * Sets the duration of the playlist in the format hh:mm:ss.
-     * @param stringTime
+     *
+     * @param stringTime The formatted time.
      */
     public void setStringTime(String stringTime) {
         this.stringTime = stringTime;

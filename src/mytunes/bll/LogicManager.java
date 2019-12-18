@@ -12,7 +12,10 @@ import mytunes.bll.util.TimeConverter;
 /**
  * This class manages the connection between GUI and DAL.
  *
- * @author Michael, Rado, Abdi, Anne
+ * @author Abdiqafar Mohamud Abas Ahmed
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public class LogicManager implements LogicFacade {
 
@@ -21,8 +24,8 @@ public class LogicManager implements LogicFacade {
     private final SearchFilter searcher;
 
     /**
-     * Creates a connection to the database.
-     * Constructs a TimeConverter and SearchFilter.
+     * Creates a connection to the database. Constructs a TimeConverter and
+     * SearchFilter.
      */
     public LogicManager() {
         dbManager = new DBManager();
@@ -83,8 +86,8 @@ public class LogicManager implements LogicFacade {
     //      Songs on Playlist
     //__________________________________________________________________________
     @Override
-    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
-        return dbManager.addSongToPlaylist(selectedPlaylist, selectedSong);
+    public Playlist addSongToPlaylist(Playlist playlist, Song song) {
+        return dbManager.addSongToPlaylist(playlist, song);
     }
 
     @Override
@@ -93,8 +96,8 @@ public class LogicManager implements LogicFacade {
     }
 
     @Override
-    public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
-        dbManager.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
+    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
+        dbManager.deleteSongFromPlaylist(playlist, song);
     }
 
     //__________________________________________________________________________                       
@@ -120,6 +123,7 @@ public class LogicManager implements LogicFacade {
     //
     //      Utilities
     //__________________________________________________________________________
+    @Override
     public String sec_To_Format(int sec) {
         return timeConverter.sec_To_Format(sec);
     }

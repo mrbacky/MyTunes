@@ -5,7 +5,10 @@ package mytunes.be;
  * where each entity instance corresponds to a row in the table. The columns of
  * each row is the attribute of the entity.
  *
- * @author Michael, Rado, Abdi, Anne
+ * @author Abdiqafar Mohamud Abas Ahmed
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public class Song {
 
@@ -127,7 +130,7 @@ public class Song {
     }
 
     /**
-     * Gets time in the format hh:mm:ss.
+     * Gets the time in the format hh:mm:ss.
      *
      * @return The formatted time.
      */
@@ -136,7 +139,7 @@ public class Song {
     }
 
     /**
-     *
+     * Sets the time in the format hh:mm:ss.
      * @param stringTime
      */
     public void setStringTime(String stringTime) {
@@ -147,5 +150,4 @@ public class Song {
     public String toString() {
         return title;
     }
-
 }

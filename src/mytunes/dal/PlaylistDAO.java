@@ -20,7 +20,9 @@ import java.sql.PreparedStatement;
  * The class is connected with the SongOnPlaylistDAO as the database tables of
  * the two classes are connected.
  *
- * @author annem
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public class PlaylistDAO {
 
@@ -37,17 +39,18 @@ public class PlaylistDAO {
     /**
      * Creates and adds a new playlist to the database.
      *
-     * @param playlistToCreate The playlist to create.
+     * @param playlist The playlist to create.
      * @return The newly created playlist.
      */
-    public Playlist createPlaylist(Playlist playlistToCreate) {
-        try ( Connection con = connectDAO.getConnection()) {
-            String sql = "INSERT INTO playlist(name, time, nrOfSongs) VALUES (?,?,?)";
+    public Playlist createPlaylist(Playlist playlist) {
+        try ( //Get a connection to the database.
+            Connection con = connectDAO.getConnection()) {
+            //Create a prepared statement.
+            String sql = "INSERT INTO playlist(name) VALUES (?)";
             PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            pstmt.setString(1, playlistToCreate.getName());
-            pstmt.setInt(2, playlistToCreate.getTime());
-            pstmt.setInt(3, playlistToCreate.getNumberOfSongs());
+            //Set parameter value.
+            pstmt.setString(1, playlist.getName());
+            //Execute SQL query.
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();
@@ -59,7 +62,7 @@ public class PlaylistDAO {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return playlistToCreate;
+        return playlist;
     }
 
     private HashMap<Integer, Playlist> fetchAllPlaylists() {
@@ -82,7 +85,7 @@ public class PlaylistDAO {
         }
         return allPlaylists;
     }
-    
+
     /**
      * Updates the name of the playlist in the database.
      *
@@ -92,7 +95,7 @@ public class PlaylistDAO {
      */
     public Playlist updatePlaylist(Playlist playlist, String editedName) {
         try (//Get a connection to the database.
-                 Connection con = connectDAO.getConnection()) {
+            Connection con = connectDAO.getConnection()) {
             //Create a prepared statement.
             String sql = "UPDATE playlist SET name = ? WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -115,17 +118,21 @@ public class PlaylistDAO {
 
     /**
      * Deletes a playlist from the database. Uses DELETE CASCADE to delete all
-     * the songs on the deleted playlist (songOnPlaylist).
+     * the songs on the deleted playlist (in the songOnPlaylist database table).
      *
-     * @param playlistToDelete The playlist to be deleted.
+     * @param playlist The playlist to be deleted.
      * @throws SQLException
      */
-    public void deletePlaylist(Playlist playlistToDelete) throws SQLException {
+    public void deletePlaylist(Playlist playlist) throws SQLException {
         //When the playlist is deleted, the corresponding data in the songOnPlaylist is also deleted.
-        try ( Connection con = connectDAO.getConnection()) {
+        try (//Get a connection to the database.                
+            Connection con = connectDAO.getConnection()) {
+            //Create a prepared statement.
             String sql = "DELETE FROM playlist WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, playlistToDelete.getId());
+            //Set parameter values.
+            pstmt.setInt(1, playlist.getId());
+            //Execute SQL query.
             pstmt.execute();
         } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);

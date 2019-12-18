@@ -8,22 +8,32 @@ import mytunes.bll.LogicFacade;
 
 /**
  *
- * @author Bruger
+ * @author Michael Haaning Pedersen
  */
 public final class SongOnPlaylistModel {
     
     private ObservableList<SongOnPlaylist> allSongOnPlaylist = FXCollections.observableArrayList();
     LogicFacade logicManager;
     
+    /**
+     *
+     */
     public SongOnPlaylistModel(){
         logicManager = new LogicManager();
         fetchAllSongOnPlaylist();
     }
 
+    /**
+     *
+     */
     public void fetchAllSongOnPlaylist() {
         allSongOnPlaylist = FXCollections.observableArrayList(logicManager.getSongOnPlaylist());
     }
     
+    /**
+     *
+     * @return
+     */
     public ObservableList<SongOnPlaylist>getSongOnPlaylist(){
         return allSongOnPlaylist;
     }

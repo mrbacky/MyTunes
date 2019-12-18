@@ -8,7 +8,10 @@ import mytunes.be.SongOnPlaylist;
 /**
  * This interface is a facade for the business logic layer.
  *
- * @author Michael, Rado, Abdi, Anne
+ * @author Abdiqafar Mohamud Abas Ahmed
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public interface LogicFacade {
 
@@ -94,26 +97,26 @@ public interface LogicFacade {
     /**
      * Adds the song to a playlist in the database.
      *
-     * @param selectedPlaylist The playlist of the song.
-     * @param selectedSong The song to be added to the playlist.
+     * @param playlist The playlist of the song.
+     * @param song The song to be added to the playlist.
      * @return Playlist with the added song.
      */
-    Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong);
+    Playlist addSongToPlaylist(Playlist playlist, Song song);
 
     /**
-     * ??? Returns Playlist with fresh added song
+     * Returns the playlist with the newly added song.
      *
-     * @return playlist
+     * @return Playlist with the new song.
      */
     List<SongOnPlaylist> getSongOnPlaylist();
 
     /**
      * Deletes the song from the playlist in the database.
      *
-     * @param selectedPlaylist The playlist of the song.
-     * @param selectedSong The song to be deleted from the playlist.
+     * @param playlist The playlist of the song.
+     * @param song The song to be deleted from the playlist.
      */
-    void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong);
+    void deleteSongFromPlaylist(Playlist playlist, Song song);
 
     //__________________________________________________________________________                       
     //

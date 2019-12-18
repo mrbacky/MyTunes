@@ -11,9 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The GenreDAO class can perform CRUD operations on the genre database table.
+ * The GenreDAO class can perform CRD operations on the genre database table.
  *
- * @author annem
+ * @author Anne Luong
  */
 public class GenreDAO {
 
@@ -31,7 +31,9 @@ public class GenreDAO {
     public List<String> getAllGenres() {
         //Create a String array to store all genres.
         List<String> allGenres = new ArrayList();
-        try ( Connection con = connectDAO.getConnection()) {
+        try ( //Get a connection to the database.
+            Connection con = connectDAO.getConnection()) {
+            //Create a prepared statement.
             String sql = "SELECT * FROM genre";
             PreparedStatement pstmt = con.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -54,10 +56,14 @@ public class GenreDAO {
      * @param name The name of the newly created genre.
      */
     public void createGenre(String name) {
-        try ( Connection con = connectDAO.getConnection()) {
+        try ( //Get a connection to the database.
+            Connection con = connectDAO.getConnection()) {
             String sql = "INSERT INTO genre VALUES (?)";
+            //Create a prepared statement.
             PreparedStatement pstmt = con.prepareStatement(sql);
+            //Set parameter value.
             pstmt.setString(1, name);
+            //Execute SQL query.
             pstmt.executeUpdate();
 
         } catch (SQLServerException ex) {
@@ -73,10 +79,14 @@ public class GenreDAO {
      * @param name The name of the deleted genre.
      */
     public void deleteGenre(String name) {
-        try ( Connection con = connectDAO.getConnection()) {
+        try ( //Get a connection to the database.
+            Connection con = connectDAO.getConnection()) {
+            //Create a prepared statement.
             String sql = "DELETE FROM genre WHERE name = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
+            //Set parameter values.
             pstmt.setString(1, name);
+            //Execute SQL query.
             pstmt.executeUpdate();
         } catch (SQLServerException ex) {
             Logger.getLogger(GenreDAO.class.getName()).log(Level.SEVERE, null, ex);

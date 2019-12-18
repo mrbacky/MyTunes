@@ -21,6 +21,14 @@ import javafx.util.Duration;
 import mytunes.be.Song;
 import mytunes.gui.model.GenreModel;
 
+/**
+ * The SongSceneController is the controller for the SongScene. It sends
+ * requests to the SongModel when creating and updating a song. The default mode
+ * is to create a song. The mode can be changed to edit a song.
+ *
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ */
 public class SongSceneController implements Initializable {
 
     @FXML
@@ -55,27 +63,47 @@ public class SongSceneController implements Initializable {
     private PrimaryController pCon;
     private SongSceneController conSong;
 
+    /**
+     * Initializes the controller class. Upon initialization, the mode is set to
+     * create a song. The SongModel and GenreModel is initialized. All genre are
+     * added to the ChoiceBox.
+     *
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         edit = false;
         songModel = new SongModel();
         genreModel = new GenreModel();
+
         //Get all genres.
         List<String> allGenres = genreModel.getAllGenres();
-        //Add all the genres to the choicebox.
+        //Add all the genres to the ChoiceBox.
         for (String allGenre : allGenres) {
             choiceBox_genre.getItems().add(allGenre);
         }
     }
 
+    /**
+     * Sets the controller for the PrimaryScene.
+     *
+     * @param pCon PrimaryController.
+     */
     public void setContr(PrimaryController pCon) {
         this.pCon = pCon;
     }
 
+    /**
+     * Updates the library to reflect the changes of a new song or an edited
+     * song.
+     */
     public void refreshLibrary() {
         pCon.refreshLibrary();
     }
 
+    /**
+     * Uses the FileChooser class to choose a file for the song. The duration of
+     * the song is automatically added for the user.
+     */
     @FXML
     private void handle_openFileChooser(ActionEvent event) throws MalformedURLException {
         FileChooser fileChooser = new FileChooser();
@@ -105,6 +133,9 @@ public class SongSceneController implements Initializable {
         }
     }
 
+    /**
+     * Checks the selected mode (new or edit) and saves the song.
+     */
     @FXML
     private void handle_saveSong(ActionEvent event) throws InterruptedException, IOException {
         if (!edit) {
@@ -147,27 +178,43 @@ public class SongSceneController implements Initializable {
         choiceBox_genre.setValue(songToEdit.getGenre());
     }
 
+    /**
+     * Closes the stage.
+     */
     @FXML
     private void handle_cancelScene(ActionEvent event) {
         Stage stage = (Stage) btn_cancel.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Sets the text field and button to create a genre to visible. This method
+     * is called when clicking the btn_createVisible, a button beside the
+     * ChoiceBox used to add genres.
+     */
     @FXML
     private void handle_createVisible(ActionEvent event) {
         txt_createGenre.setVisible(true);
         btn_createGenre.setVisible(true);
     }
 
+    /**
+     * Creates a genre. The user can create a new genre by typing a name into
+     * the text field and clicking the save button, btn_createGenre.
+     */
     @FXML
     private void handle_createGenre(ActionEvent event) {
         String name = txt_createGenre.getText().trim();
         genreModel.createGenre(name);
         choiceBox_genre.getItems().add(name);
-        txt_createGenre.setVisible(false);
-        btn_createGenre.setVisible(false);
+        txt_createGenre.setVisible(false); //makes the button invisible.
+        btn_createGenre.setVisible(false); //makes the button invisible.
     }
 
+    /**
+     * Deletes a genre. The user can choose an existing genre from the ChoiceBox
+     * and delete it using the btn_deleteGenre right beside the ChoiceBox.
+     */
     @FXML
     private void handle_deleteGenre(ActionEvent event) {
         String name = choiceBox_genre.getSelectionModel().getSelectedItem();

@@ -1,27 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mytunes.be;
 
 /**
+ * The SongOnPlaylist class is an entity class. It represents a table in the
+ * database, where each entity instance corresponds to a row in the table. The
+ * columns of each row is the attribute of the entity.
+ * 
+ * Actually, it should not be an entity class but there was not enough time to
+ * correct this mistake. The class could not be removed, because there is code
+ * using this class and there not enough time to rewrite the code.
  *
- * @author Bruger
+ * @author Michael Haaning Pedersen
  */
-     
- 
 public class SongOnPlaylist {
-    private int songid; 
+
+    private int songid;
     private int playlistid;
     private int order;
     private String title;
     private String songPath;
-    
-    
-    
-    public SongOnPlaylist(int songID, int playlistID, int order, String title, String songPath){
-    
+
+    public SongOnPlaylist(int songID, int playlistID, int order, String title, String songPath) {
+
         this.order = order;
         this.playlistid = playlistID;
         this.songid = songID;
@@ -68,6 +67,4 @@ public class SongOnPlaylist {
     public void setOrder(int order) {
         this.order = order;
     }
-    
-    
 }

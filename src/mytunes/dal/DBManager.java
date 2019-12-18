@@ -12,7 +12,10 @@ import mytunes.bll.LogicManager;
 /**
  * This class manages all operations on the database.
  *
- * @author annem
+ * @author Abdiqafar Mohamud Abas Ahmed
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public class DBManager implements DBFacade {
 
@@ -102,9 +105,9 @@ public class DBManager implements DBFacade {
     //      Song on Playlist
     //__________________________________________________________________________
     @Override
-    public Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+    public Playlist addSongToPlaylist(Playlist playlist, Song song) {
         try {
-            return SongOnPlaylistDAO.addSongToPlaylist(selectedPlaylist, selectedSong);
+            return SongOnPlaylistDAO.addSongToPlaylist(playlist, song);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,9 +120,9 @@ public class DBManager implements DBFacade {
     }
 
     @Override
-    public void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+    public void deleteSongFromPlaylist(Playlist playlist, Song song) {
         try {
-            SongOnPlaylistDAO.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
+            SongOnPlaylistDAO.deleteSongFromPlaylist(playlist, song);
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }

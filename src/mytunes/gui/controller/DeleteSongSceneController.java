@@ -12,9 +12,10 @@ import mytunes.be.Song;
 import mytunes.gui.model.SongModel;
 
 /**
- * Controller class for the delete song confirmation pop-up.
+ * Controller class for the DeleteSongScene. It sends requests to the SongModel
+ * when deleting a song.
  *
- * @author annem
+ * @author Anne Luong
  */
 public class DeleteSongSceneController implements Initializable {
 
@@ -28,7 +29,6 @@ public class DeleteSongSceneController implements Initializable {
     private PrimaryController pCon;
     private SongModel songModel;
     private Song selectedSong;
-    
 
     /**
      * Initializes the controller class.
@@ -36,18 +36,29 @@ public class DeleteSongSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         songModel = new SongModel();
-        }
+    }
 
+    /**
+     * Sets the controller for the PrimaryScene.
+     *
+     * @param pCon PrimaryController
+     */
     public void setContr(PrimaryController pCon) {
         this.pCon = pCon;
     }
-    
+
+    /**
+     * Updates the library to reflect the changes of a deleted song.
+     */
     private void updateLibrary() {
         pCon.refreshLibrary();
         pCon.updateSongOnPlaylist();
         pCon.refreshPlaylists();
     }
 
+    /**
+     * Deletes a song.
+     */
     @FXML
     private void handle_deleteSong(ActionEvent event) {
         //Deletes the selected song from the database.
@@ -58,11 +69,19 @@ public class DeleteSongSceneController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Sets the title of the selected song on a label.
+     *
+     * @param song The song to be deleted.
+     */
     public void setDeleteSongLabel(Song song) {
         selectedSong = song;
         lbl_title.setText(selectedSong.getTitle());
     }
 
+    /**
+     * Closes the stage.
+     */
     @FXML
     private void handle_closeScene(ActionEvent event) {
         Stage stage = (Stage) btn_cancel.getScene().getWindow();

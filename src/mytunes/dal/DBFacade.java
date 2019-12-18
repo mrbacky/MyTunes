@@ -9,7 +9,10 @@ import mytunes.be.SongOnPlaylist;
  * This interface is a facade for the data access layer. It contains methods
  * used for database operations.
  *
- * @author annem
+ * @author Abdiqafar Mohamud Abas Ahmed
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public interface DBFacade {
 
@@ -95,25 +98,30 @@ public interface DBFacade {
     /**
      * Adds the song to a playlist in the database.
      *
-     * @param selectedPlaylist The playlist of the song.
-     * @param selectedSong The song to be added to the playlist.
+     * @param playlist The playlist of the song.
+     * @param song The song to be added to the playlist.
      * @return Playlist with the added song.
      */
-    Playlist addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong);
+    Playlist addSongToPlaylist(Playlist playlist, Song song);
 
     //__________________________________________________________________________                       
     //
     //      Song On Playlist    
     //__________________________________________________________________________                     
+    /**
+     *
+     *
+     * @return
+     */
     List<SongOnPlaylist> getAllSongsOnPlaylist();
 
     /**
      * Deletes the song from the playlist in the database.
      *
-     * @param selectedPlaylist The playlist of the song.
-     * @param selectedSong The song to be deleted from the playlist.
+     * @param playlist The playlist of the song.
+     * @param song The song to be deleted from the playlist.
      */
-    void deleteSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong);
+    void deleteSongFromPlaylist(Playlist playlist, Song song);
     //__________________________________________________________________________                       
     //
     //      Song On Playlist    
@@ -127,14 +135,16 @@ public interface DBFacade {
     List<String> getAllGenres();
 
     /**
+     * Creates and adds a new genre to the database.
      *
-     * @param name
+     * @param name The name of the genre.
      */
     void createGenre(String name);
 
     /**
+     * Deletes a genre in the database.
      *
-     * @param name
+     * @param name The name of the genre.
      */
     void deleteGenre(String name);
 }

@@ -8,13 +8,15 @@ import mytunes.be.Song;
  * The SearchFilter class is a tool used to filter out song items, which match
  * the search query.
  *
- * @author annem
+ * @author Anne Luong
  */
 public class SearchFilter {
 
     /**
+     * Filters a list of songs and returns a filtered list matching the search
+     * query.
      *
-     * @param searchBase
+     * @param searchBase The list of songs to filter.
      * @param query The search query.
      * @return A list of songs that matches the search query.
      */

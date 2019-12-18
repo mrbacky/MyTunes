@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mytunes.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
@@ -15,14 +10,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * The ConnectDAO class is used to establish a connection to the database.
  *
- * @author Bruger
+ * @author Michael Haaning Pedersen
  */
 public class ConnectDAO {
 
     private static final String PROP_FILE = "data/DBProperties.properties";
     private SQLServerDataSource ds;
 
+    /**
+     *
+     */
     public ConnectDAO() {
         try {
             Properties databaseProperties = new Properties();
@@ -38,6 +37,10 @@ public class ConnectDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Connection getConnection() {
         try {
             return ds.getConnection();

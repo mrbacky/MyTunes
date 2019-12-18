@@ -15,7 +15,9 @@ import mytunes.be.Song;
 /**
  * This DAO class can perform CRUD operations on the database song table.
  *
- * @author annem
+ * @author Radoslav Backovsky
+ * @author Anne Luong
+ * @author Michael Haaning Pedersen
  */
 public class SongDAO {
 
@@ -100,13 +102,13 @@ public class SongDAO {
     /**
      * Updates a song in the database after editing.
      *
-     * @param songToEdit The song to be updated after editing.
+     * @param song The song to be updated after editing.
      * @param editedTitle The edited title of the song.
      * @param editedArtist The edited artist of the song.
      * @param editedGenre The edited genre of the song.
      * @return The updated song.
      */
-    public Song updateSong(Song songToEdit, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
+    public Song updateSong(Song song, String editedTitle, String editedArtist, String editedGenre, int editedTime, String editedPath) {
         try (//Get a connection to the database.
             Connection con = connectDAO.getConnection()) {
             //Create a prepared statement.
@@ -118,14 +120,14 @@ public class SongDAO {
             pstmt.setString(3, editedGenre);
             pstmt.setInt(4, editedTime);
             pstmt.setString(5, editedPath);
-            pstmt.setInt(6, songToEdit.getId());
+            pstmt.setInt(6, song.getId());
             //Execute SQL query.
             pstmt.executeUpdate();
-            songToEdit.setArtist(editedTitle);
-            songToEdit.setArtist(editedArtist);
-            songToEdit.setGenre(editedGenre);
-            songToEdit.setPath(editedPath);
-            return songToEdit;
+            song.setArtist(editedTitle);
+            song.setArtist(editedArtist);
+            song.setGenre(editedGenre);
+            song.setPath(editedPath);
+            return song;
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -136,19 +138,23 @@ public class SongDAO {
 
     /**
      * Deletes a song from the database. Also, uses object of SongOnPlaylistDAO
-     * to delete the song from all playlist it may part of.
+     * to delete the song from all playlists it may part of.
      *
-     * @param songToDelete The song to be deleted.
+     * @param song The song to be deleted.
      * @throws SQLException
      */
-    public void deleteSong(Song songToDelete) throws SQLException {
+    public void deleteSong(Song song) throws SQLException {
         //When the song is deleted, it should also be removed from all playlists.
-        spDAO.deleteSongFromAllPlaylists(songToDelete);
+        spDAO.deleteSongFromAllPlaylists(song);
 
-        try ( Connection con = connectDAO.getConnection()) {
+        try ( //Get a connection to the database.
+            Connection con = connectDAO.getConnection()) {
+            //Create a prepared statement.
             String sql = "DELETE FROM Song WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, songToDelete.getId());
+            //Set parameter values.
+            pstmt.setInt(1, song.getId());
+            //Execute SQL query.
             pstmt.execute();
         } catch (SQLServerException ex) {
             Logger.getLogger(SongDAO.class.getName()).log(Level.SEVERE, null, ex);
