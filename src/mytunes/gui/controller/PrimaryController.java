@@ -212,7 +212,7 @@ public class PrimaryController implements Initializable {
      * Handles the selecting of songs, shown in the library in which the user can
      * then move, delete, edit
      * 
-     * @param event  - ActionEvent controls the selection of songs in library
+     * @param event  - MouseEvent controls the selection of songs in library
      */
     @FXML
     private void handle_getSong(MouseEvent event) { // pick  selected song
@@ -309,7 +309,7 @@ public class PrimaryController implements Initializable {
     /**
      * Handles the playlists selection so that its songs will be shown when chosen
      * 
-     * @param event  - ActionEvent controls the retrieval of playlists
+     * @param event  - MouseEvent controls the retrieval of playlists
      */
     @FXML
     private void handle_getPlaylist(MouseEvent event) {
@@ -565,7 +565,7 @@ public class PrimaryController implements Initializable {
     /**
      * Handles the volume for the current song, decrease to 0 and increase to 100
      * 
-     * @param event  - ActionEvent controls volume
+     * @param event  - MouseEvent controls volume
      */
     @FXML
     private void setSlider(MouseEvent event) { // volume
@@ -580,7 +580,7 @@ public class PrimaryController implements Initializable {
     /**
      * Handles the looping of the song
      * 
-     * @param event  - ActionEvent controls looping
+     * @param event  - MouseEvent controls looping
      */
     @FXML
     private void btn_loopAction(MouseEvent event) { // loop
@@ -636,7 +636,7 @@ public class PrimaryController implements Initializable {
     /**
      * Handles the auto play of the songs
      * 
-     * @param event - ActionEvent auto plays songs
+     * @param event - MouseEvent auto plays songs
      */
     @FXML
     private void scheduleSong(MouseEvent event) {
