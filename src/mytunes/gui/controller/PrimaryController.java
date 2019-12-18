@@ -76,6 +76,8 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_previous;
     @FXML
+    private Button btn_shuffle;
+    @FXML
     private Button btn_loop;
     @FXML
     private Button btn_shuffle;
@@ -135,6 +137,11 @@ public class PrimaryController implements Initializable {
     private SongModel songModel;
     private PlaylistModel playlistModel;
     private SongOnPlaylistModel SongOnPlaylistModel;
+    
+    
+    
+   
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
