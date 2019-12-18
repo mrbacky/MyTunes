@@ -578,16 +578,6 @@ public class PrimaryController implements Initializable {
      * 
      * @param event  - ActionEvent controls looping
      */
-        private void btn_loopAction(MouseEvent event) { // loop
-
-        mediaPlayer.setOnEndOfMedia(() -> {
-            if (mediaPlayer != null) {
-            }
-            mediaPlayer.seek(Duration.ZERO);
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        });
-    }
-
     @FXML
     private void btn_loopAction(ActionEvent event) {
         mediaPlayer.setOnEndOfMedia(() -> {
