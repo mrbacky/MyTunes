@@ -20,7 +20,8 @@ public class ConnectDAO {
     private SQLServerDataSource ds;
 
     /**
-     *
+     * Gets a connection to the database using a property file to fill in the
+     * parameters.
      */
     public ConnectDAO() {
         try {
@@ -33,11 +34,12 @@ public class ConnectDAO {
             ds.setPassword(databaseProperties.getProperty("Password"));
             ds.setPortNumber(Integer.parseInt(databaseProperties.getProperty("PortNumber")));
         } catch (IOException e) {
-            //To DO
+            //To DO!!
         }
     }
 
     /**
+     * Gets the connection and returns it.
      *
      * @return
      */

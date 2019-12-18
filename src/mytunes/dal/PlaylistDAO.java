@@ -65,6 +65,13 @@ public class PlaylistDAO {
         return playlist;
     }
 
+    /**
+     * Gets all playlists. Gets all the values from the playlist table in the
+     * database using a SQL statement and orders it by id ASC. Adds the values
+     * to a HashMap.
+     *
+     * @return allPlaylists
+     */
     private HashMap<Integer, Playlist> fetchAllPlaylists() {
         //List<Playlist> allPlaylists = new ArrayList<>();
         HashMap<Integer, Playlist> allPlaylists = new HashMap<Integer, Playlist>();
@@ -141,6 +148,14 @@ public class PlaylistDAO {
         }
     }
 
+    /**
+     * Gets all songs in all playlists. Performs an SQL statement with a JOIN to
+     * get the values of the songOnPlaylist table and song table. Adds the values
+     * to a HashMap and converts it to an ArrayList.
+     *
+     * @return unhashedPlaylists
+     * @throws SQLException
+     */
     public List<Playlist> fetchAllSongsInPlaylists() throws SQLException {
         //List<Playlist> playlists = new ArrayList<>();
         HashMap<Integer, Playlist> playlists = fetchAllPlaylists();
