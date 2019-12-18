@@ -8,7 +8,7 @@ import mytunes.bll.LogicFacade;
 
 /**
  *
- * @author Michael Haaning Pedersen
+ * @this class create a obserbablelist and a connection to the logicManager
  */
 public final class SongOnPlaylistModel {
     
@@ -16,7 +16,7 @@ public final class SongOnPlaylistModel {
     LogicFacade logicManager;
     
     /**
-     *
+     *this songOnPlaylistModle create and instance of the logicManager to get a conection. and call a methert.
      */
     public SongOnPlaylistModel(){
         logicManager = new LogicManager();
@@ -24,15 +24,16 @@ public final class SongOnPlaylistModel {
     }
 
     /**
-     *
+     *this fetchAllSongOnPlaylist takes allsongOnPlaylist and add it to the observableList by calling the getSongOnPlaylist
+     * from the logicManager.
      */
     public void fetchAllSongOnPlaylist() {
         allSongOnPlaylist = FXCollections.observableArrayList(logicManager.getSongOnPlaylist());
     }
     
     /**
-     *
-     * @return
+     *this retuns all songOnPlayist as a list.
+     * @return allSongOnPlaylist
      */
     public ObservableList<SongOnPlaylist>getSongOnPlaylist(){
         return allSongOnPlaylist;

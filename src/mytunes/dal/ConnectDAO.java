@@ -34,7 +34,7 @@ public class ConnectDAO {
             ds.setPassword(databaseProperties.getProperty("Password"));
             ds.setPortNumber(Integer.parseInt(databaseProperties.getProperty("PortNumber")));
         } catch (IOException e) {
-            //To DO!!
+            System.out.println("can find proppeti file");
         }
     }
 

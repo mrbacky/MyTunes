@@ -111,10 +111,24 @@ public interface DBFacade {
     /**
      *
      *
-     * @return
+     * @return 
      */
+    
+    /**
+    * this returns allSongsOnPlaylist
+    */ 
     List<SongOnPlaylist> getAllSongsOnPlaylist();
-
+    
+      //__________________________________________________________________________                       
+    //
+    //      Song On Playlist    
+    //__________________________________________________________________________                     
+    /**
+     *
+     *
+     * @return 
+     */
+    
     /**
      * Deletes the song from the playlist in the database.
      *
