@@ -51,7 +51,17 @@ public class SongOnPlaylistDAO {
             return selectedPlaylist;
         }
     }
-
+    /**
+     * this fetchAllSOngsOnPlaylist gets all the values from the table songonplaylist with an left join sql statment
+     * and add the values to an ArrayList.
+     * @param songid
+     * @param title
+     * @param songpath
+     * @param playlistid
+     * @param order
+     * @throws SQLSeverException
+     * @return songsOnPlaylists
+     */
     public List<SongOnPlaylist> fetchAllSongsOnPlaylist() {
         List<SongOnPlaylist> songsOnPlaylists = new ArrayList<>();
         try ( Connection con = connectDAO.getConnection()) {

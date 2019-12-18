@@ -16,13 +16,24 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Bruger
+ * @this dao class is doing the connection to our data base
  */
 public class ConnectDAO {
 
     private static final String PROP_FILE = "data/DBProperties.properties";
     private SQLServerDataSource ds;
 
+    /**
+    *
+    * @ this connectDAO is getting a connection to our database and use a proppti file to fill in the parameters.
+    * @parameter
+    * sever name
+    * database name
+    * user name
+    * password
+    * protnumber
+    * trow a catch ioexceptions
+    */
     public ConnectDAO() {
         try {
             Properties databaseProperties = new Properties();
@@ -37,7 +48,12 @@ public class ConnectDAO {
             //To DO
         }
     }
-
+    
+    /**
+    *
+    * @this connection get the connection and return it in to the system.
+    * catch a sqlseverexception and return nulll.
+    */
     public Connection getConnection() {
         try {
             return ds.getConnection();

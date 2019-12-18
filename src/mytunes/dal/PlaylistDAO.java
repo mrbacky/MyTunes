@@ -61,7 +61,14 @@ public class PlaylistDAO {
 
         return playlistToCreate;
     }
-
+    /**
+     * this fetchAllPlaylist get all the values from playlist in our data base by an sql statment and
+     * order it by id ASC and add them to an hashmap.
+     * @param id
+     * @param name
+     * @throws SqlseverException
+     * @return allPlaylists
+     */
     private HashMap<Integer, Playlist> fetchAllPlaylists() {
         //List<Playlist> allPlaylists = new ArrayList<>();
         HashMap<Integer, Playlist> allPlaylists = new HashMap<Integer, Playlist>();
@@ -133,7 +140,18 @@ public class PlaylistDAO {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**
+    *
+    * @this fetchAllSongsInPlaylist dose a sql statment with a join to get the valuses of the songOnplaylist
+    * table and song table an add it to a hash map and convert it to an arraylist.
+    * @param id
+    * @param playlist
+    * @param time
+    * @param sontPath
+    * @param title
+    * @param 
+    * @return unhashedplaylist
+    */
     public List<Playlist> fetchAllSongsInPlaylists() throws SQLException {
         //List<Playlist> playlists = new ArrayList<>();
         HashMap<Integer, Playlist> playlists = fetchAllPlaylists();
@@ -150,7 +168,7 @@ public class PlaylistDAO {
                 String title = rs.getString("title");
                 int order = rs.getInt("order");
 
-                playlists.get(playlistid).addSong(new Song(id, title, "ert", time, songPath, "lol"));
+                playlists.get(playlistid).addSong(new Song(id, title, "artist", time, songPath, "genra"));
             }
         } catch (SQLServerException ex) {
             Logger.getLogger(PlaylistDAO.class.getName()).log(Level.SEVERE, null, ex);
