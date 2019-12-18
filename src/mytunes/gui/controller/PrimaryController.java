@@ -80,8 +80,6 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button btn_loop;
     @FXML
-    private Button btn_shuffle;
-    @FXML
     private Slider slider;
 
     /**
@@ -139,10 +137,6 @@ public class PrimaryController implements Initializable {
     private SongOnPlaylistModel SongOnPlaylistModel;
     
     
-    
-   
-    
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         settingTableViews();
